@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Privacy · Habesha Games</title><style>
+:root{--bg:#EDF1EC;--surface:#fff;--ink:#1C2924;--muted:#566660;--green:#1E5E48;--gold:#C2902A;--berry:#9E3446;--line:#C9D4CD}
+@media (prefers-color-scheme:dark){:root{--bg:#121D19;--surface:#1B2A24;--ink:#E7EFEA;--muted:#A3B5AC;--green:#6CC3A0;--gold:#E3B652;--berry:#E07A8A;--line:#33483F;color-scheme:dark}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:20px/1.45 system-ui,"Kefa",sans-serif}
+html[lang="am"] body{font-family:"Kefa",system-ui,sans-serif}
+.tibeb{height:22px;background:repeating-linear-gradient(90deg,var(--green) 0 14px,var(--gold) 14px 18px,var(--berry) 18px 30px,var(--gold) 30px 34px);border-bottom:4px solid var(--gold)}
+main{max-width:900px;margin:0 auto;padding:24px max(16px,env(safe-area-inset-right,0px)) 48px max(16px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:18px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h1{margin:0;font-size:1.9rem;text-wrap:balance}h2{margin:0;font-size:1.2rem}
+.lang,.sw{min-height:52px;padding:8px 20px;border-radius:999px;border:2px solid var(--green);color:var(--green);font:inherit;font-weight:700;background:var(--surface);cursor:pointer}
+.lang:focus-visible,.sw:focus-visible,a.app:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.apps{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+a.app{display:flex;gap:18px;align-items:center;min-height:120px;background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:16px;color:inherit;text-decoration:none}
+a.app:hover{border-color:var(--green)}a.app img{width:88px;height:88px;border-radius:20px;flex:none}a.app b{font-size:1.3rem;display:block}a.app span{color:var(--muted);font-size:1rem}
+.box{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.box.gold{border-color:var(--gold)}.box ol,.box ul{margin:0;padding-left:1.3em}.box li{margin:4px 0}
+.muted{color:var(--muted);font-size:1rem}a{color:var(--green)}
+</style></head>
+<body><div class="tibeb"></div><main>
+<div class="top"><h1 data-am="ግላዊነት" data-en="Privacy"></h1><button class="lang" type="button" id="langBtn">አማርኛ</button></div>
+<div class="box"><ul>
+<li data-am="ምዝገባ፣ መለያ ወይም የይለፍ ቃል የለም።" data-en="There is no sign-up, account or password."></li><li data-am="የሚጽፏቸው ስሞች፣ የመረጡት ጾታ (ለአማርኛ አጠራር ብቻ)፣ ነጥቦች እና ያልተጨረሱ ጨዋታዎች በዚህ መሣሪያ ላይ ብቻ ይቀመጣሉ፤ ወደ የትም አይላኩም።" data-en="The names you type, the gender you choose (used only for correct Amharic wording), your scores and unfinished games are stored only on this device. They are never sent anywhere."></li><li data-am="ጨዋታዎቹን ለማሻሻል ስም-አልባ ቆጠራ እንልካለን፦ የተጀመረ ወይም የተጨረሰ ጨዋታ፣ የጨዋታው ስም፣ የተጫዋቾች ብዛት፣ ከኮምፒውተር ወይም ከሰው ጋር፣ ደረጃ፣ ውጤት (ተጫዋች/ኮምፒውተር/አቻ) እና የመተግበሪያው ቋንቋ።" data-en="To improve the games we send anonymous counts: a game started or finished, the game name, number of players, against the computer or people, level, result (player / computer / tie) and the app language."></li><li data-am="ቆጠራው የሚሠራው በUmami Cloud ነው፤ ኩኪ አይጠቀምም፣ ሰዎችን አይከታተልም፣ ለማስታወቂያ አይውልም።" data-en="Counting is handled by Umami Cloud, which uses no cookies, does not track people across sites and is not used for advertising."></li><li data-am="ከመስመር ውጭ ሲሆኑ ቆጠራው በመሣሪያው ላይ ይጠብቃል፤ ኢንተርኔት ሲገኝ ይላካል።" data-en="While offline, counts wait on the device and are sent when it is next online."></li><li data-am="በዋናው ገጽ ላይ «መቁጠር በርቷል · አጥፋ» የሚለውን በመንካት ቆጠራውን በማንኛውም ጊዜ ማጥፋት ይችላሉ።" data-en="You can turn counting off at any time on the main page with “Counting is on · Turn off.”"></li>
+</ul></div>
+<a href="index.html" data-am="← ወደ ዋናው ገጽ" data-en="← Back to the games"></a>
+</main><script>
+(function(){
+  var lang="en";try{lang=localStorage.getItem("games.lang")||((navigator.language||"").indexOf("am")===0?"am":"en")}catch(e){}
+  function apply(){document.documentElement.lang=lang;
+    document.querySelectorAll("[data-am]").forEach(function(el){el.innerHTML=el.getAttribute(lang==="am"?"data-am":"data-en")});
+    var b=document.getElementById("langBtn");if(b)b.textContent=lang==="am"?"English":"አማርኛ";if(window.onLang)window.onLang(lang)}
+  document.getElementById("langBtn").onclick=function(){lang=lang==="am"?"en":"am";try{localStorage.setItem("games.lang",lang)}catch(e){}apply()};
+  window.addEventListener("pageshow",function(){try{var l=localStorage.getItem("games.lang");if(l&&l!==lang){lang=l;apply()}}catch(e){}});
+  apply();
+})();
+</script></body></html>
