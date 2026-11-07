@@ -8,9 +8,10 @@
 <link rel="icon" type="image/png" href="icon-180.png">
 <meta name="theme-color" content="#1E5E48">
 <meta name="description" content="Konker, Seka, Injera Bewet and Dama in Amharic and English. Works offline.">
-<title>Habesha Games</title>
+<title>Habesha Card Games</title>
 <script src="analytics-config.js"></script>
 <script src="telemetry.js"></script>
+<script>function FBMAIL(app,am){var sub=(am?"አስተያየት":"Feedback")+(app?" · "+app:"")+" · Habesha Card Games";var body=am?"ጨዋታ፦ "+app+"\n\nመልዕክትዎ፦\n\n\n— የመተግበሪያው ቋንቋ፦ አማርኛ":"Game: "+app+"\n\nYour message:\n\n\n— App language: English";return "mailto:kartagames@protonmail.com?subject="+encodeURIComponent(sub)+"&body="+encodeURIComponent(body)}</script>
 <style>
 :root{--bg:#EDF1EC;--surface:#fff;--ink:#1C2924;--muted:#566660;--green:#1E5E48;--gold:#C2902A;--berry:#9E3446;--line:#C9D4CD}
 @media (prefers-color-scheme:dark){:root{--bg:#121D19;--surface:#1B2A24;--ink:#E7EFEA;--muted:#A3B5AC;--green:#6CC3A0;--gold:#E3B652;--berry:#E07A8A;--line:#33483F;color-scheme:dark}}
@@ -33,7 +34,7 @@ a.app:hover{border-color:var(--green)}a.app img{width:88px;height:88px;border-ra
 <body>
 <div class="tibeb"></div>
 <main>
-<div class="top"><h1 data-am="የሐበሻ ጨዋታዎች" data-en="Habesha Games">Habesha Games</h1><button class="lang" type="button" id="langBtn">አማርኛ</button></div>
+<div class="top"><h1 data-am="የሐበሻ ካርታ ጨዋታዎች" data-en="Habesha Card Games">Habesha Card Games</h1><button class="lang" type="button" id="langBtn">አማርኛ</button></div>
 <p class="muted" data-am="ኮንከር፣ ሴካ፣ እንጀራ በወጥ እና ዳማ በአማርኛ እና በእንግሊዝኛ። ያለ ኢንተርኔትም ይሠራል።" data-en="Konker, Seka, Injera Bewet and Dama, in Amharic and English. Works without internet."></p>
 <div class="apps">
 <a class="app" href="cards/index.html"><img src="cards/icon-180.png" alt=""><div><b data-am="የካርታ ጨዋታዎች" data-en="Card Games"></b><span data-am="ኮንከር · ሴካ · እንጀራ በወጥ" data-en="Konker · Seka · Injera Bewet"></span></div></a>
@@ -48,17 +49,23 @@ a.app:hover{border-color:var(--green)}a.app img{width:88px;height:88px;border-ra
 </ol>
 </div>
 <div class="box">
+<h2 data-am="አስተያየት" data-en="Feedback"></h2>
+<p class="muted" style="margin:0" data-am="አስተያየት፣ ሐሳብ ወይም ችግር አለዎት? ኢሜይል ይላኩልን፤ እናነባለን፤ እንመልሳለን።" data-en="Have a comment, an idea or a problem? Send us an email. We read every message and reply."></p>
+<div><a class="sw" id="fbBtn" style="display:inline-flex;align-items:center;text-decoration:none" href="#">✉ <span id="fbBtnT">Send feedback</span></a></div>
+</div>
+<div class="box">
 <h2 data-am="ግላዊነት" data-en="Privacy"></h2>
 <p class="muted" style="margin:0" data-am="ስሞች እና ነጥቦች በዚህ መሣሪያ ላይ ብቻ ይቀመጣሉ።" data-en="Names and scores are saved only on this device."></p>
 <p class="muted" style="margin:0" data-am="ጨዋታዎቹን ለማሻሻል የትኞቹ ጨዋታዎች እንደሚጫወቱ ብቻ እንቆጥራለን፦ የጨዋታው ስም፣ የተጫዋቾች ብዛት፣ ከኮምፒውተር ወይም ከሰው ጋር፣ ደረጃ እና ቋንቋ። ስም፣ ነጥብ፣ ጾታ ወይም የሚጽፉት ምንም ነገር አይላክም። ምዝገባ የለም፤ ኩኪም የለም።" data-en="To improve the games, we count only which games are played: the game name, number of players, against the computer or people, level and language. Names, scores, gender or anything you type are never sent. No sign-up, no cookies."></p>
 <div><button class="sw" type="button" id="countBtn"></button></div>
-<a href="privacy.html" data-am="ሙሉ የግላዊነት መግለጫ" data-en="Full privacy note"></a>
+<p class="muted" style="margin:0"><a href="privacy.html" data-am="ግላዊነት" data-en="Privacy"></a> · <a href="terms.html" data-am="የአጠቃቀም ውሎች" data-en="Terms of Use"></a> · <a href="credits.html" data-am="ምስጋና እና ፈቃዶች" data-en="Credits & Licenses"></a> · <a href="mailto:kartagames@protonmail.com">kartagames@protonmail.com</a></p>
 </div>
 </main>
 <script>
 window.onLang=function(l){var b=document.getElementById("countBtn"),off=window.gamesCounting&&gamesCounting.off();
   b.textContent=l==="am"?(off?"መቁጠር ጠፍቷል · አብራ":"መቁጠር በርቷል · አጥፋ"):(off?"Counting is off · Turn on":"Counting is on · Turn off");
-  document.title=l==="am"?"የሐበሻ ጨዋታዎች":"Habesha Games"};
+  document.title=l==="am"?"የሐበሻ ካርታ ጨዋታዎች":"Habesha Card Games";
+  document.getElementById("fbBtnT").textContent=l==="am"?"አስተያየት ይላኩ":"Send feedback";document.getElementById("fbBtn").href=FBMAIL("",l==="am")};
 document.getElementById("countBtn").onclick=function(){if(!window.gamesCounting)return;gamesCounting.setOff(!gamesCounting.off());window.onLang(document.documentElement.lang)};
 </script>
 <script>

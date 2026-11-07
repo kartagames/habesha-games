@@ -1,6 +1,6 @@
 {
- "name": "Habesha Games",
- "short_name": "Habesha Games",
+ "name": "Habesha Card Games",
+ "short_name": "Habesha Card Games",
  "start_url": "./",
  "scope": "./",
  "display": "standalone",
