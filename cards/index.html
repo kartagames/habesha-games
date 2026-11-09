@@ -11,7 +11,7 @@
 <link rel="icon" type="image/png" href="icon-180.png">
 <meta name="theme-color" content="#1E5E48">
 <script>function FBMAIL(app,am){var sub=(am?"አስተያየት":"Feedback")+(app?" · "+app:"")+" · Habesha Card Games";var body=am?"ጨዋታ፦ "+app+"\n\nመልዕክትዎ፦\n\n\n— የመተግበሪያው ቋንቋ፦ አማርኛ":"Game: "+app+"\n\nYour message:\n\n\n— App language: English";return "mailto:kartagames@protonmail.com?subject="+encodeURIComponent(sub)+"&body="+encodeURIComponent(body)}</script>
-<script>window.APPCFG={store:true,defG:["m","m","m"]}</script>
+<script>window.APPCFG={store:true,defG:["m","m","m"],soon:["latlat"]}</script>
 <script src="../analytics-config.js"></script>
 <script src="../telemetry.js"></script>
 <title>Card Games · Habesha Card Games</title>
@@ -168,6 +168,43 @@ button.meld{color:inherit;font:inherit}
 .iwrap{display:flex;flex-direction:column;gap:16px}
 @media (orientation:landscape) and (min-width:900px){.iwrap{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);align-items:start}.ring{max-width:none}}
 .idrawn{display:flex;align-items:center;gap:16px;min-height:60px}#iDrawn .card{--cw:84px}
+/* "coming soon" tile + preview (public site only, while a game is in APPCFG.soon) */
+.game.soon{position:relative;border-color:#c2902a;background:linear-gradient(160deg,var(--surface) 55%,#f3dfa6)}
+.ribbon{align-self:flex-start;background:#9e3446;color:#fff;font-weight:700;border-radius:999px;padding:4px 14px;font-size:.95rem}
+.ribbon span{font-family:var(--f-geez)}
+#teaser{position:fixed;inset:0;z-index:60;background:rgba(10,20,16,.72);display:grid;grid-template-columns:minmax(0,760px);justify-content:center;align-items:center;padding:16px;overflow:auto}
+#teaser .tbox{min-width:0;box-sizing:border-box;background:var(--surface);color:var(--ink);border:4px solid #c2902a;border-radius:24px;max-width:760px;width:100%;padding:22px;display:flex;flex-direction:column;gap:14px}
+#teaser .thead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+#teaser h2{font-family:var(--f-geez);font-size:2.2rem;line-height:1.1}
+.tstage{border-radius:18px;padding:14px;min-height:280px;display:flex;flex-direction:column;gap:12px}
+.tcap{font-weight:700;font-size:1.15rem;text-align:center;min-height:2.8em;color:#f6f1e4}
+.tcap .am{display:block;font-family:var(--f-geez)}.tcap .en{display:block;font-weight:400;font-size:.95rem;opacity:.9}
+.trow{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.tpile{background:rgba(0,0,0,.2);border:3px solid transparent;border-radius:14px;padding:10px;min-width:230px;display:flex;flex-direction:column;gap:6px}
+.tpile.win{border-color:#ffd166;background:rgba(255,209,102,.2)}
+.tpile .lstack{height:100px}.tpile .lstack .card{--cw:70px}
+.tfan{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}.tfan .card{--cw:56px}
+@media (max-width:560px){.tfan .card{--cw:40px}.tpile{min-width:0;width:100%}#teaser{padding:8px}#teaser .tbox{padding:16px}}
+.card.pop{animation:tpop .45s ease-out}.card.flip{animation:tflip .5s ease-in-out}.card.up{transform:translateY(-14px);box-shadow:0 0 0 4px #ffd166}
+@keyframes tpop{from{transform:translateY(-40px) scale(.8);opacity:0}to{transform:none;opacity:1}}
+@keyframes tflip{0%{transform:rotateY(90deg)}100%{transform:none}}
+@media (prefers-reduced-motion:reduce){.card.pop,.card.flip{animation:none}}
+.tlist{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+.lpiles{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+.lpile{background:rgba(0,0,0,.2);border:3px solid transparent;border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;min-width:240px}
+.lpile.win{border-color:#ffd166;background:rgba(255,209,102,.18)}.lpile.out{opacity:.45}
+.lhead{display:flex;align-items:center;justify-content:space-between;gap:10px}.lhead b{font-size:1.1rem}
+.lside{font-family:var(--f-geez);font-weight:700;font-size:1.3rem;padding:2px 12px;border-radius:999px;background:#f3dfa6;color:#1c2924}
+.lrow{display:flex;align-items:flex-end;gap:16px}
+.lsecret{display:flex;flex-direction:column;align-items:center;gap:4px}.lsecret .card{--cw:62px}.lsecret .muted{color:rgba(243,239,226,.85)}
+.lstack{position:relative;height:105px}.lstack .card{--cw:74px;position:absolute;top:0}
+.card.lhit{box-shadow:0 0 0 5px #ffd166,0 6px 14px rgba(0,0,0,.4)}.card.lcatch{box-shadow:0 0 0 5px #e07a8a,0 6px 14px rgba(0,0,0,.4)}
+#lPick .muted{color:rgba(243,239,226,.9)}#lPick h2{color:#f6f1e4}
+.panel-pick{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+.lgrid{display:grid;grid-template-columns:repeat(13,minmax(0,1fr));gap:6px;width:100%;max-width:820px}
+.lgrid .card{--cw:100%;width:100%;height:auto;aspect-ratio:5/7;cursor:pointer}
+.card.lbig{--cw:150px}
+@media (max-width:560px){.lgrid{grid-template-columns:repeat(9,minmax(0,1fr))}}
 .felt{border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:14px;color:#f3efe2;
  background:radial-gradient(circle at 50% 35%,#2f7d4f,#226440 55%,#174a2f);box-shadow:inset 0 0 0 6px #6e3f1c,inset 0 0 0 9px #c2902a,inset 0 0 40px rgba(0,0,0,.35)}
 .opps{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
@@ -220,6 +257,17 @@ button.meld{color:inherit;font:inherit}
 </head>
 <body>
 <div class="tibeb" aria-hidden="true"></div>
+<div class="ticker" role="note" aria-label="በቅርብ ቀን፦ አዲሱ አድራሻችን habeshacardgames.com። Coming soon: our new home is habeshacardgames.com. Your scores are safe.">
+<div class="tkmove" aria-hidden="true"><span class="tk"><b>በቅርብ ቀን</b> · አዲሱ አድራሻችን <u>habeshacardgames.com</u> · ነጥቦቻችሁ አይጠፉም</span><span class="tk"><b>Coming soon</b> · Our new home: <u>habeshacardgames.com</u> · Your scores are safe</span><span class="tk"><b>በቅርብ ቀን</b> · አዲሱ አድራሻችን <u>habeshacardgames.com</u> · ነጥቦቻችሁ አይጠፉም</span><span class="tk"><b>Coming soon</b> · Our new home: <u>habeshacardgames.com</u> · Your scores are safe</span></div></div>
+<style>
+.ticker{background:#9E3446;color:#fff;overflow:hidden;white-space:nowrap;border-bottom:3px solid #C2902A;font-size:18px;line-height:1;padding:9px 0}
+.tkmove{display:inline-flex;animation:tk 38s linear infinite;will-change:transform}
+.ticker:hover .tkmove,.ticker:active .tkmove{animation-play-state:paused}
+.tk{padding:0 28px;display:inline-flex;align-items:center;gap:.4em}.tk b{color:#F3DFA6}.tk u{text-decoration:none;font-weight:700;letter-spacing:.02em}
+.tk::after{content:"✦";color:#F3DFA6;margin-left:28px}
+@keyframes tk{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ticker{white-space:normal}.tkmove{animation:none;display:flex;flex-direction:column;align-items:center;gap:4px;line-height:1.35}.tkmove .tk:nth-child(n+3){display:none}.tk{display:block;text-align:center;padding:0 12px}.tk::after{display:none}}
+</style>
 <nav class="mm-bar"><a class="mm-link" id="mmLink" href="../index.html"><span class="ic" aria-hidden="true">☰</span><span>Main menu</span></a> <a class="mm-link" id="fbLink" href="#"><span class="ic" aria-hidden="true">✉</span><span>Send feedback</span></a></nav>
 <script>(function(){var a=document.getElementById("mmLink"),r=document.documentElement;var f=document.getElementById("fbLink"),app=location.pathname.indexOf("/dama/")>=0?"Dama":"Card Games";function s(save){var am=r.lang==="am";a.lastChild.textContent=am?"ዋና ማውጫ":"Main menu";f.lastChild.textContent=am?"አስተያየት ይላኩ":"Send feedback";f.href=FBMAIL(app,am);if(save){try{localStorage.setItem("games.lang",am?"am":"en")}catch(e){}}}s(false);new MutationObserver(function(){s(true)}).observe(r,{attributes:true,attributeFilter:["lang"]})})();</script>
 
@@ -257,6 +305,10 @@ button.meld{color:inherit;font:inherit}
       <div class="fan" aria-hidden="true"></div>
       <h2 data-t="sekaTitle"></h2><span class="muted" data-t="sekaDesc"></span><span class="st" id="sStatus"></span><span class="go" data-t="play"></span>
     </button>
+    <button class="game" type="button" id="goLatlat">
+      <div class="fan" aria-hidden="true"></div>
+      <h2 data-t="lTitle"></h2><span class="muted" data-t="lDesc"></span><span class="st" id="lStatusHome"></span><span class="go" data-t="play"></span>
+    </button>
   </div>
   <button class="scorebtn" type="button" id="goScores"><span><span class="label" data-t="scores"></span><br><b id="homePts">0</b> <span data-t="points"></span></span><span style="font-weight:700;color:var(--green)" data-t="seeScores"></span></button>
 </section>
@@ -271,7 +323,7 @@ button.meld{color:inherit;font:inherit}
     <div class="stack" id="jkRow"><b data-t="jkL"></b><div class="seg" id="jkSeg"><button type="button" data-j="1" data-t="jkWith"></button><button type="button" data-j="0" data-t="jkWithout"></button></div></div>
     <div class="stack" id="lvlRow"><b id="lvlLabel"></b><div class="seg" id="lvlSeg"><button type="button" data-l="easy" data-t="easy"></button><button type="button" data-l="medium" data-t="medium"></button><button type="button" data-l="hard" data-t="hard"></button></div></div>
     <div class="stack"><b data-t="skinL"></b><div class="skins" id="skins"></div></div>
-    <div class="stack"><b id="rulesLabel"></b><ul class="rules" id="konkerRules"><li data-t="r1"></li><li data-t="r2"></li><li data-t="r3"></li><li data-t="r4"></li><li data-t="r5"></li><li data-t="r6"></li><li data-t="r7"></li></ul><ul class="rules" id="injeraRules"><li data-t="i1"></li><li data-t="i2"></li><li data-t="i3"></li><li data-t="i4"></li><li data-t="i5"></li><li data-t="i6"></li><li data-t="i7"></li><li data-t="i8"></li></ul><ul class="rules" id="sekaRules"><li data-t="s1"></li><li data-t="s2"></li><li id="s3"></li><li data-t="s4"></li><li data-t="s5"></li></ul></div>
+    <div class="stack"><b id="rulesLabel"></b><ul class="rules" id="konkerRules"><li data-t="r1"></li><li data-t="r2"></li><li data-t="r3"></li><li data-t="r4"></li><li data-t="r5"></li><li data-t="r6"></li><li data-t="r7"></li></ul><ul class="rules" id="latlatRules"><li data-t="l1"></li><li data-t="l2"></li><li data-t="l3"></li><li data-t="l4"></li><li data-t="l5"></li></ul><ul class="rules" id="injeraRules"><li data-t="i1"></li><li data-t="i2"></li><li data-t="i3"></li><li data-t="i4"></li><li data-t="i5"></li><li data-t="i6"></li><li data-t="i7"></li><li data-t="i8"></li></ul><ul class="rules" id="sekaRules"><li data-t="s1"></li><li data-t="s2"></li><li id="s3"></li><li data-t="s4"></li><li data-t="s5"></li></ul></div>
     <div class="row"><button class="btn primary" type="button" id="startBtn" data-t="start"></button><button class="btn gold" type="button" id="resumeBtn" data-t="resume"></button></div>
   </div>
 </section>
@@ -338,6 +390,38 @@ button.meld{color:inherit;font:inherit}
     <div class="muted small" data-t="iHow"></div>
     <div class="row"><button class="btn ghost sm" type="button" id="iQuitBtn"></button></div>
   </div>
+  </div>
+</section>
+
+<div id="teaser" hidden role="dialog" aria-modal="true" aria-labelledby="tTitle">
+  <div class="tbox">
+    <div class="thead"><div class="stack" style="gap:6px"><span class="ribbon"><span data-t="soonAm"></span> · <span style="font-family:inherit" data-t="soonEn"></span></span><h2 id="tTitle">ላጥላጥ</h2><span class="muted" data-t="lDesc"></span></div>
+      <button class="btn ghost" type="button" id="tClose" data-t="tClose"></button></div>
+    <div class="felt tstage" id="tStage"></div>
+    <ul class="tlist"><li data-t="t1"></li><li data-t="t2"></li><li data-t="t3"></li></ul>
+    <div class="muted small" data-t="tSoon"></div>
+  </div>
+</div>
+
+<section class="view" id="v-latlat" hidden>
+  <div class="bar"><button class="btn ghost" type="button" data-home data-t="home"></button><span class="muted small" id="lTag"></span></div>
+  <div class="felt panel-pick" id="lPick" hidden></div>
+  <div id="lTable">
+    <div class="felt">
+      <div class="lpiles" id="lPiles"></div>
+      <div class="center"><div class="pile"><span id="lDeckN"></span><div class="card back" style="--cw:76px"></div><span data-t="drawPile"></span></div></div>
+    </div>
+    <div class="hand-wrap" style="margin-top:16px">
+      <div class="status" id="lStatus"></div>
+      <div class="msg log" id="lMsg" aria-live="polite"></div>
+      <div class="panel result" id="lOver" hidden style="text-align:center">
+        <h2 id="lOverTitle"></h2><div class="muted" id="lOverSub"></div>
+        <div class="rate" data-rate hidden><span data-t="rateQ"></span><button type="button" data-v="yes" aria-label="Yes">👍</button><button type="button" data-v="no" aria-label="No">👎</button></div>
+        <div class="row" style="justify-content:center"><button class="btn primary" type="button" id="lAgainBtn" data-t="again"></button><button class="btn ghost" type="button" id="lChangeBtn" data-t="change"></button></div>
+      </div>
+      <div class="muted small" data-t="lHow2"></div>
+      <div class="row"><button class="btn ghost sm" type="button" id="lQuitBtn"></button></div>
+    </div>
   </div>
 </section>
 
@@ -548,7 +632,7 @@ const T={
   p1Label:"Player 1",p2Label:"Player 2",p3Label:"Guest",nameHint:"Type any name. Leave a box empty to use Player 1, Player 2 or Guest, which switch language with the rest of the app.",
   newGuest:"Start fresh for a new guest",newGuestC:"Tap again to clear the guest's scores",play:"Play →",soon:"Coming soon",home:"← Home",points:"points",scores:"Score collector",seeScores:"See scores →",
   kTitle:"Konker (ኮንከር)",kDesc:"Build 3 Tris and 1 Quatris in your hand. Show 41 to take from the discard pile.",
-  sekaTitle:"Seka (ሴካ)",sekaDesc:"Build 2 Tris and 1 Quatris in your hand. Take from the discard pile any time.",jkL:"Jokers",jkWith:"With jokers",jkWithout:"Without jokers",lvlLs:"Level (strength of the computer and the ace rule)",s1:"One deck for 2 players, two decks for 3 or 4, with or without jokers. Everyone gets 10 cards; the dealer gets 11 and starts by discarding one.",s2:"A Tris (ትሪስ) is 3 cards and a Quatris (ኳትሪስ) is 4: a run in one suit or the same number in different suits. A joker is worth the card it stands for.",s3e:"Easy: ace is 1 in A-2-3 and A-2-3-4, and 11 in Q-K-A and J-Q-K-A.",s3h:"Medium and Hard: ace is low only (A-2-3). Q-K-A does not count.",s4:"Each turn: draw from the pile or take the top discard (no 41 needed), then discard one card. Nothing is laid down during the game.",s5:"Win when your 10 cards make 2 Tris and 1 Quatris after your discard: 20 points. Winning with a joker as the last discard is a Vice: 40 points.",swins:"Seka wins",iwins:"Injera Bewet wins",irounds:"Injera Bewet games",histIWin:"Injera Bewet · most cards",iTitle:"Injera Bewet (እንጀራ በወጥ)",iDesc:"An adding game: draw from the circle and take the cards that match or add up.",rulesI:"How Injera Bewet is played",visitor:"Friend",i1:"One deck for 2 players, two decks for 3 or 4, with jokers. The cards lie face down in a circle (the እንጀራ); 4 cards go face up in the middle (the ወጥ). A joker never goes in the ወጥ.",i2:"On your turn, tap any face-down card. It takes every ወጥ card with the same number, and every group of cards that adds up to it (A=1, J=11, Q=12, K=13).",i3:"መግፍ: it also takes the top of any other player's pile (መደብ) with the same number, along with the cards that top card won. Tap their መደብ, then ግፈፍ.",i4:"If you take anything, your card goes on top of your መደብ with the winnings under it, and you draw again. If it takes nothing, it goes into the ወጥ and the turn passes.",i5:"A joker takes the whole ወጥ. If another player's መደብ has a joker on top, a joker takes their whole pile.",i6:"Whoever draws the last face-down card takes everything left in the ወጥ.",i7:"When the circle is empty, the most cards wins: 20 points. With 3 or 4 players, everyone is a person and the computer is the referee.",iTake:"Take",rateQ:"Did you enjoy this game?",rateThanks:"Thank you!",iGrabB:"Grab (ግፈፍ)",ieUseGrab:"To take another player's መደብ top, tap ግፈፍ.",ieGrabPick:"Tap the መደብ you want to take from, then tap ግፈፍ.",iGrabbedYou:w=>`መግፍ! You took ${w}'s top stack. Take anything else your card matches.`,iGrabbed:(n,w)=>`መግፍ! ${n} took ${w}'s top stack and draws again.`,iWaterB:"Water (አጠጣ)",ieWater:"Your card doesn't match the top of your own መደብ.",iWateredYou:"ማጠጣት! Your card joins your own pile. Take anything else it matches, or draw again.",iWatered:n=>`${n} watered (አጠጣ) their መደብ and draws again.`,i8:"ማጠጣት: if your card matches the top of your own መደብ, tap አጠጣ to add it to your pile. It counts as a win, so you draw again, and like every match it can't be skipped. Whoever later takes your top card gets the whole stack.",mdebL:"መደብ",iNone:"Nothing to take",iHint:"Hint",iHow:"You find the matches: tap the ወጥ cards your card takes (the same number, or cards that add up to it) then tap Take. If another player's መደብ top is the same card, tap their መደብ and ግፈፍ. If it matches your own መደብ top, tap አጠጣ. The Computer checks every move.",iDrawSt:n=>`${n}: tap any face-down card in the circle to draw`,iCapSt:n=>`${n}: find everything your card takes, then tap Take`,iOtherSt:n=>`${n} is playing…`,iDrewL:c=>`Drawn card: ${c}`,iGainL:n=>`Won this turn: ${n} cards`,iEmpty:"The ወጥ is empty",iePick:"Tap the cards to take first.",ieSum:"Those ወጥ cards don't work. Each group must be the same number as your card, or add up to it.",ieTop:"That መደብ top card doesn't match your card.",ieMore:"There is still something your card can take. Look again, or tap Hint.",iHintNone:"There is nothing to take. Tap Nothing to take.",iHintShow:"Look at the cards with the green outline.",iJoker:n=>`Joker! ${n} takes the whole ወጥ.`,iJokerPile:(n,o)=>`Joker on joker! ${n} takes all of ${o}'s cards.`,iLast:n=>`Last card! ${n} takes everything left in the ወጥ.`,iTook:(n,k)=>`${n} won ${k} cards and draws again.`,iMiss:n=>`${n}'s card went into the ወጥ.`,iWins:n=>`${n} wins with the most cards!`,iTie:"It's a tie: no winner this time.",svice:"Seka Vices",srounds:"Seka rounds",histSWin:"Seka · won the round",histSVice:"Seka · won with a Vice",kGo:"Game in progress, pick up where you left off",kNew:"Against the computer or each other",
+  sekaTitle:"Seka (ሴካ)",sekaDesc:"Build 2 Tris and 1 Quatris in your hand. Take from the discard pile any time.",jkL:"Jokers",jkWith:"With jokers",jkWithout:"Without jokers",lvlLs:"Level (strength of the computer and the ace rule)",s1:"One deck for 2 players, two decks for 3 or 4, with or without jokers. Everyone gets 10 cards; the dealer gets 11 and starts by discarding one.",s2:"A Tris (ትሪስ) is 3 cards and a Quatris (ኳትሪስ) is 4: a run in one suit or the same number in different suits. A joker is worth the card it stands for.",s3e:"Easy: ace is 1 in A-2-3 and A-2-3-4, and 11 in Q-K-A and J-Q-K-A.",s3h:"Medium and Hard: ace is low only (A-2-3). Q-K-A does not count.",s4:"Each turn: draw from the pile or take the top discard (no 41 needed), then discard one card. Nothing is laid down during the game.",s5:"Win when your 10 cards make 2 Tris and 1 Quatris after your discard: 20 points. Winning with a joker as the last discard is a Vice: 40 points.",swins:"Seka wins",iwins:"Injera Bewet wins",lwins:"LatLat wins",lrounds:"LatLat rounds",histLWin:"LatLat · won the round",irounds:"Injera Bewet games",histIWin:"Injera Bewet · most cards",tYou:"You",soonAm:"በቅርብ ቀን",soonEn:"Coming soon",soonSt:"Watch the preview →",tClose:"Close",t1:"Pick a secret card. Nobody else sees it.",t2:"The dealer deals: ወጣ, ገባ, ወጣ, ገባ… After the 3rd card the secret card is shown.",t3:"The first card with the same number decides who wins. Play against the computer, or with 3 players.",tSoon:"LatLat is almost ready. Come back soon to play!",lTitle:"LatLat (ላጥላጥ)",lOne:"1 card",lNew:"You against the computer, or 3 players",lDesc:"A race of luck: pick a secret card and watch who catches its number first.",rulesL2:"How LatLat is played",lDealer:"Dealer (Computer)",l1:"One deck, no jokers. Play against the computer, which deals, or with 3 players while the computer deals and referees.",l2:"Each player picks a secret card. Against the computer, the deal goes ወጣ (your side), ገባ (the dealer's side), ወጣ, ገባ…",l3:"After the 3rd card, everyone shows their secret card. Only the number counts, not the suit. The first 3 cards are checked in the order they were dealt.",l4:"Against the computer: the first card with your number wins for the side it lands on, ወጣ for you or ገባ for the dealer.",l5:"With 3 players: your own number on your pile wins. Another player's number on your pile knocks that player out. The last player left wins. A win is worth 10 points.",lSecret:"Secret card",lPickT:n=>`${n}: pick your secret card`,lPickHow:"Tap any face-down card. Only you will see it.",lRemember:"Your secret card. Remember it!",lHideNext:"Hide it and pass on",lStart:"Hide it and start the deal",lUntil:k=>`Dealing… ${k} more until everyone shows their card`,lRace:"Who catches the number first?",lReveal:"Secret cards revealed!",lDealtTo:n=>`A card for ${n}.`,lOut:(o,n)=>`${o} is out: ${n} caught their number.`,lIsOut:"Out",lWins:n=>`${n} {wins|wins}!`,lHow:(c,n)=>`${c} landed on ${n}'s pile.`,lHow2:"The Computer deals by itself. Watch the piles: the first card with a matching number decides the round.",iTitle:"Injera Bewet (እንጀራ በወጥ)",iDesc:"An adding game: draw from the circle and take the cards that match or add up.",rulesI:"How Injera Bewet is played",visitor:"Friend",i1:"One deck for 2 players, two decks for 3 or 4, with jokers. The cards lie face down in a circle (the እንጀራ); 4 cards go face up in the middle (the ወጥ). A joker never goes in the ወጥ.",i2:"On your turn, tap any face-down card. It takes every ወጥ card with the same number, and every group of cards that adds up to it (A=1, J=11, Q=12, K=13).",i3:"መግፍ: it also takes the top of any other player's pile (መደብ) with the same number, along with the cards that top card won. Tap their መደብ, then ግፈፍ.",i4:"If you take anything, your card goes on top of your መደብ with the winnings under it, and you draw again. If it takes nothing, it goes into the ወጥ and the turn passes.",i5:"A joker takes the whole ወጥ. If another player's መደብ has a joker on top, a joker takes their whole pile.",i6:"Whoever draws the last face-down card takes everything left in the ወጥ.",i7:"When the circle is empty, the most cards wins: 20 points. With 3 or 4 players, everyone is a person and the computer is the referee.",iTake:"Take",rateQ:"Did you enjoy this game?",rateThanks:"Thank you!",iGrabB:"Grab (ግፈፍ)",ieUseGrab:"To take another player's መደብ top, tap ግፈፍ.",ieGrabPick:"Tap the መደብ you want to take from, then tap ግፈፍ.",iGrabbedYou:w=>`መግፍ! You took ${w}'s top stack. Take anything else your card matches.`,iGrabbed:(n,w)=>`መግፍ! ${n} took ${w}'s top stack and draws again.`,iWaterB:"Water (አጠጣ)",ieWater:"Your card doesn't match the top of your own መደብ.",iWateredYou:"ማጠጣት! Your card joins your own pile. Take anything else it matches, or draw again.",iWatered:n=>`${n} watered (አጠጣ) their መደብ and draws again.`,i8:"ማጠጣት: if your card matches the top of your own መደብ, tap አጠጣ to add it to your pile. It counts as a win, so you draw again, and like every match it can't be skipped. Whoever later takes your top card gets the whole stack.",mdebL:"መደብ",iNone:"Nothing to take",iHint:"Hint",iHow:"You find the matches: tap the ወጥ cards your card takes (the same number, or cards that add up to it) then tap Take. If another player's መደብ top is the same card, tap their መደብ and ግፈፍ. If it matches your own መደብ top, tap አጠጣ. The Computer checks every move.",iDrawSt:n=>`${n}: tap any face-down card in the circle to draw`,iCapSt:n=>`${n}: find everything your card takes, then tap Take`,iOtherSt:n=>`${n} is playing…`,iDrewL:c=>`Drawn card: ${c}`,iGainL:n=>`Won this turn: ${n} cards`,iEmpty:"The ወጥ is empty",iePick:"Tap the cards to take first.",ieSum:"Those ወጥ cards don't work. Each group must be the same number as your card, or add up to it.",ieTop:"That መደብ top card doesn't match your card.",ieMore:"There is still something your card can take. Look again, or tap Hint.",iHintNone:"There is nothing to take. Tap Nothing to take.",iHintShow:"Look at the cards with the green outline.",iJoker:n=>`Joker! ${n} takes the whole ወጥ.`,iJokerPile:(n,o)=>`Joker on joker! ${n} takes all of ${o}'s cards.`,iLast:n=>`Last card! ${n} takes everything left in the ወጥ.`,iTook:(n,k)=>`${n} won ${k} cards and draws again.`,iMiss:n=>`${n}'s card went into the ወጥ.`,iWins:n=>`${n} wins with the most cards!`,iTie:"It's a tie: no winner this time.",svice:"Seka Vices",srounds:"Seka rounds",histSWin:"Seka · won the round",histSVice:"Seka · won with a Vice",kGo:"Game in progress, pick up where you left off",kNew:"Against the computer or each other",
   howMany:"How many players at the table?",seatL:n=>`Seat ${n}`,ipad:"Computer",lvlL:"How strong should the computer be?",easy:"Easy",medium:"Medium",hard:"Hard",
   rulesL:"How Konker is played",rulesS:"How Seka is played",
   r1:"One deck with 2 jokers for 2 players, two decks for 3 or 4. Everyone gets 13 cards; the dealer gets 14 and starts by discarding one.",
@@ -581,7 +665,7 @@ const T={
   p1Label:"ተጫዋች 1",p2Label:"ተጫዋች 2",p3Label:"እንግዳ",nameHint:"ማንኛውንም ስም ይጻፉ። ባዶ ከተተወ ተጫዋች 1፣ ተጫዋች 2 ወይም እንግዳ ይሆናል፤ ከቋንቋው ጋርም ይቀየራል።",
   newGuest:"ለአዲስ እንግዳ እንደገና ጀምር",newGuestC:"የእንግዳውን ነጥብ ለማጥፋት እንደገና ይንኩ",play:"ተጫወቱ →",soon:"በቅርቡ ይመጣል",home:"← ዋና ገጽ",points:"ነጥብ",scores:"የነጥብ መዝገብ",seeScores:"ውጤቶችን እዩ →",
   kTitle:"ኮንከር",kDesc:"በእጅዎ 3 ትሪስ እና 1 ኳትሪስ ይስሩ። ከተጣለው ለማንሳት 41 ያሳዩ።",
-  sekaTitle:"ሴካ",sekaDesc:"በእጅዎ 2 ትሪስ እና 1 ኳትሪስ ይስሩ። ከተጣለው በፈለጉ ጊዜ ማንሳት ይችላሉ።",jkL:"ጆከር",jkWith:"ከጆከር ጋር",jkWithout:"ያለ ጆከር",lvlLs:"ደረጃ (የኮምፒውተሩ ጥንካሬ እና የኤሲ ደንብ)",s1:"ለ2 ተጫዋች አንድ ካርታ፣ ለ3 ወይም 4 ሁለት ካርታ፤ ከጆከር ጋር ወይም ያለ ጆከር። ሁሉም 10 ካርታ ያገኛል፤ አዳዩ 11 ያገኝና አንዱን በመጣል ይጀምራል።",s2:"ትሪስ 3 ካርታ፣ ኳትሪስ ደግሞ 4 ካርታ ነው፦ አንድ ዓይነት ተከታታይ ወይም የተለያየ ዓይነት ያላቸው ተመሳሳይ ቁጥሮች። ጆከር የሚተካውን ካርታ ዋጋ ይይዛል።",s3e:"ቀላል፦ ኤሲ በA-2-3 እና A-2-3-4 ውስጥ 1፣ በQ-K-A እና J-Q-K-A ውስጥ 11 ነው።",s3h:"መካከለኛ እና ከባድ፦ ኤሲ ዝቅተኛ ብቻ ነው (A-2-3)። Q-K-A አይቆጠርም።",s4:"በየተራው፦ ከክምሩ ይሳቡ ወይም የተጣለውን የላይኛውን ያንሱ (41 አያስፈልግም)፣ ከዚያ አንድ ካርታ ይጣሉ። በጨዋታው ወቅት ምንም አይወርድም።",s5:"ከጣሉ በኋላ 10ሩ ካርታዎችዎ 2 ትሪስ እና 1 ኳትሪስ ከሆኑ ያሸንፋሉ፦ 20 ነጥብ። በመጨረሻ ጆከር ጥለው ካሸነፉ ቫይስ ነው፦ 40 ነጥብ።",swins:"የሴካ ድሎች",iwins:"የእንጀራ በወጥ ድሎች",irounds:"የእንጀራ በወጥ ጨዋታዎች",histIWin:"እንጀራ በወጥ · ብዙ ካርታ",iTitle:"እንጀራ በወጥ",iDesc:"የመደመር ጨዋታ፦ ከክቡ ይሳቡ፣ የሚመሳሰሉትን ወይም ድምራቸው የሚሆኑትን ይውሰዱ።",rulesI:"እንጀራ በወጥ እንዴት ይጫወታል",visitor:"ጓደኛ",i1:"ለ2 ተጫዋች አንድ ካርታ፣ ለ3 ወይም 4 ሁለት ካርታ፣ ከጆከር ጋር። ካርታዎቹ በክብ ተገልብጠው ይቀመጣሉ (እንጀራ)፤ 4 ካርታ በመሃል ተገልጦ ይቀመጣል (ወጥ)። ጆከር ወጥ ውስጥ አይገባም።",i2:"በተራዎ ማንኛውንም የተገለበጠ ካርታ ይንኩ። ወጡ ውስጥ ያለውን ተመሳሳይ ቁጥር ሁሉ፣ እና ድምራቸው ቁጥሩን የሚያክል ካርታዎችን ሁሉ ይወስዳል (A=1፣ J=11፣ Q=12፣ K=13)።",i3:"መግፍ፦ የሌላ ተጫዋች መደብ ላይ ያለው የላይኛው ካርታ ተመሳሳይ ቁጥር ከሆነ፣ እሱንና ያሸነፋቸውን ካርታዎች ይወስዳል። መደቡን ይንኩ፣ ከዚያ «ግፈፍ» ይንኩ።",i4:"ካሸነፉ፣ ካርታዎ ከአሸነፏቸው ጋር በመደብዎ ላይ ይቀመጣል፤ እንደገና ይስባሉ። ምንም ካልወሰደ ወጡ ውስጥ ይገባል፤ ተራው ያልፋል።",i5:"ጆከር ወጡን በሙሉ ይወስዳል። የሌላ ተጫዋች መደብ ላይ ጆከር ካለ፣ ጆከር መደቡን በሙሉ ይወስዳል።",i6:"የመጨረሻውን የተገለበጠ ካርታ የሳበ ወጡ ውስጥ የቀረውን ሁሉ ይወስዳል።",i7:"ክቡ ሲያልቅ ብዙ ካርታ ያለው ያሸንፋል፦ 20 ነጥብ። 3 ወይም 4 ሲሆኑ ሁሉም ሰዎች ናቸው፤ ኮምፒውተሩ ዳኛ ነው።",iTake:"ውሰድ",rateQ:"ጨዋታውን ወደዱት?",rateThanks:"እናመሰግናለን!",iGrabB:"ግፈፍ",ieUseGrab:"የሌላ ተጫዋች መደብ የላይኛውን ለመውሰድ «ግፈፍ» ይንኩ።",ieGrabPick:"የሚወስዱበትን መደብ ይንኩ፣ ከዚያ «ግፈፍ» ይንኩ።",iGrabbedYou:w=>`መግፍ! የ${w}ን የላይኛው ቁልል ወሰዱ። ካርታዎ የሚወስደው ሌላ ካለ ይውሰዱ።`,iGrabbed:(n,w)=>`መግፍ! ${n} የ${w}ን የላይኛው ቁልል {ወስዶ እንደገና ይስባል|ወስዳ እንደገና ትስባለች}።`,iWaterB:"አጠጣ",ieWater:"ካርታዎ ከራስዎ መደብ የላይኛው ካርታ ጋር አይመሳሰልም።",iWateredYou:"ማጠጣት! ካርታዎ ወደ መደብዎ ገባ። የሚመሳሰለው ሌላ ካለ ይውሰዱ፣ ካልሆነ እንደገና ይሳቡ።",iWatered:n=>`${n} {መደቡን አጠጣ፤ እንደገና ይስባል|መደቧን አጠጣች፤ እንደገና ትስባለች}።`,i8:"ማጠጣት፦ ካርታዎ ከራስዎ መደብ የላይኛው ካርታ ጋር ከተመሳሰለ፣ «አጠጣ» ይንኩ፤ ካርታው መደብዎ ላይ ይጨመራል። እንደ ድል ይቆጠራል፤ እንደገና ይስባሉ። እንደ ሌሎቹ ሁሉ ሊታለፍ አይችልም። በኋላ የላይኛውን ካርታዎን የወሰደ ቁልሉን በሙሉ ይወስዳል።",mdebL:"መደብ",iNone:"የሚወሰድ የለም",iHint:"ፍንጭ",iHow:"ተመሳሳዩን እርስዎ ያገኛሉ፦ ካርታዎ የሚወስዳቸውን የወጥ ካርታዎች (ተመሳሳይ ቁጥር ወይም ድምራቸው የሚሆኑ) ይንኩ፣ ከዚያ «ውሰድ» ይንኩ። የሌላ ተጫዋች መደብ የላይኛው ተመሳሳይ ከሆነ መደቡን ይንኩና «ግፈፍ» ይንኩ። ከራስዎ መደብ የላይኛው ጋር ከተመሳሰለ «አጠጣ» ይንኩ። ኮምፒውተሩ እያንዳንዱን እንቅስቃሴ ይፈትሻል።",iDrawSt:n=>`${n}፦ ለመሳብ በክቡ ውስጥ ያለውን ማንኛውንም የተገለበጠ ካርታ ይንኩ`,iCapSt:n=>`${n}፦ ካርታዎ የሚወስደውን ሁሉ ያግኙ፣ ከዚያ «ውሰድ» ይንኩ`,iOtherSt:n=>`${n} {እየተጫወተ|እየተጫወተች} ነው…`,iDrewL:c=>`የተሳበው ካርታ፦ ${c}`,iGainL:n=>`በዚህ ተራ ያሸነፉት፦ ${n} ካርታ`,iEmpty:"ወጡ ባዶ ነው",iePick:"መጀመሪያ የሚወስዷቸውን ካርታዎች ይንኩ።",ieSum:"እነዚህ የወጥ ካርታዎች አይሆኑም። እያንዳንዱ ቡድን ከካርታዎ ጋር ተመሳሳይ ወይም ድምሩ እኩል መሆን አለበት።",ieTop:"ያ የመደብ የላይኛው ካርታ ከካርታዎ ጋር አይመሳሰልም።",ieMore:"ካርታዎ የሚወስደው ገና አለ። እንደገና ይመልከቱ ወይም «ፍንጭ» ይንኩ።",iHintNone:"የሚወሰድ ነገር የለም። «የሚወሰድ የለም» ይንኩ።",iHintShow:"በአረንጓዴ የተከበቡትን ካርታዎች ይመልከቱ።",iJoker:n=>`ጆከር! ${n} ወጡን በሙሉ {ወሰደ|ወሰደች}።`,iJokerPile:(n,o)=>`ጆከር በጆከር! ${n} የ${o}ን ካርታዎች በሙሉ {ወሰደ|ወሰደች}።`,iLast:n=>`የመጨረሻ ካርታ! ${n} ወጡ ውስጥ የቀረውን ሁሉ {ወሰደ|ወሰደች}።`,iTook:(n,k)=>`${n} ${k} ካርታ {አሸነፈ፤ እንደገና ይስባል|አሸነፈች፤ እንደገና ትስባለች}።`,iMiss:n=>`የ${n} ካርታ ወጡ ውስጥ ገባ።`,iWins:n=>`${n} በብዙ ካርታ {አሸነፈ|አሸነፈች}!`,iTie:"እኩል ሆነ፤ በዚህ ጊዜ አሸናፊ የለም።",svice:"የሴካ ቫይሶች",srounds:"የሴካ ዙሮች",histSWin:"ሴካ · ዙሩን አሸነፈ",histSVice:"ሴካ · በቫይስ አሸነፈ",kGo:"ያልተጨረሰ ጨዋታ፤ ካቆማችሁበት ቀጥሉ",kNew:"ከኮምፒውተሩ ወይም እርስ በርስ",
+  sekaTitle:"ሴካ",sekaDesc:"በእጅዎ 2 ትሪስ እና 1 ኳትሪስ ይስሩ። ከተጣለው በፈለጉ ጊዜ ማንሳት ይችላሉ።",jkL:"ጆከር",jkWith:"ከጆከር ጋር",jkWithout:"ያለ ጆከር",lvlLs:"ደረጃ (የኮምፒውተሩ ጥንካሬ እና የኤሲ ደንብ)",s1:"ለ2 ተጫዋች አንድ ካርታ፣ ለ3 ወይም 4 ሁለት ካርታ፤ ከጆከር ጋር ወይም ያለ ጆከር። ሁሉም 10 ካርታ ያገኛል፤ አዳዩ 11 ያገኝና አንዱን በመጣል ይጀምራል።",s2:"ትሪስ 3 ካርታ፣ ኳትሪስ ደግሞ 4 ካርታ ነው፦ አንድ ዓይነት ተከታታይ ወይም የተለያየ ዓይነት ያላቸው ተመሳሳይ ቁጥሮች። ጆከር የሚተካውን ካርታ ዋጋ ይይዛል።",s3e:"ቀላል፦ ኤሲ በA-2-3 እና A-2-3-4 ውስጥ 1፣ በQ-K-A እና J-Q-K-A ውስጥ 11 ነው።",s3h:"መካከለኛ እና ከባድ፦ ኤሲ ዝቅተኛ ብቻ ነው (A-2-3)። Q-K-A አይቆጠርም።",s4:"በየተራው፦ ከክምሩ ይሳቡ ወይም የተጣለውን የላይኛውን ያንሱ (41 አያስፈልግም)፣ ከዚያ አንድ ካርታ ይጣሉ። በጨዋታው ወቅት ምንም አይወርድም።",s5:"ከጣሉ በኋላ 10ሩ ካርታዎችዎ 2 ትሪስ እና 1 ኳትሪስ ከሆኑ ያሸንፋሉ፦ 20 ነጥብ። በመጨረሻ ጆከር ጥለው ካሸነፉ ቫይስ ነው፦ 40 ነጥብ።",swins:"የሴካ ድሎች",iwins:"የእንጀራ በወጥ ድሎች",lwins:"የላጥላጥ ድሎች",lrounds:"የላጥላጥ ዙሮች",histLWin:"ላጥላጥ · ዙሩን አሸነፈ",irounds:"የእንጀራ በወጥ ጨዋታዎች",histIWin:"እንጀራ በወጥ · ብዙ ካርታ",tYou:"እርስዎ",soonAm:"በቅርብ ቀን",soonEn:"Coming soon",soonSt:"ቅድመ እይታውን ይመልከቱ →",tClose:"ዝጋ",t1:"ሚስጥራዊ ካርታ ይምረጡ። ሌላ ማንም አያየውም።",t2:"አዳዩ ያድላል፦ ወጣ፣ ገባ፣ ወጣ፣ ገባ… ከ3ኛው ካርታ በኋላ ሚስጥራዊው ካርታ ይገለጣል።",t3:"ተመሳሳይ ቁጥር ያለው የመጀመሪያው ካርታ አሸናፊውን ይወስናል። ከኮምፒውተሩ ጋር ወይም 3 ሆነው ይጫወቱ።",tSoon:"ላጥላጥ ሊደርስ ጥቂት ቀርቶታል። በቅርቡ ተመልሰው ይጫወቱ!",lTitle:"ላጥላጥ",lOne:"1 ካርታ",lNew:"ከኮምፒውተሩ ጋር ወይም 3 ተጫዋቾች",lDesc:"የዕድል ውድድር፦ ሚስጥራዊ ካርታ ይምረጡ፣ ቁጥሩን መጀመሪያ ማን እንደሚያገኝ ይመልከቱ።",rulesL2:"ላጥላጥ እንዴት ይጫወታል",lDealer:"አዳይ (ኮምፒውተር)",l1:"አንድ ካርታ፣ ያለ ጆከር። ከአዳዩ ኮምፒውተር ጋር፣ ወይም 3 ሆነው ኮምፒውተሩ እያደለ እና እየዳኘ ይጫወቱ።",l2:"እያንዳንዱ ተጫዋች ሚስጥራዊ ካርታ ይመርጣል። ከኮምፒውተሩ ጋር ሲሆን አደላሉ ወጣ (የእርስዎ)፣ ገባ (የአዳዩ)፣ ወጣ፣ ገባ… ነው።",l3:"ከ3ኛው ካርታ በኋላ ሁሉም ሚስጥራዊ ካርታውን ያሳያል። የሚቆጠረው ቁጥሩ ብቻ ነው እንጂ ዓይነቱ አይደለም። የመጀመሪያዎቹ 3 ካርታዎች በተደለደሉበት ቅደም ተከተል ይታያሉ።",l4:"ከኮምፒውተሩ ጋር፦ ቁጥርዎ መጀመሪያ የወጣበት ወገን ያሸንፋል፤ ወጣ ከሆነ እርስዎ፣ ገባ ከሆነ አዳዩ።",l5:"3 ሲሆኑ፦ የራስዎ ቁጥር በክምርዎ ላይ ከወጣ ያሸንፋሉ። የሌላ ተጫዋች ቁጥር በክምርዎ ላይ ከወጣ ያ ተጫዋች ይወጣል። የመጨረሻው የቀረ ያሸንፋል። ድል 10 ነጥብ ነው።",lSecret:"ሚስጥራዊ ካርታ",lPickT:n=>`${n}፦ ሚስጥራዊ ካርታዎን ይምረጡ`,lPickHow:"ማንኛውንም የተገለበጠ ካርታ ይንኩ። የሚያዩት እርስዎ ብቻ ነዎት።",lRemember:"ሚስጥራዊ ካርታዎ ይህ ነው። ያስታውሱት!",lHideNext:"ደብቀው ያስተላልፉ",lStart:"ደብቀው አደላሉን ይጀምሩ",lUntil:k=>`እየተደለደለ ነው… ሁሉም ካርታውን እስኪያሳይ ${k} ካርታ ይቀራል`,lRace:"ቁጥሩን መጀመሪያ ማን ያገኛል?",lReveal:"ሚስጥራዊ ካርታዎች ተገለጡ!",lDealtTo:n=>`ለ${n} ካርታ ተሰጠ።`,lOut:(o,n)=>`${o} ወጣ፤ ${n} ቁጥሩን አገኘ።`,lIsOut:"ወጥቷል",lWins:n=>`${n} {አሸነፈ|አሸነፈች}!`,lHow:(c,n)=>`${c} በ${n} ክምር ላይ ወጣ።`,lHow2:"ኮምፒውተሩ ራሱ ያድላል። ክምሮቹን ይመልከቱ፦ ተመሳሳይ ቁጥር ያለው የመጀመሪያው ካርታ ዙሩን ይወስናል።",iTitle:"እንጀራ በወጥ",iDesc:"የመደመር ጨዋታ፦ ከክቡ ይሳቡ፣ የሚመሳሰሉትን ወይም ድምራቸው የሚሆኑትን ይውሰዱ።",rulesI:"እንጀራ በወጥ እንዴት ይጫወታል",visitor:"ጓደኛ",i1:"ለ2 ተጫዋች አንድ ካርታ፣ ለ3 ወይም 4 ሁለት ካርታ፣ ከጆከር ጋር። ካርታዎቹ በክብ ተገልብጠው ይቀመጣሉ (እንጀራ)፤ 4 ካርታ በመሃል ተገልጦ ይቀመጣል (ወጥ)። ጆከር ወጥ ውስጥ አይገባም።",i2:"በተራዎ ማንኛውንም የተገለበጠ ካርታ ይንኩ። ወጡ ውስጥ ያለውን ተመሳሳይ ቁጥር ሁሉ፣ እና ድምራቸው ቁጥሩን የሚያክል ካርታዎችን ሁሉ ይወስዳል (A=1፣ J=11፣ Q=12፣ K=13)።",i3:"መግፍ፦ የሌላ ተጫዋች መደብ ላይ ያለው የላይኛው ካርታ ተመሳሳይ ቁጥር ከሆነ፣ እሱንና ያሸነፋቸውን ካርታዎች ይወስዳል። መደቡን ይንኩ፣ ከዚያ «ግፈፍ» ይንኩ።",i4:"ካሸነፉ፣ ካርታዎ ከአሸነፏቸው ጋር በመደብዎ ላይ ይቀመጣል፤ እንደገና ይስባሉ። ምንም ካልወሰደ ወጡ ውስጥ ይገባል፤ ተራው ያልፋል።",i5:"ጆከር ወጡን በሙሉ ይወስዳል። የሌላ ተጫዋች መደብ ላይ ጆከር ካለ፣ ጆከር መደቡን በሙሉ ይወስዳል።",i6:"የመጨረሻውን የተገለበጠ ካርታ የሳበ ወጡ ውስጥ የቀረውን ሁሉ ይወስዳል።",i7:"ክቡ ሲያልቅ ብዙ ካርታ ያለው ያሸንፋል፦ 20 ነጥብ። 3 ወይም 4 ሲሆኑ ሁሉም ሰዎች ናቸው፤ ኮምፒውተሩ ዳኛ ነው።",iTake:"ውሰድ",rateQ:"ጨዋታውን ወደዱት?",rateThanks:"እናመሰግናለን!",iGrabB:"ግፈፍ",ieUseGrab:"የሌላ ተጫዋች መደብ የላይኛውን ለመውሰድ «ግፈፍ» ይንኩ።",ieGrabPick:"የሚወስዱበትን መደብ ይንኩ፣ ከዚያ «ግፈፍ» ይንኩ።",iGrabbedYou:w=>`መግፍ! የ${w}ን የላይኛው ቁልል ወሰዱ። ካርታዎ የሚወስደው ሌላ ካለ ይውሰዱ።`,iGrabbed:(n,w)=>`መግፍ! ${n} የ${w}ን የላይኛው ቁልል {ወስዶ እንደገና ይስባል|ወስዳ እንደገና ትስባለች}።`,iWaterB:"አጠጣ",ieWater:"ካርታዎ ከራስዎ መደብ የላይኛው ካርታ ጋር አይመሳሰልም።",iWateredYou:"ማጠጣት! ካርታዎ ወደ መደብዎ ገባ። የሚመሳሰለው ሌላ ካለ ይውሰዱ፣ ካልሆነ እንደገና ይሳቡ።",iWatered:n=>`${n} {መደቡን አጠጣ፤ እንደገና ይስባል|መደቧን አጠጣች፤ እንደገና ትስባለች}።`,i8:"ማጠጣት፦ ካርታዎ ከራስዎ መደብ የላይኛው ካርታ ጋር ከተመሳሰለ፣ «አጠጣ» ይንኩ፤ ካርታው መደብዎ ላይ ይጨመራል። እንደ ድል ይቆጠራል፤ እንደገና ይስባሉ። እንደ ሌሎቹ ሁሉ ሊታለፍ አይችልም። በኋላ የላይኛውን ካርታዎን የወሰደ ቁልሉን በሙሉ ይወስዳል።",mdebL:"መደብ",iNone:"የሚወሰድ የለም",iHint:"ፍንጭ",iHow:"ተመሳሳዩን እርስዎ ያገኛሉ፦ ካርታዎ የሚወስዳቸውን የወጥ ካርታዎች (ተመሳሳይ ቁጥር ወይም ድምራቸው የሚሆኑ) ይንኩ፣ ከዚያ «ውሰድ» ይንኩ። የሌላ ተጫዋች መደብ የላይኛው ተመሳሳይ ከሆነ መደቡን ይንኩና «ግፈፍ» ይንኩ። ከራስዎ መደብ የላይኛው ጋር ከተመሳሰለ «አጠጣ» ይንኩ። ኮምፒውተሩ እያንዳንዱን እንቅስቃሴ ይፈትሻል።",iDrawSt:n=>`${n}፦ ለመሳብ በክቡ ውስጥ ያለውን ማንኛውንም የተገለበጠ ካርታ ይንኩ`,iCapSt:n=>`${n}፦ ካርታዎ የሚወስደውን ሁሉ ያግኙ፣ ከዚያ «ውሰድ» ይንኩ`,iOtherSt:n=>`${n} {እየተጫወተ|እየተጫወተች} ነው…`,iDrewL:c=>`የተሳበው ካርታ፦ ${c}`,iGainL:n=>`በዚህ ተራ ያሸነፉት፦ ${n} ካርታ`,iEmpty:"ወጡ ባዶ ነው",iePick:"መጀመሪያ የሚወስዷቸውን ካርታዎች ይንኩ።",ieSum:"እነዚህ የወጥ ካርታዎች አይሆኑም። እያንዳንዱ ቡድን ከካርታዎ ጋር ተመሳሳይ ወይም ድምሩ እኩል መሆን አለበት።",ieTop:"ያ የመደብ የላይኛው ካርታ ከካርታዎ ጋር አይመሳሰልም።",ieMore:"ካርታዎ የሚወስደው ገና አለ። እንደገና ይመልከቱ ወይም «ፍንጭ» ይንኩ።",iHintNone:"የሚወሰድ ነገር የለም። «የሚወሰድ የለም» ይንኩ።",iHintShow:"በአረንጓዴ የተከበቡትን ካርታዎች ይመልከቱ።",iJoker:n=>`ጆከር! ${n} ወጡን በሙሉ {ወሰደ|ወሰደች}።`,iJokerPile:(n,o)=>`ጆከር በጆከር! ${n} የ${o}ን ካርታዎች በሙሉ {ወሰደ|ወሰደች}።`,iLast:n=>`የመጨረሻ ካርታ! ${n} ወጡ ውስጥ የቀረውን ሁሉ {ወሰደ|ወሰደች}።`,iTook:(n,k)=>`${n} ${k} ካርታ {አሸነፈ፤ እንደገና ይስባል|አሸነፈች፤ እንደገና ትስባለች}።`,iMiss:n=>`የ${n} ካርታ ወጡ ውስጥ ገባ።`,iWins:n=>`${n} በብዙ ካርታ {አሸነፈ|አሸነፈች}!`,iTie:"እኩል ሆነ፤ በዚህ ጊዜ አሸናፊ የለም።",svice:"የሴካ ቫይሶች",srounds:"የሴካ ዙሮች",histSWin:"ሴካ · ዙሩን አሸነፈ",histSVice:"ሴካ · በቫይስ አሸነፈ",kGo:"ያልተጨረሰ ጨዋታ፤ ካቆማችሁበት ቀጥሉ",kNew:"ከኮምፒውተሩ ወይም እርስ በርስ",
   howMany:"ስንት ተጫዋቾች ይጫወታሉ?",seatL:n=>`ቦታ ${n}`,ipad:"ኮምፒውተር",lvlL:"ኮምፒውተሩ ምን ያህል ጠንካራ ይሁን?",easy:"ቀላል",medium:"መካከለኛ",hard:"ከባድ",
   rulesL:"ኮንከር እንዴት ይጫወታል",rulesS:"ሴካ እንዴት ይጫወታል",
   r1:"ለ2 ተጫዋች አንድ ካርታ ከ2 ጆከር ጋር፣ ለ3 ወይም 4 ሁለት ካርታ። ሁሉም 13 ካርታ ያገኛል፤ አዳዩ 14 ያገኝና አንዱን በመጣል ይጀምራል።",
@@ -636,12 +720,12 @@ document.querySelectorAll(".fan").forEach(f=>{[{r:1,s:"S"},{r:13,s:"H"},{j:true}
 
 /* ---------- views ---------- */
 let view="home";
-function show(v){view=v;["home","setup","play","injera","scores"].forEach(n=>$("v-"+n).hidden=n!==v);window.scrollTo(0,0)}
+function show(v){view=v;if(v!=="latlat"&&typeof lTimer!=="undefined")clearTimeout(lTimer);["home","setup","play","injera","latlat","scores"].forEach(n=>$("v-"+n).hidden=n!==v);window.scrollTo(0,0)}
 document.querySelectorAll("[data-home]").forEach(b=>b.onclick=()=>{show("home");renderHome()});
 function applyLang(){document.documentElement.lang=lang;
  document.querySelectorAll("[data-t]").forEach(el=>{const v=t(el.dataset.t);if(typeof v==="string")el.textContent=v});
  $("langBtn").textContent=t("langBtn");const h=new Date().getHours();$("greet").textContent=t("greet")[h<12?0:h<17?1:2];
- renderHome();if(view==="setup")renderSetup();if(view==="play")render();if(view==="injera")renderI();if(view==="scores")renderScores()}
+ renderHome();if(view==="setup")renderSetup();if(view==="play")render();if(view==="injera")renderI();if(view==="latlat")renderL();if(view==="scores")renderScores()}
 $("langBtn").onclick=()=>{lang=lang==="en"?"am":"en";ls.set("lang",lang);applyLang()};
 let gArm=false;
 function renderHome(){const box=$("players");box.innerHTML="";
@@ -650,7 +734,7 @@ function renderHome(){const box=$("players");box.innerHTML="";
   b.querySelector(".av").textContent=[...nm][0]||"?";b.querySelector(".nm").textContent=nm;b.querySelector(".pt").textContent=players[i].pts+" "+t("points");
   b.onclick=()=>{cur=i;ls.set("cur",i);gArm=false;$("renameForm").hidden=true;renderHome()};box.appendChild(b)});
  $("newGuestBtn").hidden=cur!==2;$("newGuestBtn").textContent=gArm?t("newGuestC"):t("newGuest");
- {const kg=ls.get("kgame2",null),sg=ls.get("sgame1",null);$("kStatus").textContent=kg&&!kg.done?t("kGo"):t("kNew");$("sStatus").textContent=sg&&!sg.done?t("kGo"):t("kNew");const ig=ls.get("igame1",null);$("iStatusHome").textContent=ig&&!ig.done?t("kGo"):t("kNew")}$("homePts").textContent=players[cur].pts}
+ {const kg=ls.get("kgame2",null),sg=ls.get("sgame1",null);$("kStatus").textContent=kg&&!kg.done?t("kGo"):t("kNew");$("sStatus").textContent=sg&&!sg.done?t("kGo"):t("kNew");const ig=ls.get("igame1",null);$("iStatusHome").textContent=ig&&!ig.done?t("kGo"):t("kNew");const lg=ls.get("lgame1",null);$("lStatusHome").textContent=LSOON?"":lg&&!lg.done?t("kGo"):t("lNew")}$("homePts").textContent=players[cur].pts}
 $("newGuestBtn").onclick=()=>{if(!gArm){gArm=true;renderHome();setTimeout(()=>{gArm=false;renderHome()},3000);return}gArm=false;players[2]=blank();saveP(2);renderHome()};
 $("renameBtn").onclick=()=>{const f=$("renameForm");f.hidden=!f.hidden;if(!f.hidden){formG=[0,1,2].map(i=>pgender(i));renderGseg();[0,1,2].forEach(i=>{const el=$("name"+i);const n=players[i].name||"";el.value=n[0]==="@"?t(n.slice(1)):n;el.placeholder=t(["mom","dad","guest"][i])});$("name0").focus()}};
 let formG=[0,1,2].map(i=>pgender(i));
@@ -666,14 +750,16 @@ function renderSkins(){const box=$("skins");box.innerHTML="";SKINS.forEach(([k,l
  b.onclick=()=>{skin=k;ls.set("skin",k);document.documentElement.dataset.skin=k;renderSkins()};box.appendChild(b)})}
 const setupMain=Object.assign({n:2,seats:["cpu","cpu","cpu"],level:"medium",jokers:true},ls.get("ksetup2",{}));
 const setupI=Object.assign({n:2,seats:["cpu","1","2"]},ls.get("isetup1",{}));let setup=setupMain;
-const saveSetup=()=>ls.set(mode==="injera"?"isetup1":"ksetup2",setup);
-let mode="konker";const KEY={konker:"kgame2",seka:"sgame1",injera:"igame1"};
-function activate(m){mode=m;setup=m==="injera"?setupI:setupMain;G=ls.get(KEY[m],null);if(G&&!G.game)G.game=m;kAceHigh=!(G&&G.game==="seka"&&!G.aceHigh);pend=null;sel.clear();msg=""}
+const setupL=Object.assign({n:2,seats:["1","2"]},ls.get("lsetup1",{}));if(setupL.n>3)setupL.n=3;
+const saveSetup=()=>ls.set(mode==="injera"?"isetup1":mode==="latlat"?"lsetup1":"ksetup2",setup);
+let mode="konker";const KEY={konker:"kgame2",seka:"sgame1",injera:"igame1",latlat:"lgame1"};
+function activate(m){mode=m;setup=m==="injera"?setupI:m==="latlat"?setupL:setupMain;G=ls.get(KEY[m],null);if(G&&!G.game)G.game=m;kAceHigh=!(G&&G.game==="seka"&&!G.aceHigh);pend=null;sel.clear();msg=""}
 function openGame(m){activate(m);if(G&&!G.done){playView()}else{show("setup");renderSetup()}}
-function playView(){if(mode==="injera"){show("injera");renderI();resumeI()}else{show("play");render();resumeTurn()}}
-$("goKonker").onclick=()=>openGame("konker");$("goSeka").onclick=()=>openGame("seka");$("goInjera").onclick=()=>openGame("injera");
-function renderSetup(){const sk=mode==="seka",ij=mode==="injera";$("setupTitle").textContent=t(ij?"iTitle":sk?"sekaTitle":"kTitle");$("jkRow").hidden=!sk;$("konkerRules").hidden=sk||ij;$("sekaRules").hidden=!sk;$("injeraRules").hidden=!ij;
- $("lvlLabel").textContent=t(sk?"lvlLs":"lvlL");$("rulesLabel").textContent=t(ij?"rulesI":sk?"rulesS":"rulesL");$("s3").textContent=t(setup.level==="easy"?"s3e":"s3h");
+function playView(){if(mode==="latlat"){show("latlat");renderL();resumeL()}else if(mode==="injera"){show("injera");renderI();resumeI()}else{show("play");render();resumeTurn()}}
+$("goKonker").onclick=()=>openGame("konker");$("goSeka").onclick=()=>openGame("seka");$("goInjera").onclick=()=>openGame("injera");$("goLatlat").onclick=()=>LSOON?openTeaser():openGame("latlat");
+function renderSetup(){const sk=mode==="seka",ij=mode==="injera",ll=mode==="latlat";$("setupTitle").textContent=t(ll?"lTitle":ij?"iTitle":sk?"sekaTitle":"kTitle");$("jkRow").hidden=!sk;$("konkerRules").hidden=sk||ij||ll;$("sekaRules").hidden=!sk;$("injeraRules").hidden=!ij;$("latlatRules").hidden=!ll;
+ document.querySelector('#nSeg button[data-n="4"]').hidden=ll;
+ $("lvlLabel").textContent=t(sk?"lvlLs":"lvlL");$("rulesLabel").textContent=t(ll?"rulesL2":ij?"rulesI":sk?"rulesS":"rulesL");$("s3").textContent=t(setup.level==="easy"?"s3e":"s3h");
  document.querySelectorAll("#jkSeg button").forEach(b=>b.setAttribute("aria-pressed",String((b.dataset.j==="1")===(setup.jokers!==false))));
  document.querySelectorAll("#nSeg button").forEach(b=>b.setAttribute("aria-pressed",String(+b.dataset.n===setup.n)));
  document.querySelectorAll("#lvlSeg button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.l===setup.level)));
@@ -681,18 +767,19 @@ function renderSetup(){const sk=mode==="seka",ij=mode==="injera";$("setupTitle")
  const s1=document.createElement("div");s1.className="seat";s1.innerHTML=`<b></b><span class="muted"></span>`;s1.firstChild.textContent=L().seatL(1);s1.lastChild.textContent=pname(cur);box.appendChild(s1);
  for(let k=0;k<setup.n-1;k++){const row=document.createElement("div");row.className="seat";const h=document.createElement("b");h.textContent=L().seatL(k+2);row.appendChild(h);
   const chips=document.createElement("div");chips.className="chips";
-  const people=[0,1,2].filter(i=>i!==cur).map(String),optsS=ij&&setup.n>2?people.concat(["vm","vf"]):["cpu",...people];
+  const people=[0,1,2].filter(i=>i!==cur).map(String),optsS=ll?(setup.n===2?["dealer"]:people.concat(["vm","vf"])):ij&&setup.n>2?people.concat(["vm","vf"]):["cpu",...people];
+  if(ll&&setup.n===2){const sp=document.createElement("span");sp.className="muted";sp.textContent=t("lDealer");row.appendChild(sp);box.appendChild(row);continue}
   if(setup.seats[k]!=="cpu"&&setup.seats[k][0]!=="v"&&+setup.seats[k]===cur)setup.seats[k]=optsS[0];if(!optsS.includes(setup.seats[k]))setup.seats[k]=optsS.find(o=>o[0]==="v"||!setup.seats.slice(0,setup.n-1).some((x,j)=>j!==k&&x===o))||optsS[0];
   optsS.forEach(o=>{const taken=o!=="cpu"&&o[0]!=="v"&&setup.seats.slice(0,setup.n-1).some((x,j)=>j!==k&&x===o);const b=document.createElement("button");b.type="button";b.className="chip";
    b.textContent=o==="cpu"?t("ipad"):o[0]==="v"?t("visitor")+" · "+t(o==="vf"?"female":"male").replace(/ \(.*\)/,""):pname(+o);b.disabled=taken;b.setAttribute("aria-pressed",String(setup.seats[k]===o));
    b.onclick=()=>{setup.seats[k]=o;saveSetup();renderSetup()};chips.appendChild(b)});
   row.appendChild(chips);box.appendChild(row)}
- $("lvlRow").hidden=ij||(!sk&&!setup.seats.slice(0,setup.n-1).includes("cpu"));
+ $("lvlRow").hidden=ij||ll||(!sk&&!setup.seats.slice(0,setup.n-1).includes("cpu"));
  $("resumeBtn").hidden=!(G&&!G.done);renderSkins()}
 document.querySelectorAll("#nSeg button").forEach(b=>b.onclick=()=>{setup.n=+b.dataset.n;saveSetup();renderSetup()});
 document.querySelectorAll("#jkSeg button").forEach(b=>b.onclick=()=>{setup.jokers=b.dataset.j==="1";saveSetup();renderSetup()});
 document.querySelectorAll("#lvlSeg button").forEach(b=>b.onclick=()=>{setup.level=b.dataset.l;saveSetup();renderSetup()});
-$("startBtn").onclick=()=>{if(mode==="injera")newGameI();else newGame();playView()};
+$("startBtn").onclick=()=>{if(mode==="latlat")newGameL();else if(mode==="injera")newGameI();else newGame();playView()};
 $("resumeBtn").onclick=()=>playView();
 
 /* ---------- game state ---------- */
@@ -761,7 +848,7 @@ function bestDiscard(h,need,lvl,avoid){let idx=h.map((c,i)=>i).filter(i=>h[i].id
  const nonJ=idx.filter(i=>!h[i].j),pool=nonJ.length?nonJ:idx;
  if(lvl==="easy"&&Math.random()<.4)return h[pool[Math.floor(Math.random()*pool.length)]];
  let best=null,bs=-1;for(const i of pool){const s=kScore(h,need,i)+(lvl==="hard"?0:Math.random()*4);if(s>bs){bs=s;best=h[i]}}return best}
-async function cpuTurn(){busy=true;const me=G.turn,lvl=G.level;render();await wait(800);
+async function cpuTurn(){busy=true;const g0=G;const me=G.turn,lvl=G.level;render();await wait(800);if(G!==g0){busy=false;return}
  if(G.phase==="draw"){const top=G.discard[G.discard.length-1],h=G.hands[me],need=needOf(me);let plan=null;
   if(top){const h14=h.concat([top]);
    if(winDiscards(h14,need,0,top.id).length)plan={win:true};
@@ -771,9 +858,9 @@ async function cpuTurn(){busy=true;const me=G.turn,lvl=G.level;render();await wa
        const s=Math.max(...rest.map((c,i)=>c.id===top.id?-1:kScore(rest,nd,i)));if(s>bs){bs=s;bo=o}}
       plan={open:bo}}}}}
   if(plan){actTake();if(plan.open)actShow(plan.open.groups)}else if(!actDraw()){busy=false;render();return}
-  saveG();render();await wait(700)}
+  saveG();render();await wait(700);if(G!==g0){busy=false;return}}
  if(G.phase!=="play"&&G.phase!=="show"){busy=false;return}
- const h=G.hands[me],need=needOf(me);if(G.phase==="play"&&opened(me)&&!(lvl==="easy"&&Math.random()<.5)){let again=true;while(again){again=false;for(const c of G.hands[me]){const sw=swapsFor(me,c);if(sw.length){actSwap(me,c.id,sw[0]);again=true;saveG();render();await wait(700);break}}}}
+ const h=G.hands[me],need=needOf(me);if(G.phase==="play"&&opened(me)&&!(lvl==="easy"&&Math.random()<.5)){let again=true;while(again){again=false;for(const c of G.hands[me]){const sw=swapsFor(me,c);if(sw.length){actSwap(me,c.id,sw[0]);again=true;saveG();render();await wait(700);if(G!==g0){busy=false;return}break}}}}
  const wins=winDiscards(G.hands[me],need,0,G.took);
  let d=wins.length?(wins.find(c=>c.j)||wins[0]):bestDiscard(G.hands[me],need,lvl,G.took);
  if(G.phase==="show"&&!wins.length){actPutBack();actDraw();d=bestDiscard(G.hands[me],need,lvl,null)}
@@ -896,6 +983,121 @@ window.addEventListener("pointerup",()=>endDrag(true));window.addEventListener("
 handEl.addEventListener("click",e=>{if(e.detail===0){const el=e.target.closest(".card");if(el)tapCard(+el.dataset.id)}});
 handEl.addEventListener("contextmenu",e=>e.preventDefault());
 
+/* ---------- LatLat "coming soon" preview: a scripted demo that loops until closed ---------- */
+const LSOON=((window.APPCFG||{}).soon||[]).includes("latlat");
+if(LSOON){const tile=$("goLatlat");tile.classList.add("soon");const rb=document.createElement("span");rb.className="ribbon";rb.innerHTML='<span>በቅርብ ቀን</span> · <span style="font-family:inherit">Coming soon</span>';tile.insertBefore(rb,tile.querySelector("h2"));tile.querySelector(".go").dataset.t="soonSt";}
+let tRun=0;
+const TSCRIPTS=[{sec:{r:7,s:"H"},deal:[{r:2,s:"S"},{r:9,s:"D"},{r:13,s:"C"},{r:12,s:"H"},{r:7,s:"S"}],win:0},
+ {sec:{r:4,s:"D"},deal:[{r:10,s:"C"},{r:11,s:"D"},{r:3,s:"S"},{r:8,s:"H"},{r:1,s:"C"},{r:4,s:"S"}],win:1}];
+const tWait=(ms,run)=>new Promise((res,rej)=>setTimeout(()=>run===tRun?res():rej(0),ms));
+function tCap(am,en){const c=$("tStage").querySelector(".tcap");c.innerHTML='<span class="am"></span><span class="en"></span>';c.firstChild.textContent=am;c.lastChild.textContent=en}
+async function tPlay(run){let k=0;const st=$("tStage");
+ try{for(;;){const sc=TSCRIPTS[k++%TSCRIPTS.length];let id=1;const card=c=>Object.assign({id:id++,j:false},c);
+  // 1. pick a secret card
+  st.innerHTML='<div class="tcap"></div><div class="tfan"></div>';tCap("1. ሚስጥራዊ ካርታ ይምረጡ","1. Pick a secret card");
+  const fan=st.querySelector(".tfan");for(let i=0;i<6;i++)fan.appendChild(cardEl(null,{back:true}));await tWait(1300,run);
+  const pick=fan.children[3];pick.classList.add("up");await tWait(700,run);
+  const face=cardEl(card(sc.sec));face.classList.add("up","flip");fan.replaceChild(face,pick);await tWait(1500,run);
+  face.replaceWith(Object.assign(cardEl(null,{back:true}),{className:"card back up flip"}));tCap("ያስታውሱት፤ ማንም አያየውም","Remember it. Nobody else sees it.");await tWait(1400,run);
+  // 2. the deal
+  st.innerHTML='<div class="tcap"></div><div class="trow"></div>';tCap("2. አዳዩ ያድላል፦ ወጣ፣ ገባ፣ ወጣ…","2. The dealer deals: ወጣ, ገባ, ወጣ…");
+  const row=st.querySelector(".trow"),piles=[0,1].map(i=>{const b=document.createElement("div");b.className="tpile";
+   b.innerHTML=`<div class="lhead"><b></b><span class="lside">${i?"ገባ":"ወጣ"}</span></div><div class="lrow"></div>`;b.querySelector("b").textContent=i?t("lDealer"):t("tYou");
+   const lr=b.querySelector(".lrow");if(!i){const sc2=document.createElement("div");sc2.className="lsecret";sc2.appendChild(cardEl(null,{back:true}));const lab=document.createElement("span");lab.className="small muted";lab.textContent=t("lSecret");sc2.appendChild(lab);lr.appendChild(sc2)}
+   const stk=document.createElement("div");stk.className="lstack";lr.appendChild(stk);row.appendChild(b);return {b,stk,n:0}});
+  await tWait(900,run);
+  for(let i=0;i<sc.deal.length;i++){const p=piles[i%2],c=cardEl(card(sc.deal[i]));c.classList.add("pop");c.style.left=(p.n*26)+"px";p.n++;p.stk.style.width=(70+(p.n-1)*26)+"px";p.stk.appendChild(c);
+   await tWait(1000,run);
+   if(i===2){tCap("3. ከ3ኛው ካርታ በኋላ ሚስጥሩ ይገለጣል","3. After the 3rd card, the secret is shown");const old=piles[0].b.querySelector(".lsecret .card"),f=cardEl(card(sc.sec));f.classList.add("flip");old.replaceWith(f);await tWait(1600,run);
+    tCap("ቁጥሩን መጀመሪያ ማን ያገኛል?","Who catches the number first?")}
+   if(i===sc.deal.length-1){c.classList.add("lhit");piles[i%2].b.classList.add("win");
+    tCap(sc.win?"ገባ አሸነፈ! ቁጥሩ መጀመሪያ በአዳዩ ወገን ወጣ":"ወጣ አሸነፈ! ቁጥሩ መጀመሪያ በእርስዎ ወገን ወጣ",sc.win?"ገባ wins! The number landed on the dealer's side first.":"ወጣ wins! The number landed on your side first.");await tWait(3200,run)}}
+ }}catch(e){}
+}
+function openTeaser(){$("teaser").hidden=false;tRun++;tPlay(tRun);$("tClose").focus();
+ try{if(window.gamesTrack)window.gamesTrack("game-preview",{game:"latlat"})}catch(e){}}
+function closeTeaser(){tRun++;$("teaser").hidden=true;$("tStage").innerHTML=""}
+$("tClose").onclick=closeTeaser;$("teaser").addEventListener("click",e=>{if(e.target.id==="teaser")closeTeaser()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("teaser").hidden)closeTeaser()});
+if(LSOON&&location.hash==="#latlat")setTimeout(openTeaser,300);window.addEventListener("hashchange",()=>{if(LSOON&&location.hash==="#latlat")openTeaser()});
+
+/* ================= ላጥላጥ (LatLat) =================
+   Two modes: you against the computer dealer (piles ወጣ = you, ገባ = dealer), or 3 players with the computer as dealer and referee.
+   Everyone reveals after the 3rd card; the first 3 cards are then checked in the order they were dealt. */
+let lpick=null,lmsg="",lQuitArm=false,lTimer=null,lPeek=false;
+const lVs=()=>G.seats.length===2;               // you against the computer dealer
+const lName=i=>lVs()&&i===1?t("lDealer"):seatName(i);
+function newGameL(){const seats=[{kind:"human",pid:cur}];
+ if(setup.n===2)seats.push({kind:"cpu"});else for(let k=0;k<2;k++){const o=setup.seats[k];seats.push(o[0]==="v"?{kind:"v",g:o==="vf"?"f":"m"}:{kind:"human",pid:+o})}
+ G={game:"latlat",seats,round:0,done:false};dealL();track("game-start")}
+function dealL(){const n=G.seats.length;G.round++;G.rated=false;G.deck=kShuffle(kDeck(1,true));
+ G.secrets=G.seats.map(()=>null);G.piles=G.seats.map(()=>[]);G.dealt=[];G.out=G.seats.map(()=>false);G.revealed=false;G.over=null;G.log="";
+ G.pickers=lVs()?[0]:[0,1,2];G.pickAt=0;G.phase="pick";G.ready=lVs();G.next=0;lpick=null;lmsg="";saveG()}
+/* whose turn to receive the next card: 2 players → ወጣ, ገባ, ወጣ…; 3 players → P1, P2, P3… skipping players who are out */
+function lNextSeat(){const n=G.seats.length;let i=G.next%n,k=0;while(G.out[i]&&k<n){i=(i+1)%n;k++}return i}
+function lPickCard(idx){const c=G.deck.splice(idx%G.deck.length,1)[0];G.secrets[G.pickers[G.pickAt]]=c;lpick=c;saveG()}
+function lPickDone(){lpick=null;G.pickAt++;if(G.pickAt>=G.pickers.length){G.phase="deal";G.ready=true}else G.ready=false;saveG()}
+/* check one dealt card; returns true when the game is over */
+function lCheck(d){const c=d.card,to=d.to;
+ if(lVs()){if(c.r===G.secrets[0].r){lEnd(to,d);return true}return false}
+ if(G.out[to])return false;
+ if(G.secrets[to].r===c.r){lEnd(to,d);return true}
+ const caught=G.seats.map((_,o)=>o).filter(o=>o!==to&&!G.out[o]&&G.secrets[o].r===c.r);
+ if(caught.length){caught.forEach(o=>G.out[o]=true);d.caught=caught;G.log=L().lOut(caught.map(o=>seatName(o)).join(", "),seatName(to));
+  const left=G.seats.map((_,o)=>o).filter(o=>!G.out[o]);if(left.length===1){lEnd(left[0],d);return true}}
+ return false}
+function lDealOne(){if(G.phase!=="deal")return;if(!G.deck.length){G.phase="over";G.over={w:null};saveG();return}
+ const to=lNextSeat(),c=G.deck.pop(),d={card:c,to};G.dealt.push(d);G.piles[to].push(c);G.next=to+1;G.log=L().lDealtTo(lName(to));
+ if(G.dealt.length===3){G.revealed=true;G.log=t("lReveal");for(const x of G.dealt){if(lCheck(x))break}}
+ else if(G.revealed)lCheck(d);
+ saveG()}
+function lEnd(w,d){G.phase="over";G.over={w,card:d.card.id,on:d.to};
+ G.seats.forEach((s,i)=>{if(s.kind!=="human")return;const p=players[s.pid];p.lRounds=(p.lRounds||0)+1;const day=dayStr();if(!p.days.includes(day))p.days.push(day);
+  if(i===w){p.pts+=10;p.lWins=(p.lWins||0)+1;p.hist.unshift({d:day,v:0,pts:10,g:"l"});p.hist=p.hist.slice(0,30)}saveP(s.pid)});
+ track("round-end",{result:G.seats[w].kind==="cpu"?"ipad":"player"});
+ if(G.seats[w].kind!=="cpu")setTimeout(()=>{cheer(gx(L().lWins(lName(w)),seatG(w)),"",10);if(G.seats[w].kind!=="human")$("cheerPts").textContent=""},700)}
+function lAuto(){clearTimeout(lTimer);if(!G||G.game!=="latlat"||view!=="latlat"||G.phase!=="deal"||!G.ready)return;
+ lTimer=setTimeout(()=>{if(!G||G.game!=="latlat"||view!=="latlat")return;lDealOne();renderL();lAuto()},G.dealt.length<3?900:1100)}
+function resumeL(){lAuto()}
+/* ---------- drawing ---------- */
+function lPileEl(i){const box=document.createElement("div");box.className="lpile"+(G.out[i]?" out":"")+(G.over&&G.over.w===i?" win":"");
+ const head=document.createElement("div");head.className="lhead";
+ const side=lVs()?(i===0?"ወጣ":"ገባ"):"";head.innerHTML=`<b></b>${side?`<span class="lside">${side}</span>`:""}`;head.querySelector("b").textContent=lName(i);box.appendChild(head);
+ const row=document.createElement("div");row.className="lrow";
+ // secret card (players only)
+ if(G.secrets[i]||(!lVs()||i===0)){const sc=document.createElement("div");sc.className="lsecret";const lab=document.createElement("span");lab.className="small muted";lab.textContent=t("lSecret");
+  const show=G.revealed&&G.secrets[i];sc.appendChild(show?cardEl(G.secrets[i]):cardEl(null,{back:true}));sc.appendChild(lab);row.appendChild(sc)}
+ // the pile: last cards fanned, newest on top
+ const pile=document.createElement("div");pile.className="lstack";const last=G.piles[i].slice(-5);
+ if(!last.length){const e=document.createElement("div");e.className="empty-pile";pile.appendChild(e)}
+ last.forEach((c,k)=>{const ce=cardEl(c);ce.style.left=(k*26)+"px";if(G.over&&G.over.card===c.id)ce.classList.add("lhit");
+  const d=G.dealt.find(x=>x.card.id===c.id);if(d&&d.caught)ce.classList.add("lcatch");pile.appendChild(ce)});
+ pile.style.width=(74+Math.max(0,last.length-1)*26)+"px";row.appendChild(pile);box.appendChild(row);
+ const cnt=document.createElement("div");cnt.className="small";cnt.textContent=G.out[i]?t("lIsOut"):G.piles[i].length===1?t("lOne"):L().cards(G.piles[i].length);box.appendChild(cnt);
+ return box}
+function renderL(){if(!G||G.game!=="latlat")return;$("lTag").textContent=t("lTitle")+" · "+L().round(G.round);
+ const pk=$("lPick"),tb=$("lTable");pk.hidden=G.phase!=="pick";tb.hidden=G.phase==="pick";
+ if(G.phase==="pick"){const who=G.pickers[G.pickAt];pk.innerHTML="";if(!lpick&&G.ready&&G.secrets[who])lpick=G.secrets[who];
+  if(!G.ready){const h=document.createElement("div");h.className="stack";h.style.alignItems="center";h.innerHTML=`<h2></h2><p class="muted"></p><button class="btn gold" type="button"></button>`;
+   h.querySelector("h2").textContent=L().passTo(seatName(who));h.querySelector("p").textContent=t("passSub");const b=h.querySelector("button");b.textContent=t("ready");b.onclick=()=>{G.ready=true;saveG();renderL()};pk.appendChild(h);return}
+  const h=document.createElement("h2");h.textContent=lpick?t("lRemember"):L().lPickT(seatName(who));pk.appendChild(h);
+  if(lpick){const w=document.createElement("div");w.className="stack";w.style.alignItems="center";const ce=cardEl(lpick);ce.classList.add("lbig");w.appendChild(ce);
+   const b=document.createElement("button");b.type="button";b.className="btn primary";b.textContent=G.pickAt+1<G.pickers.length?t("lHideNext"):t("lStart");b.onclick=()=>{lPickDone();renderL();lAuto()};w.appendChild(b);pk.appendChild(w);return}
+  const p=document.createElement("p");p.className="muted";p.textContent=t("lPickHow");pk.appendChild(p);
+  const grid=document.createElement("div");grid.className="lgrid";for(let k=0;k<G.deck.length;k++){const bt=document.createElement("button");bt.type="button";bt.className="card back";bt.setAttribute("aria-label","Face-down card "+(k+1));bt.onclick=()=>{lPickCard(k);renderL()};grid.appendChild(bt)}
+  pk.appendChild(grid);return}
+ const ps=$("lPiles");ps.innerHTML="";G.seats.forEach((_,i)=>ps.appendChild(lPileEl(i)));
+ $("lDeckN").textContent=G.deck.length;
+ let st="";if(G.phase==="deal")st=G.revealed?t("lRace"):L().lUntil(3-G.dealt.length);$("lStatus").textContent=st;
+ const m=$("lMsg");m.textContent=lmsg||G.log||"";
+ $("lOver").hidden=G.phase!=="over";renderRate();
+ if(G.phase==="over"){const o=G.over;$("lOverTitle").textContent=o.w==null?t("drawRound"):gx(L().lWins(lName(o.w)),seatG(o.w));
+  const c=o.card!=null?G.dealt.find(x=>x.card.id===o.card):null;$("lOverSub").textContent=c?L().lHow(cName(c.card),lName(c.to)):""}
+ $("lQuitBtn").textContent=lQuitArm?t("quitC"):t("quit")}
+$("lAgainBtn").onclick=()=>{dealL();renderL();lAuto()};
+$("lChangeBtn").onclick=()=>{G.done=true;saveG();show("setup");renderSetup()};
+$("lQuitBtn").onclick=()=>{if(!lQuitArm){lQuitArm=true;renderL();setTimeout(()=>{lQuitArm=false;if(view==="latlat")renderL()},3000);return}lQuitArm=false;clearTimeout(lTimer);G.done=true;saveG();show("setup");renderSetup()};
+
 /* ---------- 👍 / 👎 after a round (public site only: needs the anonymous counter, and counting switched on) ---------- */
 const canRate=()=>!!(window.gamesTrack&&window.gamesCounting&&!window.gamesCounting.off());
 function renderRate(){document.querySelectorAll("[data-rate]").forEach(box=>{box.hidden=!(G&&G.phase==="over"&&canRate()&&!G.rated)})}
@@ -903,11 +1105,11 @@ document.querySelectorAll("[data-rate] button").forEach(b=>b.onclick=()=>{if(!G|
 
 /* ---------- scores ---------- */
 function renderScores(){const p=players[cur];$("scoreTitle").textContent=L().scoreTitle(pname(cur));
- $("statTiles").innerHTML=[["total",p.pts],["kwins",p.kWins||0],["kvice",p.kVice||0],["krounds",p.kRounds||0],["swins",p.sWins||0],["svice",p.sVice||0],["srounds",p.sRounds||0],["iwins",p.iWins||0],["irounds",p.iRounds||0]].map(([k,v])=>`<div class="stat"><span class="muted small">${esc(t(k))}</span><b>${v}</b></div>`).join("");
+ $("statTiles").innerHTML=[["total",p.pts],["kwins",p.kWins||0],["kvice",p.kVice||0],["krounds",p.kRounds||0],["swins",p.sWins||0],["svice",p.sVice||0],["srounds",p.sRounds||0],["iwins",p.iWins||0],["irounds",p.iRounds||0]].concat(LSOON?[]:[["lwins",p.lWins||0],["lrounds",p.lRounds||0]]).map(([k,v])=>`<div class="stat"><span class="muted small">${esc(t(k))}</span><b>${v}</b></div>`).join("");
  $("bothTitle").textContent=pname(0)+" · "+pname(1);const a=players[0].pts,b=players[1].pts;
  $("vs").innerHTML=[0,1].map(i=>{const v=players[i].pts,lead=v>0&&a!==b&&v===Math.max(a,b);return `<div class="stat${lead?" lead":""}"><span class="small">${esc(pname(i))}${lead?" ★":""}</span><b>${v}</b></div>`}).join("");
  $("guestLine").textContent=players[2].pts>0?L().guestLine(pname(2),players[2].pts):"";
- $("hist").innerHTML=p.hist.length?p.hist.map(h=>`<div><span><span class="muted small">${esc(h.d)}</span><br>${esc(h.g==="i"?t("histIWin"):h.g==="s"?(h.v?t("histSVice"):t("histSWin")):(h.v?t("histVice"):t("histWin")))}</span><b>${esc(L().pts(h.pts))}</b></div>`).join(""):`<p class="muted">${esc(t("none"))}</p>`;
+ $("hist").innerHTML=p.hist.length?p.hist.map(h=>`<div><span><span class="muted small">${esc(h.d)}</span><br>${esc(h.g==="l"?t("histLWin"):h.g==="i"?t("histIWin"):h.g==="s"?(h.v?t("histSVice"):t("histSWin")):(h.v?t("histVice"):t("histWin")))}</span><b>${esc(L().pts(h.pts))}</b></div>`).join(""):`<p class="muted">${esc(t("none"))}</p>`;
  const lb=ls.get("lastBackup",null);$("lastBackup").textContent=lb?L().lastB(lb):t("noB");$("restoreMsg").textContent=""}
 $("backupBtn").onclick=async()=>{if(await downloadJSON({app:"card-games",version:1,savedAt:new Date().toISOString(),players,cur},"card-games-backup-"+dayStr()+".json")){ls.set("lastBackup",dayStr());renderScores();toast("✓")}};
 $("restoreInput").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;
@@ -977,13 +1179,13 @@ function endI(){G.phase="over";const counts=G.seats.map((_,o)=>iCount(o)),mx=Mat
   if(i===w){p.pts+=20;p.iWins=(p.iWins||0)+1;p.hist.unshift({d,v:0,pts:20,g:"i"});p.hist=p.hist.slice(0,30)}saveP(s.pid)});
  saveG();if(w!=null&&G.seats[w].kind!=="cpu")setTimeout(()=>cheer(GS("iWins",w),G.seats.map((_,o)=>seatName(o)+" "+counts[o]).join(" · "),20),600)}
 /* the computer player (2-player games only) */
-async function cpuTurnI(){if(busy)return;busy=true;
+async function cpuTurnI(){if(busy)return;busy=true;const g0=G;
  while(G&&G.game==="injera"&&G.phase!=="over"&&!isHuman(G.turn)&&view==="injera"){
-  renderI();await wait(800);
-  if(G.phase==="draw"){const free=G.circle.map((c,i)=>c?i:-1).filter(i=>i>=0);iDraw(free[Math.floor(Math.random()*free.length)]);renderI();await wait(900);continue}
-  if(G.phase==="capture"){let b=iBest();if(b.water){hintO.add(G.turn);renderI();await wait(1000);iWater();renderI();await wait(500);if(G.phase!=="capture")continue;b=iBest()}
-   if(b.groups.length||b.owners.length){b.groups.forEach(g=>g.forEach(k=>hintW.add(G.wot[k].id)));b.owners.forEach(o=>hintO.add(o));renderI();await wait(1200);
-    iTake([].concat(...b.groups).map(k=>G.wot[k].id),b.owners)}else{iSettle(false);saveG()}renderI();await wait(500)}}
+  renderI();await wait(800);if(G!==g0){busy=false;return}
+  if(G.phase==="draw"){const free=G.circle.map((c,i)=>c?i:-1).filter(i=>i>=0);iDraw(free[Math.floor(Math.random()*free.length)]);renderI();await wait(900);if(G!==g0){busy=false;return}continue}
+  if(G.phase==="capture"){let b=iBest();if(b.water){hintO.add(G.turn);renderI();await wait(1000);if(G!==g0){busy=false;return}iWater();renderI();await wait(500);if(G!==g0){busy=false;return}if(G.phase!=="capture")continue;b=iBest()}
+   if(b.groups.length||b.owners.length){b.groups.forEach(g=>g.forEach(k=>hintW.add(G.wot[k].id)));b.owners.forEach(o=>hintO.add(o));renderI();await wait(1200);if(G!==g0){busy=false;return}
+    iTake([].concat(...b.groups).map(k=>G.wot[k].id),b.owners)}else{iSettle(false);saveG()}renderI();await wait(500);if(G!==g0){busy=false;return}}}
  busy=false;renderI()}
 function resumeI(){if(!G||G.game!=="injera"||G.phase==="over"||busy||view!=="injera")return;if(!isHuman(G.turn))cpuTurnI()}
 const cName=c=>c.j?"Joker":RL(c.r)+SYM[c.s]+"︎";

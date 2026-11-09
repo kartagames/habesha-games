@@ -12,7 +12,7 @@
 <link rel="icon" type="image/png" href="icon-180.png">
 <meta name="theme-color" content="#1E5E48">
 <script>function FBMAIL(app,am){var sub=(am?"አስተያየት":"Feedback")+(app?" · "+app:"")+" · Habesha Card Games";var body=am?"ጨዋታ፦ "+app+"\n\nመልዕክትዎ፦\n\n\n— የመተግበሪያው ቋንቋ፦ አማርኛ":"Game: "+app+"\n\nYour message:\n\n\n— App language: English";return "mailto:kartagames@protonmail.com?subject="+encodeURIComponent(sub)+"&body="+encodeURIComponent(body)}</script>
-<script>window.APPCFG={store:true,defG:["m","m","m"]}</script>
+<script>window.APPCFG={store:true,defG:["m","m","m"],soon:["latlat"]}</script>
 <script src="../analytics-config.js"></script>
 <script src="../telemetry.js"></script>
 <title>Dama · Habesha Card Games</title>
@@ -310,6 +310,17 @@ html[lang="am"] .label{text-transform:none;letter-spacing:0}
 </head>
 <body>
 <div class="tibeb" aria-hidden="true"></div>
+<div class="ticker" role="note" aria-label="በቅርብ ቀን፦ አዲሱ አድራሻችን habeshacardgames.com። Coming soon: our new home is habeshacardgames.com. Your scores are safe.">
+<div class="tkmove" aria-hidden="true"><span class="tk"><b>በቅርብ ቀን</b> · አዲሱ አድራሻችን <u>habeshacardgames.com</u> · ነጥቦቻችሁ አይጠፉም</span><span class="tk"><b>Coming soon</b> · Our new home: <u>habeshacardgames.com</u> · Your scores are safe</span><span class="tk"><b>በቅርብ ቀን</b> · አዲሱ አድራሻችን <u>habeshacardgames.com</u> · ነጥቦቻችሁ አይጠፉም</span><span class="tk"><b>Coming soon</b> · Our new home: <u>habeshacardgames.com</u> · Your scores are safe</span></div></div>
+<style>
+.ticker{background:#9E3446;color:#fff;overflow:hidden;white-space:nowrap;border-bottom:3px solid #C2902A;font-size:18px;line-height:1;padding:9px 0}
+.tkmove{display:inline-flex;animation:tk 38s linear infinite;will-change:transform}
+.ticker:hover .tkmove,.ticker:active .tkmove{animation-play-state:paused}
+.tk{padding:0 28px;display:inline-flex;align-items:center;gap:.4em}.tk b{color:#F3DFA6}.tk u{text-decoration:none;font-weight:700;letter-spacing:.02em}
+.tk::after{content:"✦";color:#F3DFA6;margin-left:28px}
+@keyframes tk{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ticker{white-space:normal}.tkmove{animation:none;display:flex;flex-direction:column;align-items:center;gap:4px;line-height:1.35}.tkmove .tk:nth-child(n+3){display:none}.tk{display:block;text-align:center;padding:0 12px}.tk::after{display:none}}
+</style>
 <nav class="mm-bar"><a class="mm-link" id="mmLink" href="../index.html"><span class="ic" aria-hidden="true">☰</span><span>Main menu</span></a> <a class="mm-link" id="fbLink" href="#"><span class="ic" aria-hidden="true">✉</span><span>Send feedback</span></a></nav>
 <script>(function(){var a=document.getElementById("mmLink"),r=document.documentElement;var f=document.getElementById("fbLink"),app=location.pathname.indexOf("/dama/")>=0?"Dama":"Card Games";function s(save){var am=r.lang==="am";a.lastChild.textContent=am?"ዋና ማውጫ":"Main menu";f.lastChild.textContent=am?"አስተያየት ይላኩ":"Send feedback";f.href=FBMAIL(app,am);if(save){try{localStorage.setItem("games.lang",am?"am":"en")}catch(e){}}}s(false);new MutationObserver(function(){s(true)}).observe(r,{attributes:true,attributeFilter:["lang"]})})();</script>
 

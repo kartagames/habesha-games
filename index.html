@@ -7,7 +7,7 @@
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-180.png">
 <meta name="theme-color" content="#1E5E48">
-<meta name="description" content="Konker, Seka, Injera Bewet and Dama in Amharic and English. Works offline.">
+<meta name="description" content="Konker, Seka, Injera Bewet, LatLat and Dama in Amharic and English. Works offline.">
 <title>Habesha Card Games</title>
 <script src="analytics-config.js"></script>
 <script src="telemetry.js"></script>
@@ -35,9 +35,26 @@ a.app:hover{border-color:var(--green)}a.app img{width:88px;height:88px;border-ra
 <div class="tibeb"></div>
 <main>
 <div class="top"><h1 data-am="የሐበሻ ካርታ ጨዋታዎች" data-en="Habesha Card Games">Habesha Card Games</h1><button class="lang" type="button" id="langBtn">አማርኛ</button></div>
-<p class="muted" data-am="ኮንከር፣ ሴካ፣ እንጀራ በወጥ እና ዳማ በአማርኛ እና በእንግሊዝኛ። ያለ ኢንተርኔትም ይሠራል።" data-en="Konker, Seka, Injera Bewet and Dama, in Amharic and English. Works without internet."></p>
+<p class="muted" data-am="ኮንከር፣ ሴካ፣ እንጀራ በወጥ፣ ላጥላጥ (በቅርብ ቀን) እና ዳማ በአማርኛ እና በእንግሊዝኛ። ያለ ኢንተርኔትም ይሠራል።" data-en="Konker, Seka, Injera Bewet, LatLat (coming soon) and Dama, in Amharic and English. Works without internet."></p>
+<section class="soonhero" role="note">
+<div class="fan" aria-hidden="true"><div class="pc c1"><span class="r">A<i>♠︎</i></span><span class="m">♠︎</span></div><div class="pc c2 red"><span class="r">K<i>♥︎</i></span><span class="m">♥︎</span></div><div class="pc c3 red"><span class="r">7<i>♦︎</i></span><span class="m">♦︎</span></div><div class="pc c4"><span class="r">Q<i>♣︎</i></span><span class="m">♣︎</span></div></div>
+<span class="sribbon" data-am="አዲሱ አድራሻችን በቅርብ ቀን" data-en="Our new home is coming soon"></span>
+<div class="sdom">habeshacardgames.com</div>
+<p class="muted" data-am="የሐበሻ ካርታ ጨዋታዎች ወደዚህ አዲስ አድራሻ ይዛወራሉ። እስከዚያው ድረስ እዚሁ መጫወት ይቀጥሉ፤ ነጥቦቻችሁ አይጠፉም።" data-en="Habesha Card Games is moving to this new address. Until then, keep playing right here. Your scores are safe."></p>
+</section>
+<style>
+.soonhero{background:var(--surface);border:3px solid var(--gold);border-radius:22px;padding:18px 20px 20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
+.soonhero .fan{position:relative;width:200px;height:118px}
+.pc{position:absolute;bottom:0;width:68px;height:94px;border-radius:8px;background:#FFFDF7;border:1px solid #CFC6B2;box-shadow:0 4px 10px rgba(0,0,0,.18);color:#1C2924;font-weight:700;font-family:system-ui,sans-serif}
+.pc.red{color:#B3263A}.pc .r{position:absolute;top:5px;left:6px;font-size:17px;line-height:1;display:flex;flex-direction:column}.pc .r i{font-style:normal;font-size:13px}
+.pc .m{position:absolute;inset:0;display:grid;place-items:center;font-size:34px}
+.c1{left:8px;transform:rotate(-16deg)}.c2{left:48px;transform:rotate(-5deg)}.c3{left:88px;transform:rotate(6deg)}.c4{left:124px;transform:rotate(17deg)}
+.sribbon{background:#9E3446;color:#fff;font-weight:700;border-radius:999px;padding:7px 20px}
+.sdom{font-size:clamp(1.5rem,6vw,2.3rem);font-weight:700;color:var(--green);letter-spacing:.01em;word-break:break-all}
+.soonhero p{margin:0;max-width:560px}
+</style>
 <div class="apps">
-<a class="app" href="cards/index.html"><img src="cards/icon-180.png" alt=""><div><b data-am="የካርታ ጨዋታዎች" data-en="Card Games"></b><span data-am="ኮንከር · ሴካ · እንጀራ በወጥ" data-en="Konker · Seka · Injera Bewet"></span></div></a>
+<a class="app" href="cards/index.html"><img src="cards/icon-180.png" alt=""><div><b data-am="የካርታ ጨዋታዎች" data-en="Card Games"></b><span data-am="ኮንከር · ሴካ · እንጀራ በወጥ · ላጥላጥ (በቅርብ ቀን)" data-en="Konker · Seka · Injera Bewet · LatLat (coming soon)"></span></div></a>
 <a class="app" href="dama/index.html"><img src="dama/icon-180.png" alt=""><div><b data-am="ዳማ" data-en="Dama"></b><span data-am="በእንጨት ሰሌዳ ላይ" data-en="Checkers on a wooden board"></span></div></a>
 </div>
 <div class="box gold">
@@ -60,6 +77,7 @@ a.app:hover{border-color:var(--green)}a.app img{width:88px;height:88px;border-ra
 <div><button class="sw" type="button" id="countBtn"></button></div>
 <p class="muted" style="margin:0"><a href="privacy.html" data-am="ግላዊነት" data-en="Privacy"></a> · <a href="terms.html" data-am="የአጠቃቀም ውሎች" data-en="Terms of Use"></a> · <a href="credits.html" data-am="ምስጋና እና ፈቃዶች" data-en="Credits & Licenses"></a> · <a href="mailto:kartagames@protonmail.com">kartagames@protonmail.com</a></p>
 </div>
+<p class="muted" style="margin:0;text-align:center" data-am="© 2026 የሐበሻ ካርታ ጨዋታዎች™። መብቱ በሕግ የተጠበቀ ነው።" data-en="© 2026 Habesha Card Games™. All rights reserved."></p>
 </main>
 <script>
 window.onLang=function(l){var b=document.getElementById("countBtn"),off=window.gamesCounting&&gamesCounting.off();
