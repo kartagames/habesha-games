@@ -132,6 +132,11 @@ html[lang="am"] .label{text-transform:none;letter-spacing:0}
 .card.joker .mid{color:#9e3446;padding-top:0}
 .card.joker .tl{color:#1e5e48;font-size:calc(var(--cw) * .17);letter-spacing:.02em}
 .card .as{position:absolute;bottom:4%;left:0;right:0;text-align:center;font-size:calc(var(--cw) * .2);color:#1e5e48}
+/* a joker on the table: the card it stands for sits in the corner like a normal card, in that suit's colour */
+.card.joker.stands .tl{color:#1d1d1d;font-size:calc(var(--cw) * .27);letter-spacing:0}.card.joker.stands.redas .tl{color:#c0262d}
+.card.joker.stands .tl i{font-size:calc(var(--cw) * .24)}
+.card.joker.stands .mid{font-size:calc(var(--cw) * .38);padding-top:6%}
+.card.joker .jl{position:absolute;bottom:5%;left:0;right:0;text-align:center;font-size:calc(var(--cw) * .14);color:#1e5e48;letter-spacing:.03em}
 .card.back{background:repeating-linear-gradient(45deg,#1e5e48 0 6px,#c2902a 6px 8px,#9e3446 8px 14px,#c2902a 14px 16px);border:3px solid #fffdf8}
 .card.sel{transform:translateY(-16px);box-shadow:0 0 0 4px #ffd166,0 8px 14px rgba(0,0,0,.35)}
 .card.newc{box-shadow:0 0 0 4px #3fbf6e,0 4px 8px rgba(0,0,0,.3)}
@@ -145,11 +150,20 @@ button.card{cursor:pointer}
 .card.back{background:var(--bk);background-size:var(--bksize);border:3px solid var(--bkline);box-shadow:inset 0 0 0 2px var(--bkin),0 2px 4px rgba(0,0,0,.25)}
 .opp .minis .card.back{border-width:1px;box-shadow:none}
 .skins{display:flex;flex-wrap:wrap;gap:12px}
+[data-cloth="blue"]{--f1:#2f619e;--f2:#244c80;--f3:#17345c}[data-cloth="red"]{--f1:#8e2f3c;--f2:#73232f;--f3:#511820}
+[data-cloth="brown"]{--f1:#86593a;--f2:#6b452b;--f3:#4a2f1d}[data-cloth="gray"]{--f1:#596166;--f2:#444a4e;--f3:#2c3033}
+[data-cloth="purple"]{--f1:#68437f;--f2:#523466;--f3:#382347}[data-cloth="black"]{--f1:#333;--f2:#222;--f3:#111}
+.cloths{display:flex;flex-wrap:wrap;gap:10px}
+.cloth{display:flex;align-items:center;gap:10px;min-height:56px;padding:6px 16px 6px 8px;border-radius:999px;border:3px solid var(--line);background:var(--surface);font-weight:700}
+.cloth[aria-pressed="true"]{border-color:var(--green);background:var(--green-soft)}
+.cloth .sw{width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 50% 35%,var(--f1,#2f7d4f),var(--f3,#174a2f));box-shadow:inset 0 0 0 3px #c2902a}
 .skin{display:flex;align-items:center;gap:10px;padding:8px 16px 8px 10px;border-radius:16px;border:3px solid var(--line);background:var(--surface);font-weight:700;min-height:64px}
 .skin[aria-pressed="true"]{border-color:var(--green);background:var(--green-soft)}
 .skin .pv{display:flex;margin-right:8px}.skin .pv .card{--cw:30px;margin-right:-10px;box-shadow:none}
 .meld.can{border:3px solid #ffd166;background:rgba(255,209,102,.2);cursor:pointer}
 button.meld{color:inherit;font:inherit}
+#finBox{border:3px solid var(--gold);background:var(--gold-soft);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:12px}
+#finBox h3{margin:0;font-size:1.3rem}
 #jokerBox{border:2px solid var(--gold);background:var(--gold-soft);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:12px}
 .jrow{display:flex;flex-direction:column;gap:8px}.jrow .lbl{font-weight:700}
 .ring{position:relative;width:100%;max-width:600px;margin:0 auto}.ring::before{content:"";display:block;padding-top:100%}
@@ -206,7 +220,7 @@ button.meld{color:inherit;font:inherit}
 .card.lbig{--cw:150px}
 @media (max-width:560px){.lgrid{grid-template-columns:repeat(9,minmax(0,1fr))}}
 .felt{border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:14px;color:#f3efe2;
- background:radial-gradient(circle at 50% 35%,#2f7d4f,#226440 55%,#174a2f);box-shadow:inset 0 0 0 6px #6e3f1c,inset 0 0 0 9px #c2902a,inset 0 0 40px rgba(0,0,0,.35)}
+ background:radial-gradient(circle at 50% 35%,var(--f1,#2f7d4f),var(--f2,#226440) 55%,var(--f3,#174a2f));box-shadow:inset 0 0 0 6px #6e3f1c,inset 0 0 0 9px #c2902a,inset 0 0 40px rgba(0,0,0,.35)}
 .opps{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 .opp{display:flex;align-items:center;gap:12px;padding:8px 14px;border-radius:14px;background:rgba(0,0,0,.22);border:2px solid transparent}
 .opp.turn{border-color:#ffd166;background:rgba(255,209,102,.18)}
@@ -323,6 +337,7 @@ button.meld{color:inherit;font:inherit}
     <div class="stack" id="jkRow"><b data-t="jkL"></b><div class="seg" id="jkSeg"><button type="button" data-j="1" data-t="jkWith"></button><button type="button" data-j="0" data-t="jkWithout"></button></div></div>
     <div class="stack" id="lvlRow"><b id="lvlLabel"></b><div class="seg" id="lvlSeg"><button type="button" data-l="easy" data-t="easy"></button><button type="button" data-l="medium" data-t="medium"></button><button type="button" data-l="hard" data-t="hard"></button></div></div>
     <div class="stack"><b data-t="skinL"></b><div class="skins" id="skins"></div></div>
+    <div class="stack"><b data-t="clothL"></b><div class="cloths" id="cloths"></div></div>
     <div class="stack"><b id="rulesLabel"></b><ul class="rules" id="konkerRules"><li data-t="r1"></li><li data-t="r2"></li><li data-t="r3"></li><li data-t="r4"></li><li data-t="r5"></li><li data-t="r6"></li><li data-t="r7"></li></ul><ul class="rules" id="latlatRules"><li data-t="l1"></li><li data-t="l2"></li><li data-t="l3"></li><li data-t="l4"></li><li data-t="l5"></li></ul><ul class="rules" id="injeraRules"><li data-t="i1"></li><li data-t="i2"></li><li data-t="i3"></li><li data-t="i4"></li><li data-t="i5"></li><li data-t="i6"></li><li data-t="i7"></li><li data-t="i8"></li></ul><ul class="rules" id="sekaRules"><li data-t="s1"></li><li data-t="s2"></li><li id="s3"></li><li data-t="s4"></li><li data-t="s5"></li></ul></div>
     <div class="row"><button class="btn primary" type="button" id="startBtn" data-t="start"></button><button class="btn gold" type="button" id="resumeBtn" data-t="resume"></button></div>
   </div>
@@ -342,6 +357,7 @@ button.meld{color:inherit;font:inherit}
     <div class="bar"><span class="status" id="status"></span><span class="counter" id="counter" hidden></span></div>
     <div class="msg" id="msg" aria-live="polite"></div>
     <div id="jokerBox" hidden></div>
+    <div id="finBox" hidden role="dialog" aria-live="polite"></div>
     <div class="hand" id="hand"></div>
     <div class="groupline" id="groupline"></div>
     <div class="row">
@@ -641,7 +657,7 @@ const T={
   r4:"Each turn: draw from the pile, then discard one card. To take the top discard instead, lay down Tris and Quatris (as many as you need, one of them using that card) that add up to 41 or more (“41 ውረድ”). If a group has a joker, you say which card it stands for. The groups stay face up, and after that you can take the discard any time.",
   r5:"Win when your 13 cards make 3 Tris and 1 Quatris after your discard. If the card you pick up from the discard pile finishes your hand, you can win right away without laying down 41. Winning with a joker as the last discard is a Vice: double points.",r7:"ገቢ (Valid Insertion): a card that fits a group already on the table, yours or anyone's, like 10♠ in front of J♠ Q♠ K♠ A♠. It has a ገቢ tag in your hand. Nobody may discard a ገቢ card unless it is the last card that finishes the game. When you finish, the app inserts all your ገቢ cards for you, and then your other cards can be any Tris and Quatris. A joker is never ገቢ; it can only lengthen your own groups.",r6:"Once you have laid down 41, if you hold the card a joker stands for in another player's group, you can swap your card for it and take the joker.",
   start:"Start the game",resume:"Continue the game",drawPile:"Draw pile",discardPile:"Discard pile",
-  discardBtn:"Discard",show41:"Lay down 41",finish:"Finish the game",back:"Back",jokerQ:"What does the joker stand for?",totalL:v=>`Total: ${v} / 41`,skinL:"Card style",skTibeb:"Tibeb",skRed:"Classic red",skBlue:"Classic blue",skGold:"Gold",stCanWin:"This card finishes your hand! Pick the card to discard and tap Finish the game, or lay down 41.",eFinish:"That discard doesn't finish your hand. Pick another card.",ePickLast:"Pick the one card you will discard, then tap Finish the game.",swapHint:"One of your cards matches a joker on the table. Pick that card, then tap the group with the gold outline to take the joker.",swapped:"You took the joker!",logSwap:n=>`${n} swapped a card for a joker.`,putBack:"Put the card back",groupMe:"Group my cards",sortSuit:"Sort by suit",sortRank:"Sort by number",
+  discardBtn:"Discard",finQ:"This card finishes the game!",finWhy:v=>`You can win now, or keep playing and hope to draw a joker: discard it as your last card for a Vice worth ${v}. Careful: someone else may finish first.`,finNow:p=>`Finish now (+${p})`,finWait:v=>`Keep playing for a Vice (${v})`,show41:"Lay down 41",finish:"Finish the game",back:"Back",jokerQ:"What does the joker stand for?",totalL:v=>`Total: ${v} / 41`,skinL:"Card style",clothL:"Table color",cl_green:"Green",cl_blue:"Blue",cl_red:"Red",cl_brown:"Brown",cl_gray:"Gray",cl_purple:"Purple",cl_black:"Black",skTibeb:"Tibeb",skRed:"Classic red",skBlue:"Classic blue",skGold:"Gold",stCanWin:"This card finishes your hand! Pick the card to discard and tap Finish the game, or lay down 41.",eFinish:"That discard doesn't finish your hand. Pick another card.",ePickLast:"Pick the one card you will discard, then tap Finish the game.",swapHint:"One of your cards matches a joker on the table. Pick that card, then tap the group with the gold outline to take the joker.",swapped:"You took the joker!",logSwap:n=>`${n} swapped a card for a joker.`,putBack:"Put the card back",groupMe:"Group my cards",sortSuit:"Sort by suit",sortRank:"Sort by number",
   stDraw:n=>`${n}, your turn: draw from the pile, or take the top discard`,stPlay:n=>`${n}: pick one card and tap Discard`,stFirst:n=>`${n}: you are the dealer. Pick one card and tap Discard to start`,
   stShow:n=>`${n}: pick the cards for your Tris and Quatris worth 41 or more, including the new card, then tap Lay down 41`,
   stOther:n=>`${n} is playing…`,counter:v=>`${v} / 41`,opened:"41 ✓",cards:n=>`${n} cards`,
@@ -674,7 +690,7 @@ const T={
   r4:"በየተራው፦ ከክምሩ ይሳቡ፣ ከዚያ አንድ ካርታ ይጣሉ። በምትኩ የተጣለውን የላይኛውን ለማንሳት፣ አንዱ እሱን የሚጠቀም፣ ድምራቸው 41 እና ከዚያ በላይ የሆነ ትሪስ እና ኳትሪስ (የሚያስፈልገውን ያህል) ያውርዱ («41 ውረድ»)። ስብስቡ ጆከር ካለው፣ ጆከሩ የትኛውን ካርታ እንደሚወክል ይናገራሉ። ስብስቦቹ ተገልጠው ይቀመጣሉ፤ ከዚያ በኋላ የተጣለውን በፈለጉ ጊዜ ማንሳት ይችላሉ።",
   r5:"ከጣሉ በኋላ 13ቱ ካርታዎችዎ 3 ትሪስ እና 1 ኳትሪስ ከሆኑ ያሸንፋሉ። ከተጣለው ያነሱት ካርታ እጅዎን ከጨረሰ፣ 41 ሳይወርዱ ወዲያውኑ ማሸነፍ ይችላሉ። በመጨረሻ ጆከር ጥለው ካሸነፉ ቫይስ ነው፤ ነጥቡ እጥፍ ይሆናል።",r7:"ገቢ፦ ጠረጴዛው ላይ ካለ ስብስብ (የእርስዎም ሆነ የሌላ) ጋር የሚገጥም ካርታ ነው፤ ለምሳሌ 10♠ ከJ♠ Q♠ K♠ A♠ በፊት። በእጅዎ ውስጥ «ገቢ» የሚል ምልክት አለው። ጨዋታውን የሚጨርስ የመጨረሻ ካርታ ካልሆነ በስተቀር ማንም ገቢ ካርታ መጣል አይችልም። ሲጨርሱ መተግበሪያው ገቢ ካርታዎችዎን ሁሉ ያስገባልዎታል፤ ከዚያ የቀሩት ካርታዎች ማንኛውም ትሪስ እና ኳትሪስ ሊሆኑ ይችላሉ። ጆከር ገቢ አይሆንም፤ የራስዎን ስብስብ ብቻ ያረዝማል።",r6:"41 ካወረዱ በኋላ፣ በሌላ ተጫዋች ስብስብ ውስጥ ጆከሩ የሚወክለው ካርታ በእጅዎ ካለ፣ ካርታዎን ሰጥተው ጆከሩን መውሰድ ይችላሉ።",
   start:"ጨዋታውን ጀምሩ",resume:"ጨዋታውን ቀጥሉ",drawPile:"ክምር",discardPile:"የተጣለ",
-  discardBtn:"ጣል",show41:"41 ውረድ",finish:"ጨዋታውን ጨርስ",back:"ተመለስ",jokerQ:"ጆከሩ የትኛውን ካርታ ይወክላል?",totalL:v=>`ድምር፦ ${v} / 41`,skinL:"የካርታ ዓይነት",skTibeb:"ጥበብ",skRed:"ክላሲክ ቀይ",skBlue:"ክላሲክ ሰማያዊ",skGold:"ወርቃማ",stCanWin:"ይህ ካርታ እጅዎን ይጨርሳል! የሚጥሉትን ካርታ መርጠው «ጨዋታውን ጨርስ» ይንኩ፣ ወይም 41 ይውረዱ።",eFinish:"ይህን ቢጥሉ እጅዎ አያልቅም። ሌላ ካርታ ይምረጡ።",ePickLast:"የሚጥሉትን አንድ ካርታ መርጠው «ጨዋታውን ጨርስ» ይንኩ።",swapHint:"ከካርታዎችዎ አንዱ ጠረጴዛው ላይ ካለ ጆከር ጋር ይመሳሰላል። ያንን ካርታ መርጠው በወርቃማ መስመር የተከበበውን ስብስብ ይንኩ፤ ጆከሩን ይወስዳሉ።",swapped:"ጆከሩን ወሰዱ!",logSwap:n=>`${n} ካርታ {ሰጥቶ ጆከር ወሰደ|ሰጥታ ጆከር ወሰደች}።`,putBack:"ካርታውን መልስ",groupMe:"ካርታዎቼን አደራጅ",sortSuit:"በዓይነት አስተካክል",sortRank:"በቁጥር አስተካክል",
+  discardBtn:"ጣል",finQ:"ይህ ካርታ ጨዋታውን ይጨርሳል!",finWhy:v=>`አሁን ማሸነፍ ይችላሉ፤ ወይም ጨዋታውን ቀጥለው ጆከር እንዲመጣልዎ ይጠብቁ፦ ጆከሩን በመጨረሻ ቢጥሉት ${v} ነጥብ የሚያስገኝ ቫይስ ያገኛሉ። ይጠንቀቁ፤ ሌላው ተጫዋች ቀድሞ ሊጨርስ ይችላል።`,finNow:p=>`አሁን ጨርስ (+${p})`,finWait:v=>`ለቫይስ ቀጥል (${v})`,show41:"41 ውረድ",finish:"ጨዋታውን ጨርስ",back:"ተመለስ",jokerQ:"ጆከሩ የትኛውን ካርታ ይወክላል?",totalL:v=>`ድምር፦ ${v} / 41`,skinL:"የካርታ ዓይነት",clothL:"የጠረጴዛ ቀለም",cl_green:"አረንጓዴ",cl_blue:"ሰማያዊ",cl_red:"ቀይ",cl_brown:"ቡናማ",cl_gray:"ግራጫ",cl_purple:"ሐምራዊ",cl_black:"ጥቁር",skTibeb:"ጥበብ",skRed:"ክላሲክ ቀይ",skBlue:"ክላሲክ ሰማያዊ",skGold:"ወርቃማ",stCanWin:"ይህ ካርታ እጅዎን ይጨርሳል! የሚጥሉትን ካርታ መርጠው «ጨዋታውን ጨርስ» ይንኩ፣ ወይም 41 ይውረዱ።",eFinish:"ይህን ቢጥሉ እጅዎ አያልቅም። ሌላ ካርታ ይምረጡ።",ePickLast:"የሚጥሉትን አንድ ካርታ መርጠው «ጨዋታውን ጨርስ» ይንኩ።",swapHint:"ከካርታዎችዎ አንዱ ጠረጴዛው ላይ ካለ ጆከር ጋር ይመሳሰላል። ያንን ካርታ መርጠው በወርቃማ መስመር የተከበበውን ስብስብ ይንኩ፤ ጆከሩን ይወስዳሉ።",swapped:"ጆከሩን ወሰዱ!",logSwap:n=>`${n} ካርታ {ሰጥቶ ጆከር ወሰደ|ሰጥታ ጆከር ወሰደች}።`,putBack:"ካርታውን መልስ",groupMe:"ካርታዎቼን አደራጅ",sortSuit:"በዓይነት አስተካክል",sortRank:"በቁጥር አስተካክል",
   stDraw:n=>`${n}፣ የእርስዎ ተራ፦ ከክምሩ ይሳቡ ወይም የተጣለውን ያንሱ`,stPlay:n=>`${n}፦ አንድ ካርታ መርጠው «ጣል» ይንኩ`,stFirst:n=>`${n}፦ እርስዎ አዳይ ነዎት። ለመጀመር አንድ ካርታ መርጠው «ጣል» ይንኩ`,
   stShow:n=>`${n}፦ አዲሱን ካርታ ጨምሮ 41 እና ከዚያ በላይ የሚያወጡ ትሪስ እና ኳትሪስ ይምረጡ፣ ከዚያ «41 ውረድ» ይንኩ`,
   stOther:n=>`${n} {እየተጫወተ|እየተጫወተች} ነው…`,counter:v=>`${v} / 41`,opened:"41 ✓",cards:n=>`${n} ካርታ`,
@@ -713,7 +729,9 @@ const saveP=i=>{players[i].updatedAt=Date.now();ls.set("p"+i,players[i])};
 const SYM={S:"♠",H:"♥",D:"♦",C:"♣"},RL=r=>({1:"A",11:"J",12:"Q",13:"K"})[r]||String(r);
 function cardEl(c,opts={}){const e=document.createElement(opts.button?"button":"div");if(opts.button)e.type="button";
  if(opts.back){e.className="card back";return e}
- if(c.j){e.className="card joker";e.innerHTML=`<span class="tl">JOKER</span><span class="mid">★</span>`+(opts.as?`<span class="as">= ${RL(opts.as.r)}${opts.as.s?SYM[opts.as.s]:""}︎</span>`:"")}
+ if(c.j){const a=opts.as;e.className="card joker"+(a?" stands"+((a.s==="H"||a.s==="D")?" redas":""):"");
+  e.innerHTML=a?`<span class="tl">${RL(a.r)}${a.s?`<i>${SYM[a.s]}︎</i>`:""}</span><span class="mid">★</span><span class="jl">JOKER</span>`:`<span class="tl">JOKER</span><span class="mid">★</span>`;
+  if(a)e.title="Joker = "+RL(a.r)+(a.s?SYM[a.s]:"")}
  else{e.className="card"+((c.s==="H"||c.s==="D")?" red":"");e.innerHTML=`<span class="tl">${RL(c.r)}<i>${SYM[c.s]}︎</i></span><span class="mid">${SYM[c.s]}︎</span>`}
  e.dataset.id=c.id;e.setAttribute("aria-label",c.j?"Joker":RL(c.r)+" "+({S:"spades",H:"hearts",D:"diamonds",C:"clubs"})[c.s]);return e}
 document.querySelectorAll(".fan").forEach(f=>{[{r:1,s:"S"},{r:13,s:"H"},{j:true},{r:7,s:"D"}].forEach(c=>f.appendChild(cardEl(c)))});
@@ -745,6 +763,11 @@ $("goScores").onclick=()=>{show("scores");renderScores()};
 /* ---------- setup ---------- */
 const SKINS=[["tibeb","skTibeb"],["red","skRed"],["blue","skBlue"],["gold","skGold"]];
 let skin=ls.get("skin","tibeb");document.documentElement.dataset.skin=skin;
+const CLOTHS=["green","blue","red","brown","gray","purple","black"];
+let cloth=ls.get("cloth","green");if(!CLOTHS.includes(cloth))cloth="green";document.documentElement.dataset.cloth=cloth;
+function renderCloths(){const box=$("cloths");box.innerHTML="";CLOTHS.forEach(k=>{const b=document.createElement("button");b.type="button";b.className="cloth";b.dataset.cloth=k;b.setAttribute("aria-pressed",String(cloth===k));
+ b.innerHTML='<span class="sw" aria-hidden="true"></span><span></span>';b.lastChild.textContent=t("cl_"+k);
+ b.onclick=()=>{cloth=k;ls.set("cloth",k);document.documentElement.dataset.cloth=k;renderCloths()};box.appendChild(b)})}
 function renderSkins(){const box=$("skins");box.innerHTML="";SKINS.forEach(([k,lbl])=>{const b=document.createElement("button");b.type="button";b.className="skin";b.setAttribute("aria-pressed",String(skin===k));
  const pv=document.createElement("span");pv.className="pv";pv.dataset.skin=k;pv.appendChild(cardEl(null,{back:true}));pv.appendChild(cardEl({r:1,s:"H"}));b.appendChild(pv);b.appendChild(document.createTextNode(t(lbl)));
  b.onclick=()=>{skin=k;ls.set("skin",k);document.documentElement.dataset.skin=k;renderSkins()};box.appendChild(b)})}
@@ -775,7 +798,7 @@ function renderSetup(){const sk=mode==="seka",ij=mode==="injera",ll=mode==="latl
    b.onclick=()=>{setup.seats[k]=o;saveSetup();renderSetup()};chips.appendChild(b)});
   row.appendChild(chips);box.appendChild(row)}
  $("lvlRow").hidden=ij||ll||(!sk&&!setup.seats.slice(0,setup.n-1).includes("cpu"));
- $("resumeBtn").hidden=!(G&&!G.done);renderSkins()}
+ $("resumeBtn").hidden=!(G&&!G.done);renderSkins();renderCloths()}
 document.querySelectorAll("#nSeg button").forEach(b=>b.onclick=()=>{setup.n=+b.dataset.n;saveSetup();renderSetup()});
 document.querySelectorAll("#jkSeg button").forEach(b=>b.onclick=()=>{setup.jokers=b.dataset.j==="1";saveSetup();renderSetup()});
 document.querySelectorAll("#lvlSeg button").forEach(b=>b.onclick=()=>{setup.level=b.dataset.l;saveSetup();renderSetup()});
@@ -813,6 +836,12 @@ function actShow(groups,asList){asList=asList||[];const ids=new Set([].concat(..
  const order=(g,as)=>{const m=kMeld(g);as=as||m.as;Object.keys(as).forEach(k=>jas()[k]=as[k]);if(m.type==="set")return m.order.map(id=>g.find(c=>c.id===id));
   const rk=c=>c.j?as[c.id].r:c.r,hi=g.some(c=>rk(c)===13)&&g.some(c=>rk(c)===1);return g.slice().sort((x,y)=>{const u=rk(x)===1&&hi?14:rk(x),v=rk(y)===1&&hi?14:rk(y);return u-v})};
  G.table[G.turn]=groups.map((g,i)=>order(g,asList[i]));G.phase="play";G.log=GS("logTake",G.turn)}
+/* show a group in order: runs low to high (ace after the king in Q-K-A), sets by suit ♠ ♥ ♦ ♣; a joker sits where the card it stands for would.
+   Only changes how the group is drawn, never the group itself. */
+function ordG(g){const m=kMeld(g,true);if(!m)return g;const as=c=>c.j?asOf(g,c):null;
+ if(m.type==="set"){const si=c=>{const x=c.j?as(c):c;const k=x?KSUITS.indexOf(x.s):-1;return k<0?9:k};return g.slice().sort((x,y)=>si(x)-si(y))}
+ const rk=c=>{if(!c.j)return c.r;const a=as(c);return a?a.r:99},hi=g.some(c=>rk(c)===13)&&g.some(c=>rk(c)===1),v=c=>rk(c)===1&&hi?14:rk(c);
+ return g.slice().sort((x,y)=>v(x)-v(y))}
 /* jokers on other players' table groups that card c could replace */
 function swapsFor(me,c){if(!c||c.j||!opened(me))return[];const out=[];G.table.forEach((gs,o)=>{if(o===me)return;gs.forEach((g,gi)=>g.forEach(x=>{if(!x.j)return;const a=asOf(g,x);if(a&&a.r===c.r&&a.s===c.s)out.push({o,gi,jid:x.id})}))});return out}
 function actSwap(me,cid,sw){const g=G.table[sw.o][sw.gi],k=g.findIndex(x=>x.id===sw.jid),c=G.hands[me].find(x=>x.id===cid);if(k<0||!c)return false;
@@ -824,9 +853,13 @@ function finishWith(rest,me){return kFinish(rest,fixedTables(),me,needOf(me))}
 const isGebi=c=>kFits(c,fixedTables());
 /* may this card be discarded? A ገቢ card only if it wins, or if every other card is ገቢ too */
 function gebiBlocked(c,me){if(!isGebi(c))return false;const h=G.hands[me];return h.some(x=>x.id!==c.id&&x.id!==G.took&&!isGebi(x))}
-function actDiscard(id){const me=G.turn,h=G.hands[me],c=h.find(x=>x.id===id);if(!c)return"eOne";
+/* Waiting for a Vice: a player whose discard would finish may keep playing instead, hoping to draw a joker and finish with it later.
+   Not allowed when: the game has no jokers, the card is itself a joker (that is already a Vice), the card is ገቢ, or the player
+   picked up the discard without having shown 41 (phase "show": taking it was only allowed in order to finish). */
+const canWait=c=>!!c&&G.jokers!==false&&G.phase==="play"&&!c.j&&!isGebi(c);
+function actDiscard(id,keepPlaying){const me=G.turn,h=G.hands[me],c=h.find(x=>x.id===id);if(!c)return"eOne";
  if(G.took===id)return"eSameCard";const rest=h.filter(x=>x.id!==id);
- const win=finishWith(rest,me);
+ let win=finishWith(rest,me);if(win&&keepPlaying&&canWait(c))win=null;
  if(G.phase==="show"&&!win)return"eShowFirst";
  if(!win&&gebiBlocked(c,me))return"eGebi";
  G.hands[me]=rest;G.discard.push(c);G.first=false;G.took=null;G.pre=null;G.newId=null;G.log=GS("logDisc",me);
@@ -864,7 +897,10 @@ async function cpuTurn(){busy=true;const g0=G;const me=G.turn,lvl=G.level;render
  const wins=winDiscards(G.hands[me],need,0,G.took);
  let d=wins.length?(wins.find(c=>c.j)||wins[0]):bestDiscard(G.hands[me],need,lvl,G.took);
  if(G.phase==="show"&&!wins.length){actPutBack();actDraw();d=bestDiscard(G.hands[me],need,lvl,null)}
- actDiscard(d.id);busy=false;render();resumeTurn()}
+ actDiscard(d.id,cpuWaits(me,d));busy=false;render();resumeTurn()}
+/* Hard only: hold a finished hand for a Vice now and then, while the pile is still long, and at most a few turns in a row */
+function cpuWaits(me,d){if(G.level!=="hard"||!canWait(d)||!finishWith(G.hands[me].filter(x=>x.id!==d.id),me))return false;
+ const w=G.waited||(G.waited={});if(G.stock.length<12||(w[me]||0)>=3||Math.random()<.5){w[me]=0;return false}w[me]=(w[me]||0)+1;return true}
 function resumeTurn(){if(!G||G.phase==="over"||busy||view!=="play")return;if(!isHuman(G.turn))cpuTurn()}
 
 /* ---------- hand helpers ---------- */
@@ -890,11 +926,11 @@ function render(){if(!G)return;const n=G.seats.length,V=viewer(),myTurn=isHuman(
  const swapTargets=myTurn&&G.phase==="play"?swapsFor(G.turn,selCard):[];
  const addRow=(label,groups,loose,o)=>{const row=document.createElement("div");row.className="owner-row";if(o!=null)row.dataset.o=o;const who=document.createElement("span");who.className="who";who.textContent=label;row.appendChild(who);
   groups.forEach((g,gi)=>{const sw=row.dataset.o!=null&&swapTargets.find(x=>x.o===+row.dataset.o&&x.gi===gi);const box=document.createElement(sw?"button":"div");if(sw)box.type="button";box.className="meld"+(sw?" can":"");
-   g.forEach(c=>{const ce=cardEl(c,{as:c.j?asOf(g,c):null});if(G.phase==="over"&&G.over.ins&&G.over.ins.includes(c.id))ce.classList.add("newc");box.appendChild(ce)});if(sw)box.onclick=()=>tapSwap(sw);row.appendChild(box)});
+   ordG(g).forEach(c=>{const ce=cardEl(c,{as:c.j?asOf(g,c):null});if(G.phase==="over"&&G.over.ins&&G.over.ins.includes(c.id))ce.classList.add("newc");box.appendChild(ce)});if(sw)box.onclick=()=>tapSwap(sw);row.appendChild(box)});
   if(loose&&loose.length){const box=document.createElement("div");box.className="meld loose";loose.forEach(c=>box.appendChild(cardEl(c)));row.appendChild(box)}mb.appendChild(row)};
  for(let i=0;i<n;i++){
   if(G.phase==="over"){const groups=G.table[i].slice();let loose=[];
-   if(G.over.w===i&&G.over.groups)groups.push(...G.over.groups);else if(i!==V){loose=G.hands[i]}
+   if(G.over.w===i&&G.over.groups)groups.push(...G.over.groups);else if(i!==V){loose=sortHand(G.hands[i],"suit")}
    if(groups.length||loose.length)addRow(G.over.w===i||i===V?seatName(i):GS("handOf",i),groups,loose)}
   else if(G.table[i].length)addRow(seatName(i),G.table[i],null,i)}
  // piles
@@ -914,7 +950,8 @@ function render(){if(!G)return;const n=G.seats.length,V=viewer(),myTurn=isHuman(
  const m=$("msg");m.textContent=msg||G.log||"";m.className="msg "+(msg&&msgErr?"err":"log");
  // buttons
  const playing=myTurn&&(G.phase==="play"||G.phase==="show");
- $("discardBtn").hidden=G.phase==="over"||G.phase==="show"||!!pend;$("discardBtn").disabled=!(playing&&sel.size===1);
+ if(finAsk!=null&&!(isHuman(G.turn)&&G.phase==="play"))finAsk=null;renderFinAsk();
+ $("discardBtn").hidden=G.phase==="over"||G.phase==="show"||!!pend||finAsk!=null;$("discardBtn").disabled=!(playing&&sel.size===1);
  $("showBtn").hidden=!(myTurn&&G.phase==="show")||!!pend;$("finishBtn").hidden=!(myTurn&&G.phase==="show"&&canFinish())||!!pend;$("showBtn").disabled=sel.size<3;
  $("putBackBtn").hidden=!(myTurn&&G.took!=null&&G.pre&&G.phase==="show")||!!pend;renderJoker(myTurn);
  if(!msg&&myTurn&&G.phase==="play"&&opened(G.turn)&&!selCard&&G.hands[G.turn].some(c=>swapsFor(G.turn,c).length)){const m2=$("msg");m2.textContent=t("swapHint");m2.className="msg log"}
@@ -929,7 +966,21 @@ function tapDiscardPile(){if(!(isHuman(G.turn)&&G.phase==="draw"&&!busy))return;
  if(!opened(me)){const h14=G.hands[me].concat([top]);const can=kOpenings(h14,top.id).length||winDiscards(h14,needOf(me),0,top.id).length;if(!can){say("eNo41");return}}
  actTake();sel.clear();msg="";saveG();render()}
 $("stockBtn").onclick=()=>{if(!(isHuman(G.turn)&&G.phase==="draw"&&!busy))return;actDraw();sel.clear();msg="";saveG();render()};
-$("discardBtn").onclick=()=>{if(sel.size!==1){say("eOne");return}const err=actDiscard([...sel][0]);if(err){say(err);return}sel.clear();msg="";render();resumeTurn()};
+$("discardBtn").onclick=()=>{if(sel.size!==1){say("eOne");return}const id=[...sel][0],me=G.turn,c=G.hands[me].find(x=>x.id===id);
+ if(c&&id!==G.took&&canWait(c)&&finishWith(G.hands[me].filter(x=>x.id!==id),me)){finAsk=id;render();return}
+ const err=actDiscard(id);if(err){say(err);return}sel.clear();msg="";render();resumeTurn()};
+/* the choice: finish now, or keep playing for a Vice */
+let finAsk=null;
+function renderFinAsk(){const box=$("finBox");box.hidden=finAsk==null;if(finAsk==null)return;box.innerHTML="";const sk=seka(),pts=sk?20:40,vp=sk?40:80;
+ const h=document.createElement("h3");h.textContent=t("finQ");box.appendChild(h);
+ const p=document.createElement("p");p.style.margin="0";p.textContent=L().finWhy(vp);box.appendChild(p);
+ const r=document.createElement("div");r.className="row";
+ const a=document.createElement("button");a.type="button";a.className="btn primary";a.textContent=L().finNow(pts);
+ a.onclick=()=>{const id=finAsk;finAsk=null;const err=actDiscard(id);if(err){say(err);return}sel.clear();msg="";render();resumeTurn()};
+ const b=document.createElement("button");b.type="button";b.className="btn gold";b.textContent=L().finWait(vp);
+ b.onclick=()=>{const id=finAsk;finAsk=null;const err=actDiscard(id,true);if(err){say(err);return}sel.clear();msg="";render();resumeTurn()};
+ const x=document.createElement("button");x.type="button";x.className="btn ghost";x.textContent=t("back");x.onclick=()=>{finAsk=null;render()};
+ r.appendChild(a);r.appendChild(b);r.appendChild(x);box.appendChild(r);a.focus()}
 $("showBtn").onclick=()=>{const me=G.turn,pick=G.hands[me].filter(c=>sel.has(c.id));if(!pick.some(c=>c.id===G.took)){say("eSplit");return}
  const sp=kSplit(pick,G.took);if(!sp){say("eSplit");return}if(sp.sum<41){msg=L().eSum(sp.sum);msgErr=true;render();return}
  const opts=sp.groups.map(g=>kJokerOptions(g));
