@@ -11,7 +11,7 @@
 <link rel="icon" type="image/png" href="icon-180.png">
 <meta name="theme-color" content="#1E5E48">
 <script>function FBMAIL(app,am){var sub=(am?"አስተያየት":"Feedback")+(app?" · "+app:"")+" · Habesha Card Games";var body=am?"ጨዋታ፦ "+app+"\n\nመልዕክትዎ፦\n\n\n— የመተግበሪያው ቋንቋ፦ አማርኛ":"Game: "+app+"\n\nYour message:\n\n\n— App language: English";return "mailto:kartagames@protonmail.com?subject="+encodeURIComponent(sub)+"&body="+encodeURIComponent(body)}</script>
-<script>window.APPCFG={store:true,defG:["m","m","m"],soon:["latlat"]}</script>
+<script>window.APPCFG={store:true,cpuOnly:true,defG:["m","m","m"],soon:["latlat"]}</script>
 <script src="../analytics-config.js"></script>
 <script src="../telemetry.js"></script>
 <title>Card Games · Habesha Card Games</title>
@@ -154,6 +154,17 @@ button.card{cursor:pointer}
 [data-cloth="brown"]{--f1:#86593a;--f2:#6b452b;--f3:#4a2f1d}[data-cloth="gray"]{--f1:#596166;--f2:#444a4e;--f3:#2c3033}
 [data-cloth="purple"]{--f1:#68437f;--f2:#523466;--f3:#382347}[data-cloth="black"]{--f1:#333;--f2:#222;--f3:#111}
 .cloths{display:flex;flex-wrap:wrap;gap:10px}
+.cpuseat{font-weight:700;padding:8px 16px;border-radius:999px;background:var(--green-soft);color:var(--green)}
+.soonnote{margin:6px 0 0;padding:12px 16px;border-radius:14px;border:2px dashed var(--gold);background:var(--gold-soft)}
+/* scoreboard for this sitting: one point per round won, two for a Vice */
+.scorebar{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 10px;align-items:center}
+.scorebar:empty{display:none}
+.sbl{font-size:.95rem;color:var(--muted);font-weight:700}
+.sb{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:4px 6px 4px 16px;border-radius:999px;border:2px solid var(--line);background:var(--surface);font-weight:700}
+.sb b{min-width:2.1em;height:34px;padding:0 8px;border-radius:999px;display:inline-grid;place-items:center;background:var(--green);color:#fff;font-variant-numeric:tabular-nums;font-size:1.15rem}
+.sb.lead{border-color:var(--gold)}.sb.lead b{background:var(--gold);color:#1c2924}
+.sb.just{animation:sbpop .9s ease-out}@keyframes sbpop{0%{transform:scale(1)}30%{transform:scale(1.12)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.sb.just{animation:none}}
 .cloth{display:flex;align-items:center;gap:10px;min-height:56px;padding:6px 16px 6px 8px;border-radius:999px;border:3px solid var(--line);background:var(--surface);font-weight:700}
 .cloth[aria-pressed="true"]{border-color:var(--green);background:var(--green-soft)}
 .cloth .sw{width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 50% 35%,var(--f1,#2f7d4f),var(--f3,#174a2f));box-shadow:inset 0 0 0 3px #c2902a}
@@ -345,6 +356,7 @@ button.meld{color:inherit;font:inherit}
 
 <section class="view" id="v-play" hidden>
   <div class="bar"><button class="btn ghost" type="button" data-home data-t="home"></button><span class="muted small" id="roundTag"></span></div>
+  <div class="scorebar" id="sbK" aria-live="polite"></div>
   <div class="felt">
     <div class="opps" id="opps"></div>
     <div class="table-melds" id="melds"></div>
@@ -382,6 +394,7 @@ button.meld{color:inherit;font:inherit}
 
 <section class="view" id="v-injera" hidden>
   <div class="bar"><button class="btn ghost" type="button" data-home data-t="home"></button><span class="muted small" id="iTag"></span></div>
+  <div class="scorebar" id="sbI" aria-live="polite"></div>
   <div class="iwrap">
   <div class="felt">
     <div class="iplayers" id="iPlayers"></div>
@@ -421,6 +434,7 @@ button.meld{color:inherit;font:inherit}
 
 <section class="view" id="v-latlat" hidden>
   <div class="bar"><button class="btn ghost" type="button" data-home data-t="home"></button><span class="muted small" id="lTag"></span></div>
+  <div class="scorebar" id="sbL" aria-live="polite"></div>
   <div class="felt panel-pick" id="lPick" hidden></div>
   <div id="lTable">
     <div class="felt">
@@ -657,7 +671,7 @@ const T={
   r4:"Each turn: draw from the pile, then discard one card. To take the top discard instead, lay down Tris and Quatris (as many as you need, one of them using that card) that add up to 41 or more (“41 ውረድ”). If a group has a joker, you say which card it stands for. The groups stay face up, and after that you can take the discard any time.",
   r5:"Win when your 13 cards make 3 Tris and 1 Quatris after your discard. If the card you pick up from the discard pile finishes your hand, you can win right away without laying down 41. Winning with a joker as the last discard is a Vice: double points.",r7:"ገቢ (Valid Insertion): a card that fits a group already on the table, yours or anyone's, like 10♠ in front of J♠ Q♠ K♠ A♠. It has a ገቢ tag in your hand. Nobody may discard a ገቢ card unless it is the last card that finishes the game. When you finish, the app inserts all your ገቢ cards for you, and then your other cards can be any Tris and Quatris. A joker is never ገቢ; it can only lengthen your own groups.",r6:"Once you have laid down 41, if you hold the card a joker stands for in another player's group, you can swap your card for it and take the joker.",
   start:"Start the game",resume:"Continue the game",drawPile:"Draw pile",discardPile:"Discard pile",
-  discardBtn:"Discard",finQ:"This card finishes the game!",finWhy:v=>`You can win now, or keep playing and hope to draw a joker: discard it as your last card for a Vice worth ${v}. Careful: someone else may finish first.`,finNow:p=>`Finish now (+${p})`,finWait:v=>`Keep playing for a Vice (${v})`,show41:"Lay down 41",finish:"Finish the game",back:"Back",jokerQ:"What does the joker stand for?",totalL:v=>`Total: ${v} / 41`,skinL:"Card style",clothL:"Table color",cl_green:"Green",cl_blue:"Blue",cl_red:"Red",cl_brown:"Brown",cl_gray:"Gray",cl_purple:"Purple",cl_black:"Black",skTibeb:"Tibeb",skRed:"Classic red",skBlue:"Classic blue",skGold:"Gold",stCanWin:"This card finishes your hand! Pick the card to discard and tap Finish the game, or lay down 41.",eFinish:"That discard doesn't finish your hand. Pick another card.",ePickLast:"Pick the one card you will discard, then tap Finish the game.",swapHint:"One of your cards matches a joker on the table. Pick that card, then tap the group with the gold outline to take the joker.",swapped:"You took the joker!",logSwap:n=>`${n} swapped a card for a joker.`,putBack:"Put the card back",groupMe:"Group my cards",sortSuit:"Sort by suit",sortRank:"Sort by number",
+  discardBtn:"Discard",sbL:"Score",cpuOnlyL:"You play against the computer.",remoteSoon:"Playing with family and friends, each on their own phone or tablet, is coming soon.",finQ:"This card finishes the game!",finWhy:v=>`You can win now, or keep playing and hope to draw a joker: discard it as your last card for a Vice worth ${v}. Careful: someone else may finish first.`,finNow:p=>`Finish now (+${p})`,finWait:v=>`Keep playing for a Vice (${v})`,show41:"Lay down 41",finish:"Finish the game",back:"Back",jokerQ:"What does the joker stand for?",totalL:v=>`Total: ${v} / 41`,skinL:"Card style",clothL:"Table color",cl_green:"Green",cl_blue:"Blue",cl_red:"Red",cl_brown:"Brown",cl_gray:"Gray",cl_purple:"Purple",cl_black:"Black",skTibeb:"Tibeb",skRed:"Classic red",skBlue:"Classic blue",skGold:"Gold",stCanWin:"This card finishes your hand! Pick the card to discard and tap Finish the game, or lay down 41.",eFinish:"That discard doesn't finish your hand. Pick another card.",ePickLast:"Pick the one card you will discard, then tap Finish the game.",swapHint:"One of your cards matches a joker on the table. Pick that card, then tap the group with the gold outline to take the joker.",swapped:"You took the joker!",logSwap:n=>`${n} swapped a card for a joker.`,putBack:"Put the card back",groupMe:"Group my cards",sortSuit:"Sort by suit",sortRank:"Sort by number",
   stDraw:n=>`${n}, your turn: draw from the pile, or take the top discard`,stPlay:n=>`${n}: pick one card and tap Discard`,stFirst:n=>`${n}: you are the dealer. Pick one card and tap Discard to start`,
   stShow:n=>`${n}: pick the cards for your Tris and Quatris worth 41 or more, including the new card, then tap Lay down 41`,
   stOther:n=>`${n} is playing…`,counter:v=>`${v} / 41`,opened:"41 ✓",cards:n=>`${n} cards`,
@@ -690,7 +704,7 @@ const T={
   r4:"በየተራው፦ ከክምሩ ይሳቡ፣ ከዚያ አንድ ካርታ ይጣሉ። በምትኩ የተጣለውን የላይኛውን ለማንሳት፣ አንዱ እሱን የሚጠቀም፣ ድምራቸው 41 እና ከዚያ በላይ የሆነ ትሪስ እና ኳትሪስ (የሚያስፈልገውን ያህል) ያውርዱ («41 ውረድ»)። ስብስቡ ጆከር ካለው፣ ጆከሩ የትኛውን ካርታ እንደሚወክል ይናገራሉ። ስብስቦቹ ተገልጠው ይቀመጣሉ፤ ከዚያ በኋላ የተጣለውን በፈለጉ ጊዜ ማንሳት ይችላሉ።",
   r5:"ከጣሉ በኋላ 13ቱ ካርታዎችዎ 3 ትሪስ እና 1 ኳትሪስ ከሆኑ ያሸንፋሉ። ከተጣለው ያነሱት ካርታ እጅዎን ከጨረሰ፣ 41 ሳይወርዱ ወዲያውኑ ማሸነፍ ይችላሉ። በመጨረሻ ጆከር ጥለው ካሸነፉ ቫይስ ነው፤ ነጥቡ እጥፍ ይሆናል።",r7:"ገቢ፦ ጠረጴዛው ላይ ካለ ስብስብ (የእርስዎም ሆነ የሌላ) ጋር የሚገጥም ካርታ ነው፤ ለምሳሌ 10♠ ከJ♠ Q♠ K♠ A♠ በፊት። በእጅዎ ውስጥ «ገቢ» የሚል ምልክት አለው። ጨዋታውን የሚጨርስ የመጨረሻ ካርታ ካልሆነ በስተቀር ማንም ገቢ ካርታ መጣል አይችልም። ሲጨርሱ መተግበሪያው ገቢ ካርታዎችዎን ሁሉ ያስገባልዎታል፤ ከዚያ የቀሩት ካርታዎች ማንኛውም ትሪስ እና ኳትሪስ ሊሆኑ ይችላሉ። ጆከር ገቢ አይሆንም፤ የራስዎን ስብስብ ብቻ ያረዝማል።",r6:"41 ካወረዱ በኋላ፣ በሌላ ተጫዋች ስብስብ ውስጥ ጆከሩ የሚወክለው ካርታ በእጅዎ ካለ፣ ካርታዎን ሰጥተው ጆከሩን መውሰድ ይችላሉ።",
   start:"ጨዋታውን ጀምሩ",resume:"ጨዋታውን ቀጥሉ",drawPile:"ክምር",discardPile:"የተጣለ",
-  discardBtn:"ጣል",finQ:"ይህ ካርታ ጨዋታውን ይጨርሳል!",finWhy:v=>`አሁን ማሸነፍ ይችላሉ፤ ወይም ጨዋታውን ቀጥለው ጆከር እንዲመጣልዎ ይጠብቁ፦ ጆከሩን በመጨረሻ ቢጥሉት ${v} ነጥብ የሚያስገኝ ቫይስ ያገኛሉ። ይጠንቀቁ፤ ሌላው ተጫዋች ቀድሞ ሊጨርስ ይችላል።`,finNow:p=>`አሁን ጨርስ (+${p})`,finWait:v=>`ለቫይስ ቀጥል (${v})`,show41:"41 ውረድ",finish:"ጨዋታውን ጨርስ",back:"ተመለስ",jokerQ:"ጆከሩ የትኛውን ካርታ ይወክላል?",totalL:v=>`ድምር፦ ${v} / 41`,skinL:"የካርታ ዓይነት",clothL:"የጠረጴዛ ቀለም",cl_green:"አረንጓዴ",cl_blue:"ሰማያዊ",cl_red:"ቀይ",cl_brown:"ቡናማ",cl_gray:"ግራጫ",cl_purple:"ሐምራዊ",cl_black:"ጥቁር",skTibeb:"ጥበብ",skRed:"ክላሲክ ቀይ",skBlue:"ክላሲክ ሰማያዊ",skGold:"ወርቃማ",stCanWin:"ይህ ካርታ እጅዎን ይጨርሳል! የሚጥሉትን ካርታ መርጠው «ጨዋታውን ጨርስ» ይንኩ፣ ወይም 41 ይውረዱ።",eFinish:"ይህን ቢጥሉ እጅዎ አያልቅም። ሌላ ካርታ ይምረጡ።",ePickLast:"የሚጥሉትን አንድ ካርታ መርጠው «ጨዋታውን ጨርስ» ይንኩ።",swapHint:"ከካርታዎችዎ አንዱ ጠረጴዛው ላይ ካለ ጆከር ጋር ይመሳሰላል። ያንን ካርታ መርጠው በወርቃማ መስመር የተከበበውን ስብስብ ይንኩ፤ ጆከሩን ይወስዳሉ።",swapped:"ጆከሩን ወሰዱ!",logSwap:n=>`${n} ካርታ {ሰጥቶ ጆከር ወሰደ|ሰጥታ ጆከር ወሰደች}።`,putBack:"ካርታውን መልስ",groupMe:"ካርታዎቼን አደራጅ",sortSuit:"በዓይነት አስተካክል",sortRank:"በቁጥር አስተካክል",
+  discardBtn:"ጣል",sbL:"ውጤት",cpuOnlyL:"ከኮምፒውተሩ ጋር ይጫወታሉ።",remoteSoon:"ከቤተሰብና ከጓደኞች ጋር እያንዳንዱ በራሱ ስልክ ወይም ታብሌት መጫወት በቅርብ ቀን ይመጣል።",finQ:"ይህ ካርታ ጨዋታውን ይጨርሳል!",finWhy:v=>`አሁን ማሸነፍ ይችላሉ፤ ወይም ጨዋታውን ቀጥለው ጆከር እንዲመጣልዎ ይጠብቁ፦ ጆከሩን በመጨረሻ ቢጥሉት ${v} ነጥብ የሚያስገኝ ቫይስ ያገኛሉ። ይጠንቀቁ፤ ሌላው ተጫዋች ቀድሞ ሊጨርስ ይችላል።`,finNow:p=>`አሁን ጨርስ (+${p})`,finWait:v=>`ለቫይስ ቀጥል (${v})`,show41:"41 ውረድ",finish:"ጨዋታውን ጨርስ",back:"ተመለስ",jokerQ:"ጆከሩ የትኛውን ካርታ ይወክላል?",totalL:v=>`ድምር፦ ${v} / 41`,skinL:"የካርታ ዓይነት",clothL:"የጠረጴዛ ቀለም",cl_green:"አረንጓዴ",cl_blue:"ሰማያዊ",cl_red:"ቀይ",cl_brown:"ቡናማ",cl_gray:"ግራጫ",cl_purple:"ሐምራዊ",cl_black:"ጥቁር",skTibeb:"ጥበብ",skRed:"ክላሲክ ቀይ",skBlue:"ክላሲክ ሰማያዊ",skGold:"ወርቃማ",stCanWin:"ይህ ካርታ እጅዎን ይጨርሳል! የሚጥሉትን ካርታ መርጠው «ጨዋታውን ጨርስ» ይንኩ፣ ወይም 41 ይውረዱ።",eFinish:"ይህን ቢጥሉ እጅዎ አያልቅም። ሌላ ካርታ ይምረጡ።",ePickLast:"የሚጥሉትን አንድ ካርታ መርጠው «ጨዋታውን ጨርስ» ይንኩ።",swapHint:"ከካርታዎችዎ አንዱ ጠረጴዛው ላይ ካለ ጆከር ጋር ይመሳሰላል። ያንን ካርታ መርጠው በወርቃማ መስመር የተከበበውን ስብስብ ይንኩ፤ ጆከሩን ይወስዳሉ።",swapped:"ጆከሩን ወሰዱ!",logSwap:n=>`${n} ካርታ {ሰጥቶ ጆከር ወሰደ|ሰጥታ ጆከር ወሰደች}።`,putBack:"ካርታውን መልስ",groupMe:"ካርታዎቼን አደራጅ",sortSuit:"በዓይነት አስተካክል",sortRank:"በቁጥር አስተካክል",
   stDraw:n=>`${n}፣ የእርስዎ ተራ፦ ከክምሩ ይሳቡ ወይም የተጣለውን ያንሱ`,stPlay:n=>`${n}፦ አንድ ካርታ መርጠው «ጣል» ይንኩ`,stFirst:n=>`${n}፦ እርስዎ አዳይ ነዎት። ለመጀመር አንድ ካርታ መርጠው «ጣል» ይንኩ`,
   stShow:n=>`${n}፦ አዲሱን ካርታ ጨምሮ 41 እና ከዚያ በላይ የሚያወጡ ትሪስ እና ኳትሪስ ይምረጡ፣ ከዚያ «41 ውረድ» ይንኩ`,
   stOther:n=>`${n} {እየተጫወተ|እየተጫወተች} ነው…`,counter:v=>`${v} / 41`,opened:"41 ✓",cards:n=>`${n} ካርታ`,
@@ -773,7 +787,19 @@ function renderSkins(){const box=$("skins");box.innerHTML="";SKINS.forEach(([k,l
  b.onclick=()=>{skin=k;ls.set("skin",k);document.documentElement.dataset.skin=k;renderSkins()};box.appendChild(b)})}
 const setupMain=Object.assign({n:2,seats:["cpu","cpu","cpu"],level:"medium",jokers:true},ls.get("ksetup2",{}));
 const setupI=Object.assign({n:2,seats:["cpu","1","2"]},ls.get("isetup1",{}));let setup=setupMain;
-const setupL=Object.assign({n:2,seats:["1","2"]},ls.get("lsetup1",{}));if(setupL.n>3)setupL.n=3;
+/* Public site: every game is one player against the computer (2–4 players in all); no person seats and no "pass the computer" screens. */
+const CPUONLY=!!(window.APPCFG||{}).cpuOnly;
+const seatOpt=k=>CPUONLY?"cpu":setup.seats[k];
+if(CPUONLY){const o={en:{i7:"When the circle is empty, the most cards wins: 20 points. With 3 or 4 players, you play against the computers.",
+  l1:"One deck, no jokers. The Computer deals; play against it, or against up to 3 computer players.",
+  l5:"With 3 or 4 players: your own number on your pile wins. Another player's number on your pile knocks that player out. The last player left wins. A win is worth 10 points.",
+  lNew:"You against the computer, 2 to 4 players",t3:"The first card with the same number decides who wins. Play against the computer, or against more computer players."},
+ am:{i7:"ክቡ ሲያልቅ ብዙ ካርታ ያለው ያሸንፋል፦ 20 ነጥብ። 3 ወይም 4 ሲሆኑ ከኮምፒውተሮቹ ጋር ይጫወታሉ።",
+  l1:"አንድ ካርታ፣ ያለ ጆከር። ኮምፒውተሩ ያድላል፤ ከእሱ ጋር ወይም እስከ 3 ከሚደርሱ የኮምፒውተር ተጫዋቾች ጋር ይጫወቱ።",
+  l5:"3 ወይም 4 ሲሆኑ፦ የራስዎ ቁጥር በክምርዎ ላይ ከወጣ ያሸንፋሉ። የሌላ ተጫዋች ቁጥር በክምርዎ ላይ ከወጣ ያ ተጫዋች ይወጣል። የመጨረሻው የቀረ ያሸንፋል። ድል 10 ነጥብ ነው።",
+  lNew:"እርስዎ ከኮምፒውተሩ ጋር፣ ከ2 እስከ 4 ተጫዋቾች",t3:"ተመሳሳይ ቁጥር ያለው የመጀመሪያው ካርታ አሸናፊውን ይወስናል። ከኮምፒውተሩ ወይም ከብዙ የኮምፒውተር ተጫዋቾች ጋር ይጫወቱ።"}};
+ Object.assign(T.en,o.en);Object.assign(T.am,o.am)}
+const setupL=Object.assign({n:2,seats:["1","2"]},ls.get("lsetup1",{}));if(setupL.n>(CPUONLY?4:3))setupL.n=CPUONLY?4:3;
 const saveSetup=()=>ls.set(mode==="injera"?"isetup1":mode==="latlat"?"lsetup1":"ksetup2",setup);
 let mode="konker";const KEY={konker:"kgame2",seka:"sgame1",injera:"igame1",latlat:"lgame1"};
 function activate(m){mode=m;setup=m==="injera"?setupI:m==="latlat"?setupL:setupMain;G=ls.get(KEY[m],null);if(G&&!G.game)G.game=m;kAceHigh=!(G&&G.game==="seka"&&!G.aceHigh);pend=null;sel.clear();msg=""}
@@ -781,7 +807,7 @@ function openGame(m){activate(m);if(G&&!G.done){playView()}else{show("setup");re
 function playView(){if(mode==="latlat"){show("latlat");renderL();resumeL()}else if(mode==="injera"){show("injera");renderI();resumeI()}else{show("play");render();resumeTurn()}}
 $("goKonker").onclick=()=>openGame("konker");$("goSeka").onclick=()=>openGame("seka");$("goInjera").onclick=()=>openGame("injera");$("goLatlat").onclick=()=>LSOON?openTeaser():openGame("latlat");
 function renderSetup(){const sk=mode==="seka",ij=mode==="injera",ll=mode==="latlat";$("setupTitle").textContent=t(ll?"lTitle":ij?"iTitle":sk?"sekaTitle":"kTitle");$("jkRow").hidden=!sk;$("konkerRules").hidden=sk||ij||ll;$("sekaRules").hidden=!sk;$("injeraRules").hidden=!ij;$("latlatRules").hidden=!ll;
- document.querySelector('#nSeg button[data-n="4"]').hidden=ll;
+ document.querySelector('#nSeg button[data-n="4"]').hidden=ll&&!CPUONLY;
  $("lvlLabel").textContent=t(sk?"lvlLs":"lvlL");$("rulesLabel").textContent=t(ll?"rulesL2":ij?"rulesI":sk?"rulesS":"rulesL");$("s3").textContent=t(setup.level==="easy"?"s3e":"s3h");
  document.querySelectorAll("#jkSeg button").forEach(b=>b.setAttribute("aria-pressed",String((b.dataset.j==="1")===(setup.jokers!==false))));
  document.querySelectorAll("#nSeg button").forEach(b=>b.setAttribute("aria-pressed",String(+b.dataset.n===setup.n)));
@@ -792,11 +818,13 @@ function renderSetup(){const sk=mode==="seka",ij=mode==="injera",ll=mode==="latl
   const chips=document.createElement("div");chips.className="chips";
   const people=[0,1,2].filter(i=>i!==cur).map(String),optsS=ll?(setup.n===2?["dealer"]:people.concat(["vm","vf"])):ij&&setup.n>2?people.concat(["vm","vf"]):["cpu",...people];
   if(ll&&setup.n===2){const sp=document.createElement("span");sp.className="muted";sp.textContent=t("lDealer");row.appendChild(sp);box.appendChild(row);continue}
+  if(CPUONLY){setup.seats[k]="cpu";const sp=document.createElement("span");sp.className="cpuseat";sp.textContent="🖥 "+t("ipad")+(setup.n>2?" "+(k+1):"");row.appendChild(sp);box.appendChild(row);continue}
   if(setup.seats[k]!=="cpu"&&setup.seats[k][0]!=="v"&&+setup.seats[k]===cur)setup.seats[k]=optsS[0];if(!optsS.includes(setup.seats[k]))setup.seats[k]=optsS.find(o=>o[0]==="v"||!setup.seats.slice(0,setup.n-1).some((x,j)=>j!==k&&x===o))||optsS[0];
   optsS.forEach(o=>{const taken=o!=="cpu"&&o[0]!=="v"&&setup.seats.slice(0,setup.n-1).some((x,j)=>j!==k&&x===o);const b=document.createElement("button");b.type="button";b.className="chip";
    b.textContent=o==="cpu"?t("ipad"):o[0]==="v"?t("visitor")+" · "+t(o==="vf"?"female":"male").replace(/ \(.*\)/,""):pname(+o);b.disabled=taken;b.setAttribute("aria-pressed",String(setup.seats[k]===o));
    b.onclick=()=>{setup.seats[k]=o;saveSetup();renderSetup()};chips.appendChild(b)});
   row.appendChild(chips);box.appendChild(row)}
+ if(CPUONLY){const nt=document.createElement("p");nt.className="soonnote";nt.innerHTML="<b></b> <span></span>";nt.firstChild.textContent=t("cpuOnlyL");nt.lastChild.textContent=t("remoteSoon");box.appendChild(nt)}
  $("lvlRow").hidden=ij||ll||(!sk&&!setup.seats.slice(0,setup.n-1).includes("cpu"));
  $("resumeBtn").hidden=!(G&&!G.done);renderSkins();renderCloths()}
 document.querySelectorAll("#nSeg button").forEach(b=>b.onclick=()=>{setup.n=+b.dataset.n;saveSetup();renderSetup()});
@@ -817,8 +845,14 @@ const seatG=i=>{const s=G.seats[i];if(s.kind==="cpu")return"m";if(s.kind==="v")r
 const GS=(k,i,...a)=>gx(T[lang][k](seatName(i),...a),seatG(i));
 const seatName=i=>{const s=G.seats[i];if(s.kind==="v")return t("visitor")+" "+(G.seats.slice(0,i+1).filter(x=>x.kind==="v").length);if(s.kind!=="cpu")return pname(s.pid);const cpus=G.seats.filter(x=>x.kind==="cpu").length;return t("ipad")+(cpus>1?" "+G.seats.slice(0,i+1).filter(x=>x.kind==="cpu").length:"")};
 const opened=i=>seka()||G.table[i].length>0;
-function newGame(){const seats=[{kind:"human",pid:cur}];for(let k=0;k<setup.n-1;k++){const o=setup.seats[k];seats.push(o==="cpu"?{kind:"cpu"}:{kind:"human",pid:+o})}
- const sk=mode==="seka";G={game:mode,aceHigh:!sk||setup.level==="easy",jokers:!sk||setup.jokers!==false,seats,level:setup.level,round:0,dealer:Math.floor(Math.random()*seats.length)-1,done:false};deal();track("game-start",{level:sk?setup.level:"-",jokers:G.jokers?"yes":"no"})}
+/* the sitting's score: starts at 0 when a game is started from the setup screen, kept across rounds and app restarts */
+function addScore(w,pts){if(w==null||!G)return;if(!G.score||G.score.length!==G.seats.length)G.score=G.seats.map(()=>0);G.score[w]+=pts;G.lastW=w;G.lastAt=Date.now()}
+function renderScore(id,nameOf){const el=$(id);if(!el)return;el.innerHTML="";if(!G)return;const sc=G.score&&G.score.length===G.seats.length?G.score:G.seats.map(()=>0);
+ const lab=document.createElement("span");lab.className="sbl";lab.textContent=t("sbL");el.appendChild(lab);const top=Math.max(...sc);
+ G.seats.forEach((_,i)=>{const c=document.createElement("span");c.className="sb"+(top>0&&sc[i]===top?" lead":"")+(G.lastW===i&&G.lastAt&&Date.now()-G.lastAt<2500?" just":"");
+  c.innerHTML="<span></span><b></b>";c.firstChild.textContent=(nameOf||seatName)(i);c.lastChild.textContent=sc[i];el.appendChild(c)})}
+function newGame(){const seats=[{kind:"human",pid:cur}];for(let k=0;k<setup.n-1;k++){const o=seatOpt(k);seats.push(o==="cpu"?{kind:"cpu"}:{kind:"human",pid:+o})}
+ const sk=mode==="seka";G={score:seats.map(()=>0),game:mode,aceHigh:!sk||setup.level==="easy",jokers:!sk||setup.jokers!==false,seats,level:setup.level,round:0,dealer:Math.floor(Math.random()*seats.length)-1,done:false};deal();track("game-start",{level:sk?setup.level:"-",jokers:G.jokers?"yes":"no"})}
 function deal(){G.rated=false;kAceHigh=G.aceHigh!==false;const n=G.seats.length,deck=kShuffle(kDeck(n<=2?1:2,G.jokers===false)),hs=seka()?10:13;G.round++;G.dealer=(G.dealer+1+n)%n;
  G.hands=G.seats.map(()=>[]);for(let k=0;k<hs;k++)for(let i=0;i<n;i++)G.hands[(G.dealer+1+i)%n].push(deck.pop());G.hands[G.dealer].push(deck.pop());
  G.table=G.seats.map(()=>[]);G.stock=deck;G.discard=[];G.turn=G.dealer;G.phase="play";G.first=true;G.took=null;G.pre=null;G.newId=null;G.over=null;G.log="";G.jas={};pend=null;
@@ -869,7 +903,7 @@ function actDiscard(id,keepPlaying){const me=G.turn,h=G.hands[me],c=h.find(x=>x.
  nextTurn();return null}
 function nextTurn(){const n=G.seats.length;G.turn=(G.turn+1)%n;G.phase="draw";G.took=null;sel.clear();msg="";
  if(isHuman(G.turn)){G.handover=humans()>1&&G.turn!==G.lastHuman;G.lastHuman=G.turn}saveG()}
-function endRound(w,vice,groups,ins){G.over={w,vice,groups:groups||null,ins:ins||[]};track("round-end",{result:w==null?"no-winner":G.seats[w].kind==="cpu"?"ipad":"player",vice:vice?"yes":"no",gebi:ins&&ins.length?"yes":"no"});G.phase="over";
+function endRound(w,vice,groups,ins){G.over={w,vice,groups:groups||null,ins:ins||[]};addScore(w,vice?2:1);track("round-end",{result:w==null?"no-winner":G.seats[w].kind==="cpu"?"ipad":"player",vice:vice?"yes":"no",gebi:ins&&ins.length?"yes":"no"});G.phase="over";
  G.seats.forEach((s,i)=>{if(s.kind==="cpu")return;const p=players[s.pid];if(seka())p.sRounds=(p.sRounds||0)+1;else p.kRounds=(p.kRounds||0)+1;const d=dayStr();if(!p.days.includes(d))p.days.push(d);
   if(i===w){const sk=seka(),pts=sk?(vice?40:20):(vice?80:40);p.pts+=pts;if(sk){p.sWins=(p.sWins||0)+1;if(vice)p.sVice=(p.sVice||0)+1}else{p.kWins=(p.kWins||0)+1;if(vice)p.kVice=(p.kVice||0)+1}p.hist.unshift({d,v:vice?1:0,pts,g:sk?"s":"k"});p.hist=p.hist.slice(0,30)}saveP(s.pid)});
  saveG();if(w!=null&&isHuman(w)){const pp=seka()?(vice?40:20):(vice?80:40);setTimeout(()=>cheer(GS("wins",w),vice?t("vice"):"",pp),600)}}
@@ -912,7 +946,7 @@ function groupHand(i){const h=G.hands[i],need=needOf(i);const cv=kCover(h,Math.m
 
 /* ---------- rendering ---------- */
 const viewer=()=>isHuman(G.turn)?G.turn:G.lastHuman;
-function render(){if(!G)return;const n=G.seats.length,V=viewer(),myTurn=isHuman(G.turn)&&!busy&&G.phase!=="over";
+function render(){if(!G)return;renderScore("sbK");const n=G.seats.length,V=viewer(),myTurn=isHuman(G.turn)&&!busy&&G.phase!=="over";
  $("roundTag").textContent=t(seka()?"sekaTitle":"kTitle")+" · "+L().round(G.round);
  $("handover").hidden=!(G.handover&&myTurn);$("hand").hidden=G.phase==="over"&&G.over.w===V;if(G.handover&&myTurn){$("hoTitle").textContent=GS("passTo",G.turn);$("hoSub").textContent=t("passSub")}
  // other players
@@ -1079,11 +1113,13 @@ let lpick=null,lmsg="",lQuitArm=false,lTimer=null,lPeek=false;
 const lVs=()=>G.seats.length===2;               // you against the computer dealer
 const lName=i=>lVs()&&i===1?t("lDealer"):seatName(i);
 function newGameL(){const seats=[{kind:"human",pid:cur}];
- if(setup.n===2)seats.push({kind:"cpu"});else for(let k=0;k<2;k++){const o=setup.seats[k];seats.push(o[0]==="v"?{kind:"v",g:o==="vf"?"f":"m"}:{kind:"human",pid:+o})}
- G={game:"latlat",seats,round:0,done:false};dealL();track("game-start")}
+ if(setup.n===2)seats.push({kind:"cpu"});else for(let k=0;k<Math.min(setup.n,CPUONLY?4:3)-1;k++){const o=seatOpt(k);seats.push(o==="cpu"?{kind:"cpu"}:o[0]==="v"?{kind:"v",g:o==="vf"?"f":"m"}:{kind:"human",pid:+o})}
+ G={score:seats.map(()=>0),game:"latlat",seats,round:0,done:false};dealL();track("game-start")}
 function dealL(){const n=G.seats.length;G.round++;G.rated=false;G.deck=kShuffle(kDeck(1,true));
  G.secrets=G.seats.map(()=>null);G.piles=G.seats.map(()=>[]);G.dealt=[];G.out=G.seats.map(()=>false);G.revealed=false;G.over=null;G.log="";
- G.pickers=lVs()?[0]:[0,1,2];G.pickAt=0;G.phase="pick";G.ready=lVs();G.next=0;lpick=null;lmsg="";saveG()}
+ G.pickers=lVs()?[0]:G.seats.map((s,i)=>s.kind==="cpu"?-1:i).filter(i=>i>=0);
+ if(!lVs())G.seats.forEach((s,i)=>{if(s.kind==="cpu")G.secrets[i]=G.deck.splice(Math.floor(Math.random()*G.deck.length),1)[0]});
+ G.pickAt=0;G.phase="pick";G.ready=G.pickers.length===1;G.next=0;lpick=null;lmsg="";saveG()}
 /* whose turn to receive the next card: 2 players → ወጣ, ገባ, ወጣ…; 3 players → P1, P2, P3… skipping players who are out */
 function lNextSeat(){const n=G.seats.length;let i=G.next%n,k=0;while(G.out[i]&&k<n){i=(i+1)%n;k++}return i}
 function lPickCard(idx){const c=G.deck.splice(idx%G.deck.length,1)[0];G.secrets[G.pickers[G.pickAt]]=c;lpick=c;saveG()}
@@ -1102,7 +1138,7 @@ function lDealOne(){if(G.phase!=="deal")return;if(!G.deck.length){G.phase="over"
  if(G.dealt.length===3){G.revealed=true;G.log=t("lReveal");for(const x of G.dealt){if(lCheck(x))break}}
  else if(G.revealed)lCheck(d);
  saveG()}
-function lEnd(w,d){G.phase="over";G.over={w,card:d.card.id,on:d.to};
+function lEnd(w,d){G.phase="over";G.over={w,card:d.card.id,on:d.to};addScore(w,1);
  G.seats.forEach((s,i)=>{if(s.kind!=="human")return;const p=players[s.pid];p.lRounds=(p.lRounds||0)+1;const day=dayStr();if(!p.days.includes(day))p.days.push(day);
   if(i===w){p.pts+=10;p.lWins=(p.lWins||0)+1;p.hist.unshift({d:day,v:0,pts:10,g:"l"});p.hist=p.hist.slice(0,30)}saveP(s.pid)});
  track("round-end",{result:G.seats[w].kind==="cpu"?"ipad":"player"});
@@ -1126,7 +1162,7 @@ function lPileEl(i){const box=document.createElement("div");box.className="lpile
  pile.style.width=(74+Math.max(0,last.length-1)*26)+"px";row.appendChild(pile);box.appendChild(row);
  const cnt=document.createElement("div");cnt.className="small";cnt.textContent=G.out[i]?t("lIsOut"):G.piles[i].length===1?t("lOne"):L().cards(G.piles[i].length);box.appendChild(cnt);
  return box}
-function renderL(){if(!G||G.game!=="latlat")return;$("lTag").textContent=t("lTitle")+" · "+L().round(G.round);
+function renderL(){if(!G||G.game!=="latlat")return;renderScore("sbL",lName);$("lTag").textContent=t("lTitle")+" · "+L().round(G.round);
  const pk=$("lPick"),tb=$("lTable");pk.hidden=G.phase!=="pick";tb.hidden=G.phase==="pick";
  if(G.phase==="pick"){const who=G.pickers[G.pickAt];pk.innerHTML="";if(!lpick&&G.ready&&G.secrets[who])lpick=G.secrets[who];
   if(!G.ready){const h=document.createElement("div");h.className="stack";h.style.alignItems="center";h.innerHTML=`<h2></h2><p class="muted"></p><button class="btn gold" type="button"></button>`;
@@ -1201,8 +1237,8 @@ function iBest(){const d=G.drawn;if(!d)return{groups:[],owners:[],water:false};r
 const iMore=()=>{const b=iBest();return b.groups.length>0||b.owners.length>0||b.water};
 function iWater(){if(G.watered||!iOwnMatch(G.drawn))return false;G.watered=true;hintO.clear();if(!iMore())iSettle(true);saveG();return true}
 let pickW=new Set(),pickO=new Set(),hintW=new Set(),hintO=new Set(),imsg="",imsgErr=false,iQuitArm=false;
-function newGameI(){const seats=[{kind:"human",pid:cur}];for(let k=0;k<setup.n-1;k++){const o=setup.seats[k];seats.push(o==="cpu"?{kind:"cpu"}:o[0]==="v"?{kind:"v",g:o==="vf"?"f":"m"}:{kind:"human",pid:+o})}
- G={game:"injera",seats,round:0,first:Math.floor(Math.random()*seats.length)-1,done:false};dealI();track("game-start")}
+function newGameI(){const seats=[{kind:"human",pid:cur}];for(let k=0;k<setup.n-1;k++){const o=seatOpt(k);seats.push(o==="cpu"?{kind:"cpu"}:o[0]==="v"?{kind:"v",g:o==="vf"?"f":"m"}:{kind:"human",pid:+o})}
+ G={score:seats.map(()=>0),game:"injera",seats,round:0,first:Math.floor(Math.random()*seats.length)-1,done:false};dealI();track("game-start")}
 function dealI(){G.rated=false;const n=G.seats.length;let deck=kShuffle(kDeck(n<=2?1:2));G.round++;G.first=(G.first+1+n)%n;
  const wot=[];while(wot.length<4){const c=deck.pop();if(c.j)deck.splice(Math.floor(Math.random()*(deck.length+1)),0,c);else wot.push(c)}
  G.wot=wot;G.circle=deck;G.piles=G.seats.map(()=>[]);G.turn=G.first;G.phase="draw";G.drawn=null;G.gain=[];G.watered=false;G.last=false;G.log="";G.over=null;
@@ -1225,7 +1261,7 @@ function iSettle(won){const me=G.turn,d=G.drawn;
  if(G.last||G.circle.every(x=>!x)){endI();return}
  if(won)G.phase="draw";else{G.turn=(G.turn+1)%G.seats.length;G.phase="draw"}}
 function endI(){G.phase="over";const counts=G.seats.map((_,o)=>iCount(o)),mx=Math.max(...counts),top=counts.map((c,o)=>c===mx?o:-1).filter(o=>o>=0);
- const w=top.length===1?top[0]:null;G.over={w,counts};track("round-end",{result:w==null?"tie":G.seats[w].kind==="cpu"?"ipad":"player"});
+ const w=top.length===1?top[0]:null;G.over={w,counts};addScore(w,1);track("round-end",{result:w==null?"tie":G.seats[w].kind==="cpu"?"ipad":"player"});
  G.seats.forEach((s,i)=>{if(s.kind!=="human")return;const p=players[s.pid];p.iRounds=(p.iRounds||0)+1;const d=dayStr();if(!p.days.includes(d))p.days.push(d);
   if(i===w){p.pts+=20;p.iWins=(p.iWins||0)+1;p.hist.unshift({d,v:0,pts:20,g:"i"});p.hist=p.hist.slice(0,30)}saveP(s.pid)});
  saveG();if(w!=null&&G.seats[w].kind!=="cpu")setTimeout(()=>cheer(GS("iWins",w),G.seats.map((_,o)=>seatName(o)+" "+counts[o]).join(" · "),20),600)}
@@ -1240,7 +1276,7 @@ async function cpuTurnI(){if(busy)return;busy=true;const g0=G;
  busy=false;renderI()}
 function resumeI(){if(!G||G.game!=="injera"||G.phase==="over"||busy||view!=="injera")return;if(!isHuman(G.turn))cpuTurnI()}
 const cName=c=>c.j?"Joker":RL(c.r)+SYM[c.s]+"︎";
-function renderI(){if(!G||G.game!=="injera")return;const myTurn=isHuman(G.turn)&&!busy&&G.phase!=="over",cap=myTurn&&G.phase==="capture";
+function renderI(){if(!G||G.game!=="injera")return;renderScore("sbI");const myTurn=isHuman(G.turn)&&!busy&&G.phase!=="over",cap=myTurn&&G.phase==="capture";
  $("iTag").textContent=t("iTitle")+" · "+L().round(G.round);
  // players and their መደብ
  const pb=$("iPlayers");pb.innerHTML="";

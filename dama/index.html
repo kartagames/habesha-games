@@ -12,7 +12,7 @@
 <link rel="icon" type="image/png" href="icon-180.png">
 <meta name="theme-color" content="#1E5E48">
 <script>function FBMAIL(app,am){var sub=(am?"አስተያየት":"Feedback")+(app?" · "+app:"")+" · Habesha Card Games";var body=am?"ጨዋታ፦ "+app+"\n\nመልዕክትዎ፦\n\n\n— የመተግበሪያው ቋንቋ፦ አማርኛ":"Game: "+app+"\n\nYour message:\n\n\n— App language: English";return "mailto:kartagames@protonmail.com?subject="+encodeURIComponent(sub)+"&body="+encodeURIComponent(body)}</script>
-<script>window.APPCFG={store:true,defG:["m","m","m"],soon:["latlat"]}</script>
+<script>window.APPCFG={store:true,cpuOnly:true,defG:["m","m","m"],soon:["latlat"]}</script>
 <script src="../analytics-config.js"></script>
 <script src="../telemetry.js"></script>
 <title>Dama · Habesha Card Games</title>
@@ -235,6 +235,12 @@ html[lang="am"] .label{text-transform:none;letter-spacing:0}
 .dm-row{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
 .check{display:flex;gap:12px;align-items:center;min-height:48px;font-size:1.05rem;cursor:pointer}
 .check input{width:28px;height:28px;accent-color:var(--green);flex:none}
+/* Dama scoreboard for this sitting: one point per game won; starts at 0 from the setup screen, kept through "Play again" */
+.dm-score{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 10px;align-items:center;max-width:640px;margin:0 auto;width:100%}
+.dm-score .sbl{font-size:.95rem;color:var(--muted);font-weight:700}
+.dm-score .sb{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:4px 6px 4px 16px;border-radius:999px;border:2px solid var(--line);background:var(--surface);font-weight:700}
+.dm-score .sb b{min-width:2.1em;height:34px;padding:0 8px;border-radius:999px;display:inline-grid;place-items:center;background:var(--green);color:#fff;font-variant-numeric:tabular-nums;font-size:1.15rem}
+.dm-score .sb.lead{border-color:var(--gold)}.dm-score .sb.lead b{background:var(--gold);color:#1c2924}
 .dm-side{display:flex;align-items:center;gap:12px;padding:10px 16px;border-radius:14px;border:3px solid var(--line);background:var(--surface);max-width:640px;margin:0 auto;width:100%;flex-wrap:wrap}
 .dm-side b{font-size:1.15rem}.dm-side .muted{margin-left:auto}
 .dm-side.turn{border-color:var(--green);background:var(--green-soft)}
@@ -550,6 +556,7 @@ html[lang="am"] .label{text-transform:none;letter-spacing:0}
       <div class="actions" style="justify-content:flex-start"><button class="btn primary" type="button" id="dmStartBtn" data-t="dmStart"></button><button class="btn gold" type="button" id="dmResume" data-t="dmResume"></button></div>
     </div>
     <div class="view" id="dmPlay" hidden>
+      <div class="dm-score" id="dmScore" aria-live="polite"></div>
       <div class="dm-side" id="dmSideL"><span class="swatch pl"></span><b id="dmNameL"></b><span class="muted small"><span data-t="dmCaptured"></span>: <b id="dmCapL">0</b></span></div>
       <div class="dframe"><div class="dboard" id="dmBoard"></div></div>
       <div class="dm-side" id="dmSideD"><span class="swatch pd"></span><b id="dmNameD"></b><span class="muted small"><span data-t="dmCaptured"></span>: <b id="dmCapD">0</b></span></div>
@@ -620,7 +627,7 @@ const T={
   dmVsCpu:"Against the computer",dmTwo:"Two players",dm_easy:"Easy",dm_medium:"Medium",dm_hard:"Hard",dmLevelL:"How strong should the computer play?",dmP2L:"Who is the second player?",
   dmYouPlay:n=>`${n} plays the pieces at the bottom and moves first.`,dmStart:"Start game",dmResume:"Continue the game",dmRulesL:"Rules",
   dmRForced:"Capturing is required when possible",dmRBack:"Ordinary pieces may also capture backward",dmRFly:"Kings move any distance along a diagonal",dmRulesNote:"Rule changes start with the next new game.",
-  dmPiecesL:"Pieces",dmWood:"Wooden",dmCaps:"Bottle caps",dmIpad:"Computer",dmTurn:n=>`${n}'s turn`,dmThinking:"The Computer is thinking…",
+  dmPiecesL:"Pieces",dmWood:"Wooden",dmCaps:"Bottle caps",dmIpad:"Computer",dmScoreL:"Score",dmTurn:n=>`${n}'s turn`,dmThinking:"The Computer is thinking…",
   dmMustJump:"A capture is available, so you must jump.",dmNoMove:"That piece can't move right now.",dmMore:"Keep jumping with the same piece.",dmUndo:"Undo",
   dmHintMsg:"Try moving the highlighted piece to the highlighted square.",dmNew:"New game",dmNewC:"Tap again to end this game",dmSettings:"Settings",
   dmWin:n=>`${n} wins!`,dmLose:"The Computer won this time. Try again!",dmDraw:"It's a draw.",dmAgain:"Play again",dmChange:"Change players or settings",dmCaptured:"Captured",
@@ -682,7 +689,7 @@ const T={
   dmVsCpu:"ከኮምፒውተሩ ጋር",dmTwo:"ሁለት ተጫዋቾች",dm_easy:"ቀላል",dm_medium:"መካከለኛ",dm_hard:"ከባድ",dmLevelL:"ኮምፒውተሩ ምን ያህል ጠንክሮ ይጫወት?",dmP2L:"ሁለተኛው ተጫዋች ማን ነው?",
   dmYouPlay:n=>`${n}፦ የታችኛው ወገን ጠጠሮች፤ መጀመሪያ ይጫወታሉ።`,dmStart:"ጨዋታ ጀምር",dmResume:"ጨዋታውን ቀጥሉ",dmRulesL:"ደንቦች",
   dmRForced:"የሚበላ ካለ መብላት ግዴታ ነው",dmRBack:"ተራ ጠጠሮች ወደ ኋላም መብላት ይችላሉ",dmRFly:"ንጉሥ በመስመሩ ላይ በፈለገው ርቀት ይሄዳል",dmRulesNote:"የደንብ ለውጦች በሚቀጥለው አዲስ ጨዋታ ይጀምራሉ።",
-  dmPiecesL:"ጠጠሮች",dmWood:"የእንጨት",dmCaps:"የጠርሙስ ክዳን",dmIpad:"ኮምፒውተር",dmTurn:n=>`የ${n} ተራ`,dmThinking:"ኮምፒውተሩ እያሰበ ነው…",
+  dmPiecesL:"ጠጠሮች",dmWood:"የእንጨት",dmCaps:"የጠርሙስ ክዳን",dmIpad:"ኮምፒውተር",dmScoreL:"ውጤት",dmTurn:n=>`የ${n} ተራ`,dmThinking:"ኮምፒውተሩ እያሰበ ነው…",
   dmMustJump:"የሚበላ ጠጠር ስላለ መብላት አለብዎት።",dmNoMove:"ይህ ጠጠር አሁን መንቀሳቀስ አይችልም።",dmMore:"በዚያው ጠጠር መብላትዎን ይቀጥሉ።",dmUndo:"ወደ ኋላ",
   dmHintMsg:"የደመቀውን ጠጠር ወደ ደመቀው ቦታ ያንቀሳቅሱ።",dmNew:"አዲስ ጨዋታ",dmNewC:"ጨዋታውን ለመጨረስ እንደገና ይንኩ",dmSettings:"ቅንብሮች",
   dmWin:n=>`አሸናፊ፦ ${n}!`,dmLose:"በዚህ ጊዜ ኮምፒውተሩ አሸነፈ። እንደገና ይሞክሩ!",dmDraw:"አቻ ወጣ።",dmAgain:"እንደገና ተጫወቱ",dmChange:"ተጫዋቾችን ወይም ቅንብሮችን ቀይሩ",dmCaptured:"የተበሉ",
@@ -1354,6 +1361,7 @@ function dmCheckEnd(){
  if(!dmMoves(g.board,g.turn,g.rules).length){g.over=dmOpp(g.turn)}
  else if(g.quiet>=80)g.over="draw";
  if(!g.over)return;
+ {const sc=P().dmScore||(P().dmScore={d:0,l:0});if(g.over==="d"||g.over==="l")sc[g.over]++}
  try{window.gamesTrack&&window.gamesTrack("round-end",{game:"dama",players:2,vs:g.mode==="cpu"?"ipad":"people",result:g.over==="draw"?"draw":(g.mode==="cpu"&&g.over==="l"?"ipad":"player")})}catch(e){}
  const n=dmNames();
  if(g.over==="draw"){const d=dayStr();P().st.hist.unshift({d,txt:"dama",dm:"draw",pts:0});P().st.hist=P().st.hist.slice(0,30);save();return}
@@ -1370,6 +1378,8 @@ function renderDama(){
  $("dmSetup").hidden=!setup;$("dmPlay").hidden=setup;
  if(setup){renderDmSetup();return}
  const n=dmNames(),board=$("dmBoard");
+ {const sc=P().dmScore||{d:0,l:0},box=$("dmScore"),top=Math.max(sc.d,sc.l);box.innerHTML="";const lab=document.createElement("span");lab.className="sbl";lab.textContent=t("dmScoreL");box.appendChild(lab);
+  [["d",n.d],["l",n.l]].forEach(([k,nm])=>{const c=document.createElement("span");c.className="sb"+(top>0&&sc[k]===top?" lead":"");c.innerHTML="<span></span><b></b>";c.firstChild.textContent=nm;c.lastChild.textContent=sc[k];box.appendChild(c)})}
  const sty=dmStyle();
  if(!board.dataset.built){board.innerHTML="";
   for(let i=0;i<64;i++){const r=Math.floor(i/8),c=i%8,dark=(r+c)%2===1;const sq=document.createElement("button");sq.type="button";
@@ -1465,7 +1475,7 @@ document.querySelectorAll("#dmMode button").forEach(b=>b.onclick=()=>{dmSetup.mo
 document.querySelectorAll("#dmLevel button").forEach(b=>b.onclick=()=>{dmSetup.level=b.dataset.l;renderDmSetup()});
 document.querySelectorAll("#dmPieces button").forEach(b=>b.onclick=()=>{dmSetStyle({pieces:b.dataset.p});dmRenderStyleChoices()});
 $("goDama").onclick=()=>{dmApplyStyle();const g=P().dama;dmForceSetup=!(g&&!g.over);dmSel=null;dmSeqs=null;show("dama");renderDama();if(g&&!g.over&&g.mode==="cpu"&&g.turn==="l"&&!dmThinking)dmCpu()};
-$("dmStartBtn").onclick=()=>{dmStart();dmForceSetup=false;renderDama()};
+$("dmStartBtn").onclick=()=>{P().dmScore={d:0,l:0};dmStart();dmForceSetup=false;renderDama()};
 $("dmResume").onclick=()=>{dmForceSetup=false;renderDama()};
 $("dmSettingsBtn").onclick=()=>{dmForceSetup=true;renderDama()};
 $("dmAgain").onclick=()=>{const g=P().dama;dmSetup={mode:g.mode,level:g.level,p2:g.p2};dmStart();renderDama()};
