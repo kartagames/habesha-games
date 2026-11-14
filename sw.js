@@ -1,5 +1,5 @@
 // Keeps the games working with no internet after the first visit.
-const CACHE = "hg-v10-2026-11-12";
+const CACHE = "hg-v11-2026-11-13";
 const FILES = ["./", "index.html", "privacy.html", "terms.html", "credits.html", "icon-180.png", "icon-512.png", "manifest.webmanifest", "telemetry.js", "analytics-config.js", "cards/", "cards/index.html", "cards/manifest.webmanifest", "cards/icon-180.png", "cards/icon-512.png", "dama/", "dama/index.html", "dama/manifest.webmanifest", "dama/icon-180.png", "dama/icon-512.png"];
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES.map(f => new URL(f, self.registration.scope).href))).then(() => self.skipWaiting()));

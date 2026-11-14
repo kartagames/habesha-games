@@ -546,6 +546,7 @@ html[lang="am"] .label{text-transform:none;letter-spacing:0}
     <div class="panel dm-opts" id="dmSetup">
       <div class="seg" id="dmMode"><button type="button" data-m="cpu" data-t="dmVsCpu"></button><button type="button" data-m="two" data-t="dmTwo"></button></div>
       <div class="dm-row" id="dmLevelRow"><b data-t="dmLevelL"></b><div class="seg" id="dmLevel"><button type="button" data-l="easy" data-t="dm_easy"></button><button type="button" data-l="medium" data-t="dm_medium"></button><button type="button" data-l="hard" data-t="dm_hard"></button></div></div>
+      <div class="dm-row" id="dmMatchRow"><b data-t="dmMatchL"></b><div class="seg" id="dmMatch"><button type="button" data-k="0" data-t="dmFree"></button><button type="button" data-k="3" data-t="dmBo3"></button><button type="button" data-k="5" data-t="dmBo5"></button></div></div>
       <div class="dm-row" id="dmP2Row" hidden><b data-t="dmP2L"></b><div class="seg" id="dmP2"></div></div>
       <div class="muted" id="dmYou"></div>
       <div class="dm-row"><b data-t="dmPiecesL"></b><div class="seg" id="dmPieces"><button type="button" data-p="wood" data-t="dmWood"></button><button type="button" data-p="caps" data-t="dmCaps"></button></div></div>
@@ -627,7 +628,7 @@ const T={
   dmVsCpu:"Against the computer",dmTwo:"Two players",dm_easy:"Easy",dm_medium:"Medium",dm_hard:"Hard",dmLevelL:"How strong should the computer play?",dmP2L:"Who is the second player?",
   dmYouPlay:n=>`${n} plays the pieces at the bottom and moves first.`,dmStart:"Start game",dmResume:"Continue the game",dmRulesL:"Rules",
   dmRForced:"Capturing is required when possible",dmRBack:"Ordinary pieces may also capture backward",dmRFly:"Kings move any distance along a diagonal",dmRulesNote:"Rule changes start with the next new game.",
-  dmPiecesL:"Pieces",dmWood:"Wooden",dmCaps:"Bottle caps",dmIpad:"Computer",dmScoreL:"Score",dmTurn:n=>`${n}'s turn`,dmThinking:"The Computer is thinking…",
+  dmPiecesL:"Pieces",dmWood:"Wooden",dmCaps:"Bottle caps",dmIpad:"Computer",dmScoreL:"Score",dmMatchL:"How long to play",dmFree:"Free play",dmBo3:"Best of 3",dmBo5:"Best of 5",dmNewMatch:"New match",dmMatchWon:(n,m)=>`${n} wins the best of ${m}!`,dmBoN:m=>`Best of ${m}`,dmTurn:n=>`${n}'s turn`,dmThinking:"The Computer is thinking…",
   dmMustJump:"A capture is available, so you must jump.",dmNoMove:"That piece can't move right now.",dmMore:"Keep jumping with the same piece.",dmUndo:"Undo",
   dmHintMsg:"Try moving the highlighted piece to the highlighted square.",dmNew:"New game",dmNewC:"Tap again to end this game",dmSettings:"Settings",
   dmWin:n=>`${n} wins!`,dmLose:"The Computer won this time. Try again!",dmDraw:"It's a draw.",dmAgain:"Play again",dmChange:"Change players or settings",dmCaptured:"Captured",
@@ -689,7 +690,7 @@ const T={
   dmVsCpu:"ከኮምፒውተሩ ጋር",dmTwo:"ሁለት ተጫዋቾች",dm_easy:"ቀላል",dm_medium:"መካከለኛ",dm_hard:"ከባድ",dmLevelL:"ኮምፒውተሩ ምን ያህል ጠንክሮ ይጫወት?",dmP2L:"ሁለተኛው ተጫዋች ማን ነው?",
   dmYouPlay:n=>`${n}፦ የታችኛው ወገን ጠጠሮች፤ መጀመሪያ ይጫወታሉ።`,dmStart:"ጨዋታ ጀምር",dmResume:"ጨዋታውን ቀጥሉ",dmRulesL:"ደንቦች",
   dmRForced:"የሚበላ ካለ መብላት ግዴታ ነው",dmRBack:"ተራ ጠጠሮች ወደ ኋላም መብላት ይችላሉ",dmRFly:"ንጉሥ በመስመሩ ላይ በፈለገው ርቀት ይሄዳል",dmRulesNote:"የደንብ ለውጦች በሚቀጥለው አዲስ ጨዋታ ይጀምራሉ።",
-  dmPiecesL:"ጠጠሮች",dmWood:"የእንጨት",dmCaps:"የጠርሙስ ክዳን",dmIpad:"ኮምፒውተር",dmScoreL:"ውጤት",dmTurn:n=>`የ${n} ተራ`,dmThinking:"ኮምፒውተሩ እያሰበ ነው…",
+  dmPiecesL:"ጠጠሮች",dmWood:"የእንጨት",dmCaps:"የጠርሙስ ክዳን",dmIpad:"ኮምፒውተር",dmScoreL:"ውጤት",dmMatchL:"ጨዋታው እስከ መቼ",dmFree:"ያለ ገደብ",dmBo3:"ከ3 ምርጡ",dmBo5:"ከ5 ምርጡ",dmNewMatch:"አዲስ ግጥሚያ",dmMatchWon:(n,m)=>`የ${m} ምርጡ ግጥሚያ አሸናፊ፦ ${n}!`,dmBoN:m=>`ከ${m} ምርጡ`,dmTurn:n=>`የ${n} ተራ`,dmThinking:"ኮምፒውተሩ እያሰበ ነው…",
   dmMustJump:"የሚበላ ጠጠር ስላለ መብላት አለብዎት።",dmNoMove:"ይህ ጠጠር አሁን መንቀሳቀስ አይችልም።",dmMore:"በዚያው ጠጠር መብላትዎን ይቀጥሉ።",dmUndo:"ወደ ኋላ",
   dmHintMsg:"የደመቀውን ጠጠር ወደ ደመቀው ቦታ ያንቀሳቅሱ።",dmNew:"አዲስ ጨዋታ",dmNewC:"ጨዋታውን ለመጨረስ እንደገና ይንኩ",dmSettings:"ቅንብሮች",
   dmWin:n=>`አሸናፊ፦ ${n}!`,dmLose:"በዚህ ጊዜ ኮምፒውተሩ አሸነፈ። እንደገና ይሞክሩ!",dmDraw:"አቻ ወጣ።",dmAgain:"እንደገና ተጫወቱ",dmChange:"ተጫዋቾችን ወይም ቅንብሮችን ቀይሩ",dmCaptured:"የተበሉ",
@@ -1257,7 +1258,7 @@ window.addEventListener("resize",()=>{if(view==="slide")renderSlide()});
 /* ================= Dama (checkers) ================= */
 /* Board: 64 squares, index r*8+c; play squares are where (r+c) is odd. "d" = dark pieces (bottom, move first), "l" = light (top). */
 const DM_PTS={easy:20,medium:40,hard:70};
-let dmSel=null,dmSeqs=null,dmThinking=false,dmHintMove=null,dmArmNew=false,dmSetup={mode:"cpu",level:"easy",p2:null};
+let dmSel=null,dmSeqs=null,dmThinking=false,dmHintMove=null,dmArmNew=false,dmSetup={mode:"cpu",level:"easy",p2:null,match:0};
 function dmInitBoard(){const b=Array(64).fill(null);let id=0;
  for(let r=0;r<8;r++)for(let c=0;c<8;c++){if((r+c)%2!==1)continue;if(r<3)b[r*8+c]={id:id++,c:"l",k:false};else if(r>4)b[r*8+c]={id:id++,c:"d",k:false}}
  return b}
@@ -1321,7 +1322,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("#dmRate button")
 function dmStart(){
  const rules=DM_RULES;
  try{window.gamesTrack&&window.gamesTrack("game-start",{game:"dama",players:2,vs:dmSetup.mode==="cpu"?"ipad":"people",level:dmSetup.mode==="cpu"?dmSetup.level:"-"})}catch(e){}
- P().dama={mode:dmSetup.mode,level:dmSetup.level,p1:cur,p2:dmSetup.mode==="two"?dmSetup.p2:null,rules,board:dmInitBoard(),turn:"d",undo:[],moves:0,quiet:0,over:null,last:null,cap:{d:0,l:0}};
+ P().dama={match:dmSetup.match||0,mode:dmSetup.mode,level:dmSetup.level,p1:cur,p2:dmSetup.mode==="two"?dmSetup.p2:null,rules,board:dmInitBoard(),turn:"d",undo:[],moves:0,quiet:0,over:null,last:null,cap:{d:0,l:0}};
  dmSel=null;dmSeqs=null;dmHintMove=null;save();
 }
 function dmLegal(){const g=P().dama;return dmMoves(g.board,g.turn,g.rules)}
@@ -1361,7 +1362,7 @@ function dmCheckEnd(){
  if(!dmMoves(g.board,g.turn,g.rules).length){g.over=dmOpp(g.turn)}
  else if(g.quiet>=80)g.over="draw";
  if(!g.over)return;
- {const sc=P().dmScore||(P().dmScore={d:0,l:0});if(g.over==="d"||g.over==="l")sc[g.over]++}
+ {const sc=P().dmScore||(P().dmScore={d:0,l:0});if(g.over==="d"||g.over==="l"){sc[g.over]++;const need=g.match?Math.ceil(g.match/2):0;if(need&&sc.mw==null&&sc[g.over]>=need)sc.mw=g.over}}
  try{window.gamesTrack&&window.gamesTrack("round-end",{game:"dama",players:2,vs:g.mode==="cpu"?"ipad":"people",result:g.over==="draw"?"draw":(g.mode==="cpu"&&g.over==="l"?"ipad":"player")})}catch(e){}
  const n=dmNames();
  if(g.over==="draw"){const d=dayStr();P().st.hist.unshift({d,txt:"dama",dm:"draw",pts:0});P().st.hist=P().st.hist.slice(0,30);save();return}
@@ -1378,7 +1379,7 @@ function renderDama(){
  $("dmSetup").hidden=!setup;$("dmPlay").hidden=setup;
  if(setup){renderDmSetup();return}
  const n=dmNames(),board=$("dmBoard");
- {const sc=P().dmScore||{d:0,l:0},box=$("dmScore"),top=Math.max(sc.d,sc.l);box.innerHTML="";const lab=document.createElement("span");lab.className="sbl";lab.textContent=t("dmScoreL");box.appendChild(lab);
+ {const sc=P().dmScore||{d:0,l:0},box=$("dmScore"),top=Math.max(sc.d,sc.l);box.innerHTML="";const lab=document.createElement("span");lab.className="sbl";lab.textContent=t("dmScoreL")+(g.match?" · "+T[lang].dmBoN(g.match):"");box.appendChild(lab);
   [["d",n.d],["l",n.l]].forEach(([k,nm])=>{const c=document.createElement("span");c.className="sb"+(top>0&&sc[k]===top?" lead":"");c.innerHTML="<span></span><b></b>";c.firstChild.textContent=nm;c.lastChild.textContent=sc[k];box.appendChild(c)})}
  const sty=dmStyle();
  if(!board.dataset.built){board.innerHTML="";
@@ -1409,6 +1410,7 @@ function renderDama(){
  let status="";
  if(g.over)status=g.over==="draw"?t("dmDraw"):(g.mode==="cpu"&&g.over==="l"?t("dmLose"):T[lang].dmWin(g.over==="d"?n.d:n.l));
  else if(dmThinking)status=t("dmThinking");else status=T[lang].dmTurn(g.turn==="d"?n.d:n.l);
+ {const sc=P().dmScore||{};if(g.over&&sc.mw)status+=" · "+T[lang].dmMatchWon(sc.mw==="d"?n.d:n.l,g.match);$("dmAgain").textContent=g.over&&sc.mw?t("dmNewMatch"):t("dmAgain")}
  $("dmStatus").textContent=status;
  $("dmUndo").disabled=!g.undo.length||dmThinking||!!g.over;$("dmHint").hidden=!!g.over;$("dmUndo").hidden=!!g.over;
  $("dmHint").disabled=!dmHumanTurn()||dmThinking;
@@ -1464,6 +1466,7 @@ function dmRenderStyleChoices(){const st=dmStyle();
 function renderDmSetup(){
  document.querySelectorAll("#dmMode button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.m===dmSetup.mode)));
  document.querySelectorAll("#dmLevel button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.l===dmSetup.level)));
+ document.querySelectorAll("#dmMatch button").forEach(b=>b.setAttribute("aria-pressed",String(+b.dataset.k===(dmSetup.match||0))));
  $("dmLevelRow").hidden=dmSetup.mode!=="cpu";$("dmP2Row").hidden=dmSetup.mode!=="two";
  const box=$("dmP2");box.innerHTML="";const others=[0,1,2].filter(i=>i!==cur);if(dmSetup.p2==null||dmSetup.p2===cur)dmSetup.p2=others[0];
  others.forEach(i=>{const b=document.createElement("button");b.type="button";b.textContent=pname(i);b.setAttribute("aria-pressed",String(dmSetup.p2===i));b.onclick=()=>{dmSetup.p2=i;renderDmSetup()};box.appendChild(b)});
@@ -1473,12 +1476,13 @@ function renderDmSetup(){
 }
 document.querySelectorAll("#dmMode button").forEach(b=>b.onclick=()=>{dmSetup.mode=b.dataset.m;renderDmSetup()});
 document.querySelectorAll("#dmLevel button").forEach(b=>b.onclick=()=>{dmSetup.level=b.dataset.l;renderDmSetup()});
+document.querySelectorAll("#dmMatch button").forEach(b=>b.onclick=()=>{dmSetup.match=+b.dataset.k;renderDmSetup()});
 document.querySelectorAll("#dmPieces button").forEach(b=>b.onclick=()=>{dmSetStyle({pieces:b.dataset.p});dmRenderStyleChoices()});
 $("goDama").onclick=()=>{dmApplyStyle();const g=P().dama;dmForceSetup=!(g&&!g.over);dmSel=null;dmSeqs=null;show("dama");renderDama();if(g&&!g.over&&g.mode==="cpu"&&g.turn==="l"&&!dmThinking)dmCpu()};
 $("dmStartBtn").onclick=()=>{P().dmScore={d:0,l:0};dmStart();dmForceSetup=false;renderDama()};
 $("dmResume").onclick=()=>{dmForceSetup=false;renderDama()};
 $("dmSettingsBtn").onclick=()=>{dmForceSetup=true;renderDama()};
-$("dmAgain").onclick=()=>{const g=P().dama;dmSetup={mode:g.mode,level:g.level,p2:g.p2};dmStart();renderDama()};
+$("dmAgain").onclick=()=>{const g=P().dama;dmSetup={mode:g.mode,level:g.level,p2:g.p2,match:g.match||0};if(P().dmScore&&P().dmScore.mw)P().dmScore={d:0,l:0};dmStart();renderDama()};
 $("dmChange").onclick=()=>{dmForceSetup=true;renderDama()};
 $("dmUndo").onclick=()=>{const g=P().dama;if(!g.undo.length||dmThinking)return;
  const s=g.undo.pop();
